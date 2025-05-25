@@ -1,0 +1,185 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+@layer base {
+  :root {
+    --background: 0 0% 100%;
+    --foreground: 240 10% 3.9%;
+    --card: 0 0% 100%;
+    --card-foreground: 240 10% 3.9%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 240 10% 3.9%;
+    --primary: 240 5.9% 10%;
+    --primary-foreground: 0 0% 98%;
+    --secondary: 240 4.8% 95.9%;
+    --secondary-foreground: 240 5.9% 10%;
+    --contrast: 69 100% 48%;
+    --contrast-foreground: 240 5.9% 10%;
+    --alternative: 151 100% 20%;
+    --alternative-foreground: 0 0% 98%;
+    --muted: 240 4.8% 95.9%;
+    --muted-foreground: 240 3.8% 46.1%;
+    --accent: 240 4.8% 95.9%;
+    --accent-foreground: 240 5.9% 10%;
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 0 0% 98%;
+    --copy: 240 10% 3.9%;
+    --copy-light: 240 0.93% 42.35%;
+    --copy-lighter: 0 0% 51.76%;
+    --border: 240 5.9% 90%;
+    --input: 240 5.9% 90%;
+    --ring: 240 10% 3.9%;
+    --chart-1: 12 76% 61%;
+    --chart-2: 173 58% 39%;
+    --chart-3: 197 37% 24%;
+    --chart-4: 43 74% 66%;
+    --chart-5: 27 87% 67%;
+    --radius: 0.5rem;
+    --success: 142.13 76.22% 36.27%;
+    --success-content: 240 10% 3.9%;
+    --warning: 43.26 96.41% 56.27%;
+    --warning-content: 240 10% 3.9%;
+    --error: 0.94 100% 50%;
+    --error-content: 240 10% 3.9%;
+  }
+  .dark {
+    --background: 0 0% 7.06%; /* 240 13% 11%*/
+    --foreground: 0 0% 98%;
+    --card: 0 0% 7.06% /* 240 13% 11% */
+    --card-foreground: 0 0% 98%;
+    --popover: 0 0% 7.06%; /* 240 13% 11% */
+    --popover-foreground: 0 0% 98%;
+    --primary: 0 0% 98%;
+    --primary-foreground: 240 5.9% 10%;
+    --secondary: 0 0% 10.2%;
+    --secondary-foreground: 0 0% 98%;
+    --contrast: 69 100% 48%;
+    --contrast-foreground: 240 5.9% 10%;
+    --alternative: 151 100% 20%;
+    --alternative-foreground: 0 0% 98%;
+    --muted: 240 3.7% 15.9%;
+    --muted-foreground: 240 5% 64.9%;
+    --accent: 240 3.7% 15.9%;
+    --accent-foreground: 0 0% 98%;
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 0 0% 98%;
+    --copy: 0 0% 98%;
+    --copy-light: 0 0% 78.43%;
+    --copy-lighter: 0 0% 58.82%;
+    --border: 240 3.7% 15.9%;
+    --input: 240 3.7% 15.9%;
+    --ring: 240 4.9% 83.9%;
+    --chart-1: 220 70% 50%;
+    --chart-2: 160 60% 45%;
+    --chart-3: 30 80% 55%;
+    --chart-4: 280 65% 60%;
+    --chart-5: 340 75% 55%;
+    --success: 142.13 76.22% 36.27%;
+    --success-content: 0 0% 98%;
+    --warning: 43.26 96.41% 56.27%;
+    --warning-content: 0 0% 98%;
+    --error: 0.94 100% 50%;
+    --error-content: 0 0% 98%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+  .container-box {
+    @apply max-w-[1500px];
+  }
+}
+
+@font-face {
+  font-family: "WixMadeForDisplay";
+  src: url("./fonts/WixMadeForDisplay/WixMadeForDisplay-Regular.woff2")
+      format("woff2"),
+    url("./fonts/WixMadeForDisplay/WixMadeForDisplay-Regular.woff")
+      format("woff");
+  font-weight: 400;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "WixMadeForDisplay";
+  src: url("./fonts/WixMadeForDisplay/WixMadeForDisplay-Medium.woff2")
+      format("woff2"),
+    url("./fonts/WixMadeForDisplay/WixMadeForDisplay-Medium.woff")
+      format("woff");
+  font-weight: 500;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "WixMadeForDisplay";
+  src: url("./fonts/WixMadeForDisplay/WixMadeForDisplay-SemiBold.woff2")
+      format("woff2"),
+    url("./fonts/WixMadeForDisplay/WixMadeForDisplay-SemiBold.woff")
+      format("woff");
+  font-weight: 600;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "WixMadeForDisplay";
+  src: url("./fonts/WixMadeForDisplay/WixMadeForDisplay-Bold.woff2")
+      format("woff2"),
+    url("./fonts/WixMadeForDisplay/WixMadeForDisplay-Bold.woff") format("woff");
+  font-weight: 700;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "WixMadeForDisplay";
+  src: url("./fonts/WixMadeForDisplay/WixMadeForDisplay-ExtraBold.woff2")
+      format("woff2"),
+    url("./fonts/WixMadeForDisplay/WixMadeForDisplay-ExtraBold.woff")
+      format("woff");
+  font-weight: 800;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Syne";
+  src: url("./fonts/Syne/Syne-Regular.woff2") format("woff2"),
+    url("./fonts/Syne/Syne-Regular.woff") format("woff");
+  font-weight: 400;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Syne";
+  src: url("./fonts/Syne/Syne-Medium.woff2") format("woff2"),
+    url("./fonts/Syne/Syne-Medium.woff") format("woff");
+  font-weight: 500;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Syne";
+  src: url("./fonts/Syne/Syne-SemiBold.woff2") format("woff2"),
+    url("./fonts/Syne/Syne-SemiBold.woff") format("woff");
+  font-weight: 600;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Syne";
+  src: url("./fonts/Syne/Syne-Bold.woff2") format("woff2"),
+    url("./fonts/Syne/Syne-Bold.woff") format("woff");
+  font-weight: 700;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Syne";
+  src: url("./fonts/Syne/Syne-ExtraBold.woff2") format("woff2"),
+    url("./fonts/Syne/Syne-ExtraBold.woff") format("woff");
+  font-weight: 800;
+  font-style: normal;
+}
