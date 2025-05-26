@@ -7,14 +7,19 @@ import {
   AddNewLinkDialog,
   EditDisplayNameBioDialog,
   EditProfileImageDialog,
+  SocialIconsDialog,
 } from "./dialog-boxs";
 
 const ProfileInfoHeader = ({ linksUpdating, setDashboardContentState }) => {
   const { profile } = useSelector((state) => state.user);
 
-  const [isSocialIconsDialogOpen, setSocialIconsDialogOpen] = useState(false);
   const [isEditDisplayNameBioDialogOpen, setEditDisplayNameBioDialogOpen] =
     useState(false);
+  const [isSocialIconsDialogOpen, setSocialIconsDialogOpen] = useState(false);
+  const [socialIconsFormState, setSocialIconsFormState] = useState({
+    step: 1,
+    addIconFormData: null,
+  });
   const [isEditProfileImageDialogOpen, setEditProfileImageDialogOpen] =
     useState(false);
   const [isAddNewLinkDialogOpen, setAddNewLinkDialogOpen] = useState(false);
@@ -29,6 +34,13 @@ const ProfileInfoHeader = ({ linksUpdating, setDashboardContentState }) => {
       <EditProfileImageDialog
         isEditProfileImageDialogOpen={isEditProfileImageDialogOpen}
         setEditProfileImageDialogOpen={setEditProfileImageDialogOpen}
+      />
+
+      <SocialIconsDialog
+        isSocialIconsDialogOpen={isSocialIconsDialogOpen}
+        setSocialIconsDialogOpen={setSocialIconsDialogOpen}
+        socialIconsFormState={socialIconsFormState}
+        setSocialIconsFormState={setSocialIconsFormState}
       />
 
       <AddNewLinkDialog
@@ -70,10 +82,7 @@ const ProfileInfoHeader = ({ linksUpdating, setDashboardContentState }) => {
             )}
           </a>
 
-          <SocialIconBox
-            isSocialIconsDialogOpen={isSocialIconsDialogOpen}
-            setSocialIconsDialogOpen={setSocialIconsDialogOpen}
-          />
+          <SocialIconBox setSocialIconsDialogOpen={setSocialIconsDialogOpen} />
         </div>
         <ProfileInfoEditDropdownMenu
           setSocialIconsDialogOpen={setSocialIconsDialogOpen}

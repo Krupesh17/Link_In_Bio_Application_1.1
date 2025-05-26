@@ -1,21 +1,13 @@
-import React, { useState } from "react";
-import { SocialIconsDialog } from "./dialog-boxs";
+import React from "react";
 import { socialChannelList } from "@/resources/appData";
 import { useSelector } from "react-redux";
 import { Button } from "./ui/button";
+import { Plus } from "lucide-react";
 
-const SocialIconBox = ({
-  isSocialIconsDialogOpen,
-  setSocialIconsDialogOpen,
-}) => {
+const SocialIconBox = ({ setSocialIconsDialogOpen }) => {
   const { socialChannels, isLoading } = useSelector(
     (state) => state?.dashboard
   );
-
-  const [socialIconsFormState, setSocialIconsFormState] = useState({
-    step: 1,
-    addIconFormData: null,
-  });
 
   return (
     <div className="flex items-center max-w-[20rem]">
@@ -68,13 +60,15 @@ const SocialIconBox = ({
             ))}
 
         {socialChannelList.length > socialChannels.length && (
-          <li className="flex items-center">
-            <SocialIconsDialog
-              isSocialIconsDialogOpen={isSocialIconsDialogOpen}
-              setSocialIconsDialogOpen={setSocialIconsDialogOpen}
-              socialIconsFormState={socialIconsFormState}
-              setSocialIconsFormState={setSocialIconsFormState}
-            />
+          <li>
+            <Button
+              variant="secondary"
+              size="icon"
+              className="w-6 h-6 shrink-0 [&_svg]:size-4"
+              onClick={() => setSocialIconsDialogOpen(true)}
+            >
+              <Plus weight="bold" />
+            </Button>
           </li>
         )}
       </ul>

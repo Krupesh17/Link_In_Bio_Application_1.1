@@ -1,7 +1,12 @@
 import React from "react";
+import { AppearanceProfileSection } from "@/components";
 
 const Appearance = () => {
-  return <div>Appearance</div>;
+  return (
+    <div>
+      <AppearanceProfileSection />
+    </div>
+  );
 };
 
 export default Appearance;
