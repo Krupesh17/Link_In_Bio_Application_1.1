@@ -20,3 +20,5 @@ export { default as CropLinkThumbnailImageForm } from "./CropLinkThumbnailImageF
 export { default as UploadLinkThumbnailImageForm } from "./UploadLinkThumbnailImageForm";
 export { default as LinkLockSensitiveContentForm } from "./LinkLockSensitiveContentForm";
 export { default as LinkLockDateOfBirthForm } from "./LinkLockDateOfBirthForm";
+export { default as LinkArchivedRestoreForm } from "./LinkArchivedRestoreForm";
+export { default as LinkArchivedDeleteForm } from "./LinkArchivedDeleteForm";

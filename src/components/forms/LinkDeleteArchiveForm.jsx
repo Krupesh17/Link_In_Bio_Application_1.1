@@ -66,6 +66,13 @@ const LinkDeleteArchiveForm = ({ linkData, setLoading }) => {
 
       dispatch(updateLinksData(updatedLinks));
     } catch (error) {
+      toast({
+        variant: "destructive",
+        title: "Oops! Link Archived Failed",
+        description:
+          "The link couldn't be archived due to a technical issue. Please try again.",
+      });
+
       console.error(error.message);
     } finally {
       setLoading(false);

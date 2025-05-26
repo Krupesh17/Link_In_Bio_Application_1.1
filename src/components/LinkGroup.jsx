@@ -1,5 +1,5 @@
 import React, { useCallback } from "react";
-import { LinkGroupItem } from ".";
+import { LinkChainPlaceholderIcon, LinkGroupItem } from ".";
 import {
   closestCorners,
   DndContext,
@@ -85,25 +85,42 @@ const LinkGroup = ({ setLinksNewPositionUpdating }) => {
   );
   return (
     <section className="max-w-[650px] mx-auto mb-5">
-      <DndContext
-        sensors={sensors}
-        onDragEnd={handleDragEnd}
-        collisionDetection={closestCorners}
-      >
-        {!isLoading && fetchedLinks && (
-          <ul className="flex flex-col gap-4">
-            <SortableContext
-              items={fetchedLinks}
-              strategy={verticalListSortingStrategy}
-            >
-              {fetchedLinks?.map((link) => {
-                if (link?.link_archived) return;
-                return <LinkGroupItem key={link?.id} linkData={link} />;
-              })}
-            </SortableContext>
-          </ul>
-        )}
-      </DndContext>
+      {!isLoading &&
+      ![...fetchedLinks]?.filter((link) => link?.link_archived === false)
+        .length ? (
+        <section className="max-w-[400px] mx-auto p-4">
+          {/* <img
+            src="/assets/icons/link_chain_shadow_logo.svg"
+            alt="LinkChian Logo"
+            className="h-32 w-32 mx-auto opacity-50"
+          /> */}
+          <LinkChainPlaceholderIcon className="h-32 w-32 mx-auto text-copy-lighter/20" />
+
+          <h3 className="text-center font-semibold max-w-60 mx-auto mt-4 text-copy-lighter/40">
+            Make your presence known. Drop a link and get started!
+          </h3>
+        </section>
+      ) : (
+        <DndContext
+          sensors={sensors}
+          onDragEnd={handleDragEnd}
+          collisionDetection={closestCorners}
+        >
+          {!isLoading && fetchedLinks && (
+            <ul className="flex flex-col gap-4">
+              <SortableContext
+                items={fetchedLinks}
+                strategy={verticalListSortingStrategy}
+              >
+                {fetchedLinks?.map((link) => {
+                  if (link?.link_archived) return;
+                  return <LinkGroupItem key={link?.id} linkData={link} />;
+                })}
+              </SortableContext>
+            </ul>
+          )}
+        </DndContext>
+      )}
     </section>
   );
 };
