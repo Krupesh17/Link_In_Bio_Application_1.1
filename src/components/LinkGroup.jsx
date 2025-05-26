@@ -89,11 +89,6 @@ const LinkGroup = ({ setLinksNewPositionUpdating }) => {
       ![...fetchedLinks]?.filter((link) => link?.link_archived === false)
         .length ? (
         <section className="max-w-[400px] mx-auto p-4">
-          {/* <img
-            src="/assets/icons/link_chain_shadow_logo.svg"
-            alt="LinkChian Logo"
-            className="h-32 w-32 mx-auto opacity-50"
-          /> */}
           <LinkChainPlaceholderIcon className="h-32 w-32 mx-auto text-copy-lighter/20" />
 
           <h3 className="text-center font-semibold max-w-60 mx-auto mt-4 text-copy-lighter/40">
