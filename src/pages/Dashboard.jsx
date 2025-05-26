@@ -1,15 +1,34 @@
 import React, { useState } from "react";
-import { ProfileInfoHeader, URLBox, LinkGroup } from "@/components";
+import {
+  ProfileInfoHeader,
+  URLBox,
+  LinkGroup,
+  LinkArchiveGroup,
+} from "@/components";
 
 const Dashboard = () => {
   const [linksNewPositionUpdating, setLinksNewPositionUpdating] =
     useState(false);
+  const [dashboardContentState, setDashboardContentState] = useState(null);
 
   return (
     <div>
       <URLBox />
-      <ProfileInfoHeader linksUpdating={linksNewPositionUpdating} />
-      <LinkGroup setLinksNewPositionUpdating={setLinksNewPositionUpdating} />
+      {!dashboardContentState && (
+        <>
+          <ProfileInfoHeader
+            linksUpdating={linksNewPositionUpdating}
+            setDashboardContentState={setDashboardContentState}
+          />
+          <LinkGroup
+            setLinksNewPositionUpdating={setLinksNewPositionUpdating}
+          />
+        </>
+      )}
+
+      {dashboardContentState === "archive" && (
+        <LinkArchiveGroup setDashboardContentState={setDashboardContentState} />
+      )}
     </div>
   );
 };

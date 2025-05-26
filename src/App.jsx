@@ -3,7 +3,6 @@ import { createBrowserRouter } from "react-router-dom";
 import {
   AccountSetup,
   Appearance,
-  Archive,
   ChangePassword,
   Dashboard,
   Error404,
@@ -61,10 +60,6 @@ const router = createBrowserRouter([
           {
             index: true,
             element: <Dashboard />,
-          },
-          {
-            path: "archive",
-            element: <Archive />,
           },
           {
             path: "appearance",

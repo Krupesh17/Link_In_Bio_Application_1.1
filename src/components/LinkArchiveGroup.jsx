@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { LinkArchiveGroupItem } from ".";
 
-const LinkArchiveGroup = () => {
+const LinkArchiveGroup = ({ setDashboardContentState }) => {
   const navigate = useNavigate();
 
   const { links: fetchedLinks, isLoading } = useSelector(
@@ -19,7 +19,7 @@ const LinkArchiveGroup = () => {
           type="button"
           variant="link"
           className="h-auto text-sm px-0 py-0 absolute left-0 top-0"
-          onClick={() => navigate("/dashboard")}
+          onClick={() => setDashboardContentState(null)}
         >
           <ChevronLeft />
           <span>Back</span>

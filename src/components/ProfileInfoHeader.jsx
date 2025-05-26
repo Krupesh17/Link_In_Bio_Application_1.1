@@ -8,12 +8,9 @@ import {
   EditDisplayNameBioDialog,
   EditProfileImageDialog,
 } from "./dialog-boxs";
-import { useNavigate } from "react-router-dom";
 
-const ProfileInfoHeader = ({ linksUpdating }) => {
+const ProfileInfoHeader = ({ linksUpdating, setDashboardContentState }) => {
   const { profile } = useSelector((state) => state.user);
-
-  const navigate = useNavigate();
 
   const [isSocialIconsDialogOpen, setSocialIconsDialogOpen] = useState(false);
   const [isEditDisplayNameBioDialogOpen, setEditDisplayNameBioDialogOpen] =
@@ -102,7 +99,7 @@ const ProfileInfoHeader = ({ linksUpdating }) => {
           type="button"
           variant="link"
           className="h-10 text-sm px-0 ml-auto"
-          onClick={() => navigate("archive")}
+          onClick={() => setDashboardContentState("archive")}
         >
           <Archive /> <span>View archive</span> <ChevronRight />
         </Button>

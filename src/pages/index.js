@@ -8,4 +8,3 @@ export { default as ResetPassword } from "./ResetPassword";
 export { default as ChangePassword } from "./ChangePassword";
 export { default as Appearance } from "./Appearance";
 export { default as Settings } from "./Settings";
-export { default as Archive } from "./Archive";
