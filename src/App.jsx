@@ -111,12 +111,6 @@ function App() {
     }
   }, [dispatch, user, profile]);
 
-  // useEffect(() => {
-  //   if (!user && !profile) {
-  //     dispatch(fetchUserData());
-  //   }
-  // }, [dispatch, user, profile]);
-
   return <RouterProvider router={router} />;
 }
 
