@@ -247,3 +247,9 @@ export const linkLayoutValidation = Yup.object().shape({
 export const linkLockSensitiveContentValidation = Yup.object().shape({
   sensitive_content: Yup.boolean().default(false).optional(),
 });
+
+export const profileImageLayoutValidation = Yup.object().shape({
+  profileImageLayout: Yup.string()
+    .oneOf(["classic", "hero"], "Please choose profile image layout.")
+    .required("Profile image layout is required."),
+});
