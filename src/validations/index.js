@@ -253,3 +253,19 @@ export const profileImageLayoutValidation = Yup.object().shape({
     .oneOf(["classic", "hero"], "Please choose profile image layout.")
     .required("Profile image layout is required."),
 });
+
+export const appearanceWallpaperColorValidation = Yup.object().shape({
+  color: Yup.string()
+    .required("Favorite color is required")
+    .matches(
+      /^#([0-9a-fA-F]{3}){1,2}$/,
+      "Must be a valid hex color (e.g., #RRGGBB)"
+    )
+    .test(
+      "is-hex-length",
+      "Hex color must be 4 or 7 characters long (including #)",
+      (value) => {
+        return !value || value.length === 4 || value.length === 7;
+      }
+    ),
+});

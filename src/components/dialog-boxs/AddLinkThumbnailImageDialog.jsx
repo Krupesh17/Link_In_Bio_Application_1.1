@@ -30,13 +30,6 @@ const AddLinkThumbnailImageDialog = ({
       onOpenChange={handleThumbnailImageDialogClose}
     >
       <DialogContent className="sm:max-w-[450px]" aria-describedby={undefined}>
-        {/* 
-        ✔ 1. AddThumbnailImageOptionGroupForm.jsx 
-        ✔ 2. CropLinkThumbnailImageForm.jsx
-        ✔ 3. UploadLinkThumbnailImageForm.jsx
-        4. ChooseThumbnailIconFrom.jsx 
-        */}
-
         {formStep === 1 && (
           <AddLinkThumbnailImageOptionGroupForm setFormStep={setFormStep} />
         )}

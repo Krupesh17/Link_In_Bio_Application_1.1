@@ -103,7 +103,9 @@ const FileDragDropBox = ({
             <Button
               type="button"
               variant="outline"
-              className="[&_svg]:size-6 shrink-0 px-2"
+              className={`[&_svg]:size-6 shrink-0 px-2 ${
+                aspectRatio === 1 / 1 && "bg-accent"
+              }`}
               onClick={() => setAspectRatio(1 / 1)}
             >
               <Selection />
@@ -112,7 +114,9 @@ const FileDragDropBox = ({
             <Button
               type="button"
               variant="outline"
-              className="[&_svg]:size-6 shrink-0 px-2"
+              className={`[&_svg]:size-6 shrink-0 px-2 ${
+                aspectRatio === 16 / 9 && "bg-accent"
+              }`}
               onClick={() => setAspectRatio(16 / 9)}
             >
               <RectangleDashed />

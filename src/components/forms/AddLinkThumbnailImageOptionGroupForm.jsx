@@ -16,18 +16,6 @@ const optionList = [
       />
     ),
   },
-  {
-    title: "Choose from Phosphor Icons",
-    description: "Choose an icon from Phosphor Icons.",
-    formStep: 4,
-    prefix: (
-      <img
-        src="/assets/images/phosphor_icons.webp"
-        alt="Choose thumbnail icon"
-        className="rounded-md w-10 h-10"
-      />
-    ),
-  },
 ];
 
 const AddLinkThumbnailImageOptionGroupForm = ({ setFormStep }) => {

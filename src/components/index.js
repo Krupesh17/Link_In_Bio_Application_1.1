@@ -27,3 +27,4 @@ export { default as LinkArchiveGroupItemActionButtonBox } from "./LinkArchiveGro
 export { default as LinkArchiveGroupItemActionExtension } from "./LinkArchiveGroupItemActionExtension";
 export { default as LinkChainPlaceholderIcon } from "./LinkChainPlaceholderIcon";
 export { default as AppearanceProfileSection } from "./AppearanceProfileSection";
+export { default as AppearanceWallpaperSection } from "./AppearanceWallpaperSection";

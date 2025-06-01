@@ -22,3 +22,8 @@ export { default as LinkLockSensitiveContentForm } from "./LinkLockSensitiveCont
 export { default as LinkLockDateOfBirthForm } from "./LinkLockDateOfBirthForm";
 export { default as LinkArchivedRestoreForm } from "./LinkArchivedRestoreForm";
 export { default as LinkArchivedDeleteForm } from "./LinkArchivedDeleteForm";
+export { default as AppearanceProfileImageLayoutForm } from "./AppearanceProfileImageLayoutForm";
+export { default as AppearanceWallpaperFlatColorForm } from "./AppearanceWallpaperFlatColorForm";
+export { default as AppearanceWallpaperGradientForm } from "./AppearanceWallpaperGradientForm";
+export { default as AppearanceWallpaperImageForm } from "./AppearanceWallpaperImageForm";
+export { default as AppearanceWallpaperSVGPatternForm } from "./AppearanceWallpaperSVGPatternForm";
