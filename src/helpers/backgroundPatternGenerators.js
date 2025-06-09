@@ -14,16 +14,17 @@ export function lightenColor(hex, percent) {
 }
 
 export function generatePolkaDotSVG(foregroundFillColorHex) {
-  try {
-    if (!/^#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})$/.test(foregroundFillColorHex)) {
-      throw new Error(
-        "Invalid HEX color code provided for circle fill. Please use a format like #RRGGBB or #RGB."
-      );
-    }
+  return new Promise((resolve, reject) => {
+    try {
+      if (!/^#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})$/.test(foregroundFillColorHex)) {
+        throw new Error(
+          "Invalid HEX color code provided for circle fill. Please use a format like #RRGGBB or #RGB."
+        );
+      }
 
-    const backgroundFillColorHex = lightenColor(foregroundFillColorHex, 40);
+      const backgroundFillColorHex = lightenColor(foregroundFillColorHex, 40);
 
-    const svgString = `
+      const svgString = `
     <svg xmlns="http://www.w3.org/2000/svg" width="270" height="405" viewBox="0 0 270 405">
       <defs>
         <pattern id="polka-circle" width="54" height="54" patternUnits="userSpaceOnUse">
@@ -55,23 +56,25 @@ export function generatePolkaDotSVG(foregroundFillColorHex) {
     </svg>
   `;
 
-    return `data:image/svg+xml;utf8,${encodeURIComponent(svgString)}`;
-  } catch (error) {
-    throw error;
-  }
+      resolve(`data:image/svg+xml;utf8,${encodeURIComponent(svgString)}`);
+    } catch (error) {
+      reject(error);
+    }
+  });
 }
 
 export function generateStripsSVG(foregroundFillColorHex) {
-  try {
-    if (!/^#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})$/.test(foregroundFillColorHex)) {
-      throw new Error(
-        "Invalid HEX color code provided for circle fill. Please use a format like #RRGGBB or #RGB."
-      );
-    }
+  return new Promise((resolve, reject) => {
+    try {
+      if (!/^#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})$/.test(foregroundFillColorHex)) {
+        throw new Error(
+          "Invalid HEX color code provided for circle fill. Please use a format like #RRGGBB or #RGB."
+        );
+      }
 
-    const backgroundFillColorHex = lightenColor(foregroundFillColorHex, 40);
+      const backgroundFillColorHex = lightenColor(foregroundFillColorHex, 40);
 
-    const svgString = `
+      const svgString = `
     <svg xmlns="http://www.w3.org/2000/svg" width="270" height="270" viewBox="0 0 270 270">
       <defs>
           <pattern id="selector-stripe-bg" width="77" height="77"
@@ -96,23 +99,25 @@ export function generateStripsSVG(foregroundFillColorHex) {
       <rect width="100%" height="100%" fill="url(#selector-stripe-bg)" />
     </svg>`;
 
-    return `data:image/svg+xml;utf8,${encodeURIComponent(svgString)}`;
-  } catch (error) {
-    throw error;
-  }
+      resolve(`data:image/svg+xml;utf8,${encodeURIComponent(svgString)}`);
+    } catch (error) {
+      reject(error);
+    }
+  });
 }
 
 export function generateZigZagSVG(foregroundFillColorHex) {
-  try {
-    if (!/^#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})$/.test(foregroundFillColorHex)) {
-      throw new Error(
-        "Invalid HEX color code provided for circle fill. Please use a format like #RRGGBB or #RGB."
-      );
-    }
+  return new Promise((resolve, reject) => {
+    try {
+      if (!/^#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})$/.test(foregroundFillColorHex)) {
+        throw new Error(
+          "Invalid HEX color code provided for circle fill. Please use a format like #RRGGBB or #RGB."
+        );
+      }
 
-    const backgroundFillColorHex = lightenColor(foregroundFillColorHex, 40);
+      const backgroundFillColorHex = lightenColor(foregroundFillColorHex, 40);
 
-    const svgString = `
+      const svgString = `
     <svg xmlns="http://www.w3.org/2000/svg" width="250" height="250" viewBox="0 0 250 250">
     <defs>
         <pattern id="selector-zigzag-bg" width="20" height="20" patternTransform="scale(2.5)"
@@ -139,8 +144,9 @@ export function generateZigZagSVG(foregroundFillColorHex) {
     <rect width="100%" height="100%" fill="url(#selector-zigzag-bg)" />
   </svg>`;
 
-    return `data:image/svg+xml;utf8,${encodeURIComponent(svgString)}`;
-  } catch (error) {
-    throw error;
-  }
+      resolve(`data:image/svg+xml;utf8,${encodeURIComponent(svgString)}`);
+    } catch (error) {
+      reject(error);
+    }
+  });
 }

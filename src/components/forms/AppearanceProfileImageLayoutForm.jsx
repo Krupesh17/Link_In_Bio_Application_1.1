@@ -109,7 +109,7 @@ const AppearanceProfileImageLayoutForm = ({ setProfileInfoUpdating }) => {
                           alt={item?.img_alt}
                           className={item?.img_className}
                         />
-                        <FormItem className="absolute top-0 right-0.5">
+                        <FormItem className="absolute top-0 right-1">
                           <FormControl>
                             <RadioGroupItem value={item?.radio_value} />
                           </FormControl>

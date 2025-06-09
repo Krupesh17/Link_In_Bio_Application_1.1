@@ -269,3 +269,44 @@ export const appearanceWallpaperColorValidation = Yup.object().shape({
       }
     ),
 });
+
+export const appearanceButtonsValidation = Yup.object({
+  buttonType: Yup.string()
+    .oneOf(
+      [
+        "fill_flat",
+        "fill_rounded_md",
+        "fill_rounded_full",
+        "outline_flat",
+        "outline_rounded_md",
+        "outline_rounded_full",
+        "soft_shadow_flat",
+        "soft_shadow_rounded_md",
+        "soft_shadow_rounded_full",
+        "hard_shadow_flat",
+        "hard_shadow_rounded_md",
+        "hard_shadow_rounded_full",
+      ],
+      "Please select a valid button type"
+    )
+    .required("Button type is required"),
+
+  buttonColor: Yup.string()
+    .matches(/^#([0-9A-F]{6})$/i, "Enter a valid hex color like #FF0000")
+    .required("Button color is required"),
+
+  buttonFontColor: Yup.string()
+    .matches(/^#([0-9A-F]{6})$/i, "Enter a valid hex color like #FFFFFF")
+    .required("Font color is required"),
+
+  buttonShadow: Yup.string()
+    .nullable()
+    .when("buttonType", {
+      is: (val) => val.includes("shadow"),
+      then: (schema) =>
+        schema
+          .matches(/^#([0-9A-F]{6})$/i, "Enter a valid hex color like #000000")
+          .required("Shadow color is required for shadow button types"),
+      otherwise: (schema) => schema.notRequired(),
+    }),
+});

@@ -1,5 +1,6 @@
 import React from "react";
 import {
+  AppearanceButtonSection,
   AppearanceProfileSection,
   AppearanceWallpaperSection,
 } from "@/components";
@@ -9,6 +10,7 @@ const Appearance = () => {
     <div>
       <AppearanceProfileSection />
       <AppearanceWallpaperSection />
+      <AppearanceButtonSection />
     </div>
   );
 };

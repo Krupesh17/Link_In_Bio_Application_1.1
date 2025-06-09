@@ -68,7 +68,7 @@ const AppearanceWallpaperImageForm = ({ setDialogOpen }) => {
         data_object: {
           wallpaper_setup: {
             type: "image",
-            color: null,
+            color: appearance?.wallpaper_setup?.color,
             wallpaper_image_url: wallpaperImageURL,
             style: {
               backgroundImage: `url("${wallpaperImageURL}")`,

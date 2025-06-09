@@ -1,4 +1,5 @@
 export { default as InputPassword } from "./InputPassword";
+export { default as InputColor } from "./InputColor";
 export { default as TextDivider } from "./TextDivider";
 export { default as PublicRoute } from "./PublicRoute";
 export { default as PrivateRoute } from "./PrivateRoute";
@@ -28,3 +29,4 @@ export { default as LinkArchiveGroupItemActionExtension } from "./LinkArchiveGro
 export { default as LinkChainPlaceholderIcon } from "./LinkChainPlaceholderIcon";
 export { default as AppearanceProfileSection } from "./AppearanceProfileSection";
 export { default as AppearanceWallpaperSection } from "./AppearanceWallpaperSection";
+export { default as AppearanceButtonSection } from "./AppearanceButtonSection";
