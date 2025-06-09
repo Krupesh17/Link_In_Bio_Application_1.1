@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useToast } from "@/hooks/use-toast";
 import { Image } from "lucide-react";
@@ -24,21 +24,7 @@ import {
 } from "@/helpers/backgroundPatternGenerators";
 import { AppearanceWallpaperImageDialog } from "../dialog-boxs";
 
-// 🔴 Have a issue when user select wallpaper type 'image' and for some reason thinks that they 
-// do not want to have image wallpaper background because of that they close the dialog 
-// then when dialog closes user see that 'radio button' with value 'image' is still selected 
-// which is wrong instead it should revert back to previous selection.
-
-const AppearanceWallpaperConfigForm = ({ setWallpaperConfigUpdating }) => {
-  const { appearance } = useSelector((state) => state?.dashboard);
-
-  const dispatch = useDispatch();
-  const { toast } = useToast();
-
-  const [isImageWallpaperDialogOpen, setImageWallpaperDialogOpen] =
-    useState(false);
-
-  const wallpaperTypeList = [
+const wallpaperTypeList = [
     {
       name: "Flat Color",
       slug: "flat-color",
@@ -91,6 +77,20 @@ const AppearanceWallpaperConfigForm = ({ setWallpaperConfigUpdating }) => {
       content: null,
     },
   ];
+
+const AppearanceWallpaperConfigForm = ({ setWallpaperConfigUpdating }) => {
+  const { appearance } = useSelector((state) => state?.dashboard);
+
+  const dispatch = useDispatch();
+  const { toast } = useToast();
+
+  const [isImageWallpaperDialogOpen, setImageWallpaperDialogOpen] =
+    useState(false);
+
+  // Store the previous wallpaper type to revert to if dialog is cancelled
+  const previousWallpaperTypeRef = useRef(
+    appearance?.wallpaper_setup?.type || "flat-color"
+  );
 
   const form = useForm({
     defaultValues: {
@@ -282,23 +282,59 @@ const AppearanceWallpaperConfigForm = ({ setWallpaperConfigUpdating }) => {
     []
   );
 
+  // Handle dialog close - revert to previous wallpaper type
+  const handleImageDialogClose = (dialogOpen) => {
+    if (!dialogOpen) {
+      // Dialog is being closed, revert to previous wallpaper type
+      form.setValue("wallpaperType", previousWallpaperTypeRef.current);
+    }
+    setImageWallpaperDialogOpen(dialogOpen);
+  };
+
+  // Handle successful image upload - update the previous type reference
+  const handleImageUploadSuccess = () => {
+    // Update the previous type to 'image' since it was successfully set
+    previousWallpaperTypeRef.current = "image";
+    setImageWallpaperDialogOpen(false);
+  };
+
   useEffect(() => {
     const subscription = form.watch(() => {
-      if (form.getValues("wallpaperType") === "image") {
+      const currentWallpaperType = form.getValues("wallpaperType");
+      
+      if (currentWallpaperType === "image") {
+        // Store the current type as previous before opening dialog
+        const currentType = form.getValues("wallpaperType");
+        if (currentType !== "image") {
+          previousWallpaperTypeRef.current = currentType;
+        } else {
+          // If current type is already image, use the appearance state
+          previousWallpaperTypeRef.current = appearance?.wallpaper_setup?.type || "flat-color";
+        }
         setImageWallpaperDialogOpen(true);
       } else {
+        // Update previous type reference for non-image types
+        previousWallpaperTypeRef.current = currentWallpaperType;
         setWallpaperConfigUpdating(true);
         debouncedSubmit();
       }
     });
     return () => subscription.unsubscribe();
-  }, [form, debouncedSubmit]);
+  }, [form, debouncedSubmit, appearance?.wallpaper_setup?.type]);
+
+  // Update previous type reference when appearance changes
+  useEffect(() => {
+    if (appearance?.wallpaper_setup?.type && !isImageWallpaperDialogOpen) {
+      previousWallpaperTypeRef.current = appearance.wallpaper_setup.type;
+    }
+  }, [appearance?.wallpaper_setup?.type, isImageWallpaperDialogOpen]);
 
   return (
     <>
       <AppearanceWallpaperImageDialog
         isDialogOpen={isImageWallpaperDialogOpen}
-        setDialogOpen={setImageWallpaperDialogOpen}
+        setDialogOpen={handleImageDialogClose}
+        onImageUploadSuccess={handleImageUploadSuccess}
       />
 
       <Form {...form}>
@@ -310,7 +346,7 @@ const AppearanceWallpaperConfigForm = ({ setWallpaperConfigUpdating }) => {
               <FormItem>
                 <FormControl>
                   <RadioGroup
-                    defaultValue={field.value}
+                    value={field.value}
                     onValueChange={(value) => {
                       field.onChange(value);
                     }}

@@ -14,7 +14,10 @@ import { supabaseUrl } from "@/utils/supabase";
 import { useToast } from "@/hooks/use-toast";
 import { updateAppearanceData } from "@/redux/features/dashboardSlice";
 
-const AppearanceWallpaperImageForm = ({ setDialogOpen }) => {
+const AppearanceWallpaperImageForm = ({ 
+  setDialogOpen, 
+  onImageUploadSuccess 
+}) => {
   const { appearance } = useSelector((state) => state?.dashboard);
   const { profile } = useSelector((state) => state?.user);
 
@@ -81,7 +84,19 @@ const AppearanceWallpaperImageForm = ({ setDialogOpen }) => {
       });
 
       dispatch(updateAppearanceData(response));
-      handleDialogClose();
+      
+      // Reset form state
+      setFile(null);
+      setImageURL(null);
+      setFormStep(1);
+      
+      // Call success callback to update parent component
+      if (onImageUploadSuccess) {
+        onImageUploadSuccess();
+      } else {
+        // Fallback to regular dialog close
+        handleDialogClose();
+      }
     } catch (error) {
       toast({
         variant: "destructive",
