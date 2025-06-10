@@ -65,7 +65,7 @@ export async function signOut() {
 
 export async function getStartedWithGoogle({ username, type }) {
   try {
-    const { data, error } = supabase.auth.signInWithOAuth({
+    const { data, error } = await supabase.auth.signInWithOAuth({
       provider: "google",
       options: {
         redirectTo:

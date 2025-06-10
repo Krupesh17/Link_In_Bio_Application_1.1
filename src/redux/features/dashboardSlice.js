@@ -98,7 +98,7 @@ const dashboardSlice = createSlice({
         state.error = null;
       })
       .addCase(fetchLinksByUserId.fulfilled, (state, action) => {
-        state.appearance = action.payload;
+        state.links = action.payload;
         state.isLoading = false;
       })
       .addCase(fetchLinksByUserId.rejected, (state, action) => {

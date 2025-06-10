@@ -51,7 +51,7 @@ const SignInForm = () => {
         title: "Oops! Sign In Failed",
         description: error.message,
       });
-      console.error(error?.message)
+      console.error(error?.message);
     } finally {
       form.reset();
     }
@@ -59,7 +59,7 @@ const SignInForm = () => {
 
   const handleSignInWithGoogle = async () => {
     try {
-      await getStartedWithGoogle({ type: "signin" });
+      await getStartedWithGoogle({ type: "sign-in" });
     } catch (error) {
       toast({
         variant: "destructive",

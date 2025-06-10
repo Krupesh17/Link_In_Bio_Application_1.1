@@ -11,6 +11,8 @@ const Appearance = () => {
       <AppearanceProfileSection />
       <AppearanceWallpaperSection />
       <AppearanceButtonSection />
+      {/* AppearanceFontSection */}
+      {/* Hide the LinkChain logo */}
     </div>
   );
 };
