@@ -310,3 +310,22 @@ export const appearanceButtonsValidation = Yup.object({
       otherwise: (schema) => schema.notRequired(),
     }),
 });
+
+export const appearanceWallpaperConfigValidation = Yup.object().shape({
+  wallpaperType: Yup.string()
+    .oneOf(
+      ["flat-color", "gradient", "image", "polka", "strips", "zig-zag"],
+      "Please select a wallpaper type"
+    )
+    .required("Wallpaper type is required"),
+
+  wallpaperColor: Yup.string()
+    .matches(/^#([0-9A-F]{6})$/i, "Enter a valid hex color like #FF0000")
+    .required("Wallpaper color is required"),
+});
+
+export const appearanceFontConfigValidation = Yup.object().shape({
+  fontColor: Yup.string()
+    .matches(/^#([0-9A-F]{6})$/i, "Enter a valid hex color like #FFFFFF")
+    .required("Font color is required"),
+});

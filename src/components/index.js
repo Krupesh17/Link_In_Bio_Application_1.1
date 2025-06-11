@@ -30,3 +30,4 @@ export { default as LinkChainPlaceholderIcon } from "./LinkChainPlaceholderIcon"
 export { default as AppearanceProfileSection } from "./AppearanceProfileSection";
 export { default as AppearanceWallpaperSection } from "./AppearanceWallpaperSection";
 export { default as AppearanceButtonSection } from "./AppearanceButtonSection";
+export { default as AppearanceFontSection } from "./AppearanceFontSection";

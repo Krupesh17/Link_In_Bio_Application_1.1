@@ -23,60 +23,62 @@ import {
   generateZigZagSVG,
 } from "@/helpers/backgroundPatternGenerators";
 import { AppearanceWallpaperImageDialog } from "../dialog-boxs";
+import { yupResolver } from "@hookform/resolvers/yup";
+import { appearanceWallpaperConfigValidation } from "@/validations";
 
 const wallpaperTypeList = [
-    {
-      name: "Flat Color",
-      slug: "flat-color",
-      className: `bg-[#4C555E] overflow-hidden`,
-      style: null,
-      content: null,
+  {
+    name: "Flat Color",
+    slug: "flat-color",
+    className: `bg-[#4C555E] overflow-hidden`,
+    style: null,
+    content: null,
+  },
+  {
+    name: "Gradient",
+    slug: "gradient",
+    className: `bg-gradient-to-b from-[#7E838B] to-[#4C555E] overflow-hidden`,
+    style: null,
+    content: null,
+  },
+  {
+    name: "Image",
+    slug: "image",
+    className: `flex items-center justify-center bg-[#4C555E] [&_svg]:size-auto text-accent overflow-hidden`,
+    style: null,
+    content: <Image strokeWidth={1} size={60} />,
+  },
+  {
+    name: "Polka",
+    slug: "polka",
+    className: `bg-[#4C555E] overflow-hidden`,
+    style: {
+      backgroundImage: `url("/assets/images/polka_pattern.svg")`,
+      backgroundSize: "cover",
     },
-    {
-      name: "Gradient",
-      slug: "gradient",
-      className: `bg-gradient-to-b from-[#7E838B] to-[#4C555E] overflow-hidden`,
-      style: null,
-      content: null,
+    content: null,
+  },
+  {
+    name: "Strips",
+    slug: "strips",
+    className: `bg-[#4C555E] overflow-hidden`,
+    style: {
+      backgroundImage: `url("/assets/images/strips_pattern.svg")`,
+      backgroundSize: "cover",
     },
-    {
-      name: "Image",
-      slug: "image",
-      className: `flex items-center justify-center bg-[#4C555E] [&_svg]:size-auto text-accent overflow-hidden`,
-      style: null,
-      content: <Image strokeWidth={1} size={60} />,
+    content: null,
+  },
+  {
+    name: "Zig Zag",
+    slug: "zig-zag",
+    className: `bg-[#4C555E] overflow-hidden`,
+    style: {
+      backgroundImage: `url("/assets/images/zig_zag_pattern.svg")`,
+      backgroundSize: "cover",
     },
-    {
-      name: "Polka",
-      slug: "polka",
-      className: `bg-[#4C555E] overflow-hidden`,
-      style: {
-        backgroundImage: `url("/assets/images/polka_pattern.svg")`,
-        backgroundSize: "cover",
-      },
-      content: null,
-    },
-    {
-      name: "Strips",
-      slug: "strips",
-      className: `bg-[#4C555E] overflow-hidden`,
-      style: {
-        backgroundImage: `url("/assets/images/strips_pattern.svg")`,
-        backgroundSize: "cover",
-      },
-      content: null,
-    },
-    {
-      name: "Zig Zag",
-      slug: "zig-zag",
-      className: `bg-[#4C555E] overflow-hidden`,
-      style: {
-        backgroundImage: `url("/assets/images/zig_zag_pattern.svg")`,
-        backgroundSize: "cover",
-      },
-      content: null,
-    },
-  ];
+    content: null,
+  },
+];
 
 const AppearanceWallpaperConfigForm = ({ setWallpaperConfigUpdating }) => {
   const { appearance } = useSelector((state) => state?.dashboard);
@@ -93,6 +95,7 @@ const AppearanceWallpaperConfigForm = ({ setWallpaperConfigUpdating }) => {
   );
 
   const form = useForm({
+    resolver: yupResolver(appearanceWallpaperConfigValidation),
     defaultValues: {
       wallpaperType: appearance?.wallpaper_setup?.type
         ? appearance?.wallpaper_setup?.type
@@ -111,7 +114,7 @@ const AppearanceWallpaperConfigForm = ({ setWallpaperConfigUpdating }) => {
     try {
       if (!value?.wallpaperColor) {
         throw new Error(
-          "HEX code required, please provide a valid color value."
+          "Wallpaper color is required, please provide a valid color value."
         );
       }
 
@@ -152,7 +155,7 @@ const AppearanceWallpaperConfigForm = ({ setWallpaperConfigUpdating }) => {
     try {
       if (!value?.wallpaperColor) {
         throw new Error(
-          "HEX code required, please provide a valid color value."
+          "Wallpaper color is required, please provide a valid color value."
         );
       }
 
@@ -200,7 +203,7 @@ const AppearanceWallpaperConfigForm = ({ setWallpaperConfigUpdating }) => {
     try {
       if (!value?.wallpaperColor) {
         throw new Error(
-          "HEX code required, please provide a valid color value."
+          "Wallpaper color is required, please provide a valid color value."
         );
       }
 
@@ -301,7 +304,7 @@ const AppearanceWallpaperConfigForm = ({ setWallpaperConfigUpdating }) => {
   useEffect(() => {
     const subscription = form.watch(() => {
       const currentWallpaperType = form.getValues("wallpaperType");
-      
+
       if (currentWallpaperType === "image") {
         // Store the current type as previous before opening dialog
         const currentType = form.getValues("wallpaperType");
@@ -309,7 +312,8 @@ const AppearanceWallpaperConfigForm = ({ setWallpaperConfigUpdating }) => {
           previousWallpaperTypeRef.current = currentType;
         } else {
           // If current type is already image, use the appearance state
-          previousWallpaperTypeRef.current = appearance?.wallpaper_setup?.type || "flat-color";
+          previousWallpaperTypeRef.current =
+            appearance?.wallpaper_setup?.type || "flat-color";
         }
         setImageWallpaperDialogOpen(true);
       } else {

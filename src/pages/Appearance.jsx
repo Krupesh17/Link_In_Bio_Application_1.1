@@ -1,6 +1,7 @@
 import React from "react";
 import {
   AppearanceButtonSection,
+  AppearanceFontSection,
   AppearanceProfileSection,
   AppearanceWallpaperSection,
 } from "@/components";
@@ -11,7 +12,7 @@ const Appearance = () => {
       <AppearanceProfileSection />
       <AppearanceWallpaperSection />
       <AppearanceButtonSection />
-      {/* AppearanceFontSection */}
+      <AppearanceFontSection />
       {/* Hide the LinkChain logo */}
     </div>
   );
