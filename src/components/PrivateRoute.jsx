@@ -1,10 +1,11 @@
 import React from "react";
 import { useSelector } from "react-redux";
-import { Navigate, Outlet } from "react-router-dom";
+import { Navigate, Outlet, useLocation } from "react-router-dom";
 import { Loader2 } from "lucide-react";
 
 const PrivateRoute = () => {
   const { isLoading, user, profile } = useSelector((state) => state.user);
+  const location = useLocation();
 
   if (isLoading) {
     return (
@@ -14,7 +15,11 @@ const PrivateRoute = () => {
     );
   }
 
-  return user && profile ? <Outlet /> : <Navigate to="/sign-in" replace />;
+  return user && profile ? (
+    <Outlet />
+  ) : (
+    <Navigate to="/sign-in" state={{ from: location }} replace />
+  );
 };
 
 export default PrivateRoute;

@@ -6,32 +6,9 @@ const initialState = {
   user: null,
   profile: null,
   isLoading: true,
+  isInitialized: false, // Add this to track if auth has been checked
   error: null,
 };
-
-// 🔴 Old "fetchUserData" thunk function.
-// export const fetchUserData = createAsyncThunk(
-//   "user/fetchUserData",
-//   async () => {
-//     const { data: sessionData, error: sessionError } =
-//       await supabase.auth.getSession();
-
-//     if (sessionError) throw sessionError;
-
-//     const { data: profileData, error: profileError } = await supabase
-//       .from("profiles")
-//       .select("*")
-//       .eq("user_id", sessionData?.session?.user?.id)
-//       .maybeSingle();
-
-//     if (profileError) throw profileError;
-
-//     return {
-//       user: sessionData?.session?.user,
-//       profile: profileData,
-//     };
-//   }
-// );
 
 export const fetchUserData = createAsyncThunk(
   "user/fetchUserData",
@@ -58,7 +35,12 @@ const userSlice = createSlice({
       state.user = null;
       state.profile = null;
       state.isLoading = false;
+      state.isInitialized = true; // Mark as initialized even when clearing
       state.error = null;
+    },
+    setInitialized: (state) => {
+      state.isInitialized = true;
+      state.isLoading = false;
     },
   },
   extraReducers: (builder) => {
@@ -71,9 +53,11 @@ const userSlice = createSlice({
       .addCase(fetchUserSession.fulfilled, (state, action) => {
         state.user = action.payload;
         state.isLoading = false;
+        state.isInitialized = true;
       })
       .addCase(fetchUserSession.rejected, (state, action) => {
         state.isLoading = false;
+        state.isInitialized = true;
         state.error = action.payload;
       })
 
@@ -85,9 +69,11 @@ const userSlice = createSlice({
       .addCase(fetchProfileByUserId.fulfilled, (state, action) => {
         state.profile = action.payload;
         state.isLoading = false;
+        state.isInitialized = true;
       })
       .addCase(fetchProfileByUserId.rejected, (state, action) => {
         state.isLoading = false;
+        state.isInitialized = true;
         state.error = action.payload;
       })
 
@@ -100,13 +86,15 @@ const userSlice = createSlice({
         state.user = action.payload.user;
         state.profile = action.payload.profile;
         state.isLoading = false;
+        state.isInitialized = true;
       })
       .addCase(fetchUserData.rejected, (state, action) => {
         state.isLoading = false;
+        state.isInitialized = true;
         state.error = action.payload;
       });
   },
 });
 
 export default userSlice.reducer;
-export const { clearUserData } = userSlice.actions;
+export const { clearUserData, setInitialized } = userSlice.actions;
