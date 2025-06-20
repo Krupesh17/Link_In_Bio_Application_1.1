@@ -2,6 +2,7 @@ import supabase from "./supabase";
 
 export async function createLink({
   user_id,
+  username,
   link_title,
   link_url,
   link_index,
@@ -12,6 +13,7 @@ export async function createLink({
       .insert([
         {
           user_id,
+          username,
           link_title,
           link_url,
           link_index,
@@ -71,5 +73,23 @@ export async function deleteLink(link_id) {
     return data;
   } catch (error) {
     throw error;
+  }
+}
+
+export async function getLinksByUsername(username) {
+  try {
+    const { data, error } = await supabase
+      .from("links")
+      .select("*")
+      .eq("username", username)
+      .order("link_index", { ascending: true });
+
+    if (error) throw error;
+
+    return data || [];
+  } catch (error) {
+    throw new Error(
+      `Error fetching links for username ${username}. Please try again.`
+    );
   }
 }

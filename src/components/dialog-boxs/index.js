@@ -4,3 +4,4 @@ export { default as EditProfileImageDialog } from "./EditProfileImageDialog";
 export { default as AddNewLinkDialog } from "./AddNewLinkDialog";
 export { default as AddLinkThumbnailImageDialog } from "./AddLinkThumbnailImageDialog";
 export { default as AppearanceWallpaperImageDialog } from "./AppearanceWallpaperImageDialog";
+export { default as UserLandingLinkLockDialog } from "./UserLandingLinkLockDialog";

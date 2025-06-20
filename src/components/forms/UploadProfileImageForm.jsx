@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { DialogHeader, DialogTitle } from "../ui/dialog";
 import { Button } from "../ui/button";
 import { Loader2, MoveLeft } from "lucide-react";
@@ -6,12 +6,15 @@ import {
   useUpdateUserProfile,
   useUploadFile,
   useDeleteFile,
+  useUpdateAppearance,
 } from "@/tanstack-query/queries";
 import { useDispatch, useSelector } from "react-redux";
 import { supabaseUrl } from "@/utils/supabase";
 import { fetchProfileByUserId } from "@/redux/thunks";
 import { useToast } from "@/hooks/use-toast";
 import { v4 as uuidV4 } from "uuid";
+import { getDominantColorFromImageURL } from "@/helpers/imageDominatingColorFetcher";
+import { updateAppearanceData } from "@/redux/features/dashboardSlice";
 
 const UploadProfileImageForm = ({
   file,
@@ -25,22 +28,22 @@ const UploadProfileImageForm = ({
   const dispatch = useDispatch();
 
   const { user, profile } = useSelector((state) => state?.user);
+  const { appearance } = useSelector((state) => state?.dashboard);
 
-  const {
-    mutateAsync: uploadProfileImageFile,
-    isPending: isProfileImageFileUploading,
-  } = useUploadFile();
+  const [isLoading, setLoading] = useState(false);
 
-  const {
-    mutateAsync: deleteProfileImageFile,
-    isPending: isProfileImageFileDeleting,
-  } = useDeleteFile();
+  const { mutateAsync: uploadProfileImageFile } = useUploadFile();
 
-  const { mutateAsync: updateUserProfile, isPending: userProfileUpdating } =
-    useUpdateUserProfile();
+  const { mutateAsync: deleteProfileImageFile } = useDeleteFile();
+
+  const { mutateAsync: updateUserProfile } = useUpdateUserProfile();
+
+  const { mutateAsync: updateAppearance } = useUpdateAppearance();
 
   const uploadProfilePicture = async () => {
     try {
+      setLoading(true);
+
       if (profile?.profile_image_url) {
         const path = profile?.profile_image_url.match(
           /users-storage-bucket\/(.+)/
@@ -62,8 +65,29 @@ const UploadProfileImageForm = ({
         user_profile_id: profile?.id,
       });
 
+      if (appearance?.profile_image_layout === "hero") {
+        const dominatingColor = await getDominantColorFromImageURL(
+          profileImageURL
+        );
+
+        const updatedAppearance = await updateAppearance({
+          id: appearance?.id,
+          data_object: {
+            hero_profile_layout_wallpaper_setup: {
+              color: dominatingColor,
+              style: {
+                background: dominatingColor,
+              },
+            },
+          },
+        });
+
+        dispatch(updateAppearanceData(updatedAppearance));
+      }
+
       dispatch(fetchProfileByUserId(user?.id));
-      
+
+      setLoading(false);
       setFile(null);
       setImageURL(null);
       setFormStep(1);
@@ -105,7 +129,11 @@ const UploadProfileImageForm = ({
       </DialogHeader>
 
       <div className="w-full h-80 flex justify-center items-center bg-accent rounded-lg overflow-hidden border border-border">
-        <img src={imageURL} alt="cropped image" className="h-full object-contain" />
+        <img
+          src={imageURL}
+          alt="cropped image"
+          className="h-full object-contain"
+        />
       </div>
 
       <div className="flex items-center gap-4">
@@ -123,13 +151,7 @@ const UploadProfileImageForm = ({
           className="w-full"
           onClick={uploadProfilePicture}
         >
-          {isProfileImageFileDeleting ||
-          isProfileImageFileUploading ||
-          userProfileUpdating ? (
-            <Loader2 className="animate-spin" />
-          ) : (
-            "Upload"
-          )}
+          {isLoading ? <Loader2 className="animate-spin" /> : "Upload"}
         </Button>
       </div>
     </>

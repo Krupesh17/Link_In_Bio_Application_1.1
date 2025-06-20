@@ -7,6 +7,7 @@ import {
   Dashboard,
   Error404,
   Landing,
+  UserLanding,
   ResetPassword,
   Settings,
   SignIn,
@@ -52,6 +53,10 @@ const router = createBrowserRouter([
     ],
   },
   {
+    path: "/:username",
+    element: <UserLanding />,
+  },
+  {
     path: "/change-password",
     element: <ChangePassword />,
   },
@@ -84,6 +89,10 @@ const router = createBrowserRouter([
   },
   {
     path: "*",
+    element: <Error404 />,
+  },
+  {
+    path: "/404",
     element: <Error404 />,
   },
 ]);

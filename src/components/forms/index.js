@@ -26,3 +26,4 @@ export { default as AppearanceProfileImageLayoutForm } from "./AppearanceProfile
 export { default as AppearanceWallpaperImageForm } from "./AppearanceWallpaperImageForm";
 export { default as AppearanceButtonConfigForm } from "./AppearanceButtonConfigForm";
 export { default as AppearanceWallpaperConfigForm } from "./AppearanceWallpaperConfigForm";
+export { default as UserLandingLinkLockDateOfBirthForm } from "./UserLandingLinkLockDateOfBirthForm";

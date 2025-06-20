@@ -47,6 +47,7 @@ const AccountSetup = () => {
       const userLinkChainPageAppearanceData = await createAppearance({
         user_id: user?.id,
         social_icons_position: "top",
+        username: username,
       });
 
       if (userProfileData && userLinkChainPageAppearanceData) {

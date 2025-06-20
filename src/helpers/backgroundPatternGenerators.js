@@ -13,6 +13,21 @@ export function lightenColor(hex, percent) {
   return `#${toHex(r)}${toHex(g)}${toHex(b)}`;
 }
 
+export function darkenColor(hex, percent) {
+  hex = hex.replace(/^#/, "");
+
+  let r = parseInt(hex.substring(0, 2), 16);
+  let g = parseInt(hex.substring(2, 4), 16);
+  let b = parseInt(hex.substring(4, 6), 16);
+
+  r = Math.max(0, r - (r * percent) / 100);
+  g = Math.max(0, g - (g * percent) / 100);
+  b = Math.max(0, b - (b * percent) / 100);
+
+  const toHex = (c) => Math.round(c).toString(16).padStart(2, "0");
+  return `#${toHex(r)}${toHex(g)}${toHex(b)}`;
+}
+
 export function generatePolkaDotSVG(foregroundFillColorHex) {
   return new Promise((resolve, reject) => {
     try {
@@ -22,7 +37,7 @@ export function generatePolkaDotSVG(foregroundFillColorHex) {
         );
       }
 
-      const backgroundFillColorHex = lightenColor(foregroundFillColorHex, 40);
+      const backgroundFillColorHex = darkenColor(foregroundFillColorHex, 40);
 
       const svgString = `
     <svg xmlns="http://www.w3.org/2000/svg" width="270" height="405" viewBox="0 0 270 405">
@@ -72,7 +87,7 @@ export function generateStripsSVG(foregroundFillColorHex) {
         );
       }
 
-      const backgroundFillColorHex = lightenColor(foregroundFillColorHex, 40);
+      const backgroundFillColorHex = darkenColor(foregroundFillColorHex, 40);
 
       const svgString = `
     <svg xmlns="http://www.w3.org/2000/svg" width="270" height="270" viewBox="0 0 270 270">
@@ -115,7 +130,7 @@ export function generateZigZagSVG(foregroundFillColorHex) {
         );
       }
 
-      const backgroundFillColorHex = lightenColor(foregroundFillColorHex, 40);
+      const backgroundFillColorHex = darkenColor(foregroundFillColorHex, 40);
 
       const svgString = `
     <svg xmlns="http://www.w3.org/2000/svg" width="250" height="250" viewBox="0 0 250 250">

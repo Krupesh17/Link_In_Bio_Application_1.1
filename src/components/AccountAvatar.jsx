@@ -1,19 +1,22 @@
 import React from "react";
 import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
-import { useSelector } from "react-redux";
 
-const AccountAvatar = ({ className }) => {
-  const { profile } = useSelector((state) => state.user);
-
+const AccountAvatar = ({
+  username,
+  name,
+  profileImageURL,
+  className,
+  ...props
+}) => {
   return (
-    <Avatar className={`border border-border ${className}`}>
+    <Avatar className={`border border-border ${className}`} {...props}>
       <AvatarImage
-        src={profile?.profile_image_url}
-        alt={profile?.username}
+        src={profileImageURL}
+        alt={username}
         className="object-cover"
       />
-      <AvatarFallback className="text-2xl text-white bg-black">
-        {profile?.name?.at(0)?.toUpperCase()}
+      <AvatarFallback className="text-2xl text-white bg-inherit rounded-[inherit]">
+        {name?.at(0)?.toUpperCase()}
       </AvatarFallback>
     </Avatar>
   );

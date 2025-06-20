@@ -1,40 +1,63 @@
 import React from "react";
 import { useSelector } from "react-redux";
-import AppearanceCustomButtons from "./AppearanceCustomButtons";
+import {
+  UserLandingLinkButtonSection,
+  UserLandingProfileInfoSection,
+  UserLandingSocialIconSection,
+} from ".";
 
 const MobilePreview = () => {
-  const { appearance } = useSelector((state) => state?.dashboard);
+  const { profile } = useSelector((state) => state?.user);
+  const { appearance, socialChannels, links } = useSelector(
+    (state) => state?.dashboard
+  );
+
+  const getPageBackgroundStyle = () => {
+    let backgroundStyle;
+    if (appearance?.hero_profile_layout_wallpaper_setup) {
+      backgroundStyle = appearance?.hero_profile_layout_wallpaper_setup?.style;
+    } else {
+      backgroundStyle = appearance?.wallpaper_setup?.style;
+    }
+
+    return { color: appearance?.font_color, ...backgroundStyle };
+  };
 
   return (
-    <div
-      className="w-80 min-h-[640px] mx-auto p-2.5 rounded-[40px] border-[8px] border-black shadow-[0px_0px_40px_5px] shadow-border bg-background"
-      style={
-        appearance?.wallpaper_setup ? appearance?.wallpaper_setup?.style : null
-      }
-    >
-      <AppearanceCustomButtons
-        imageSource="https://upload.wikimedia.org/wikipedia/commons/thumb/e/ed/Logo_of_Unsplash.svg/1200px-Logo_of_Unsplash.svg.png"
-        variant={
-          appearance?.button_setup?.button_type
-            ? appearance?.button_setup?.button_type
-            : "fill_flat"
-        }
-        backgroundColor={
-          appearance?.button_setup?.button_color
-            ? appearance?.button_setup?.button_color
-            : "#3A4147"
-        }
-        foregroundColor={
-          appearance?.button_setup?.button_font_color
-            ? appearance?.button_setup?.button_font_color
-            : "#FFFFFF"
-        }
-        shadowColor={
-          appearance?.button_setup?.button_shadow
-            ? appearance?.button_setup?.button_shadow
-            : "#9CA0A3"
-        }
-      />
+    <div className="relative flex aspect-[393/852] max-h-[100vh] w-[340px] max-w-[394px] scale-[1] flex-col items-center gap-10 md:min-w-[394px] md:scale-[0.45] lg:scale-[0.6] xl:scale-[0.7] [@media(min-width:1536px)_and_(min-height:1000px)]:scale-[0.85] [@media(min-width:1536px)_and_(min-height:1200px)]:scale-[0.9]">
+      <div className="h-full w-full">
+        <div className="relative h-full w-full overflow-hidden bg-background shadow-[0_121px_49px_#00000005,0_68px_41px_#00000014,0_30px_30px_#00000024,0_8px_17px_#00000029] rounded-[3rem] border-[8px] border-[#000000]">
+          <div className="relative h-full w-full">
+            {/* Work on scrollbar style. */}
+            <div
+              className="h-full w-full overflow-y-auto custom-scrollable-div"
+              style={getPageBackgroundStyle()}
+            >
+              <UserLandingProfileInfoSection
+                userProfileData={profile}
+                profileLayoutData={{
+                  layout: appearance?.profile_image_layout || "classic",
+                  dominatingColor:
+                    appearance?.hero_profile_layout_wallpaper_setup?.color,
+                }}
+              />
+
+              {appearance?.social_icons_position === "top" && (
+                <UserLandingSocialIconSection socialChannels={socialChannels} />
+              )}
+
+              <UserLandingLinkButtonSection
+                linksData={links}
+                buttonAppearance={appearance?.button_setup}
+              />
+
+              {appearance?.social_icons_position === "bottom" && (
+                <UserLandingSocialIconSection socialChannels={socialChannels} />
+              )}
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   );
 };

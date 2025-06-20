@@ -52,16 +52,15 @@ export const fetchSocialChannelsByUserId = createAsyncThunk(
         );
       }
       const { data: socialChannelsData, error: socialChannelsError } =
-        await supabase.from("socials").select("*").eq("user_id", user_id);
+        await supabase
+          .from("socials")
+          .select("*")
+          .eq("user_id", user_id)
+          .order("social_channel_index", { ascending: true });
 
       if (socialChannelsError) throw socialChannelsError;
 
-      const sortedSocialChannelsData = socialChannelsData?.sort(
-        (channelA, channelB) =>
-          channelA?.social_channel_index - channelB?.social_channel_index
-      );
-
-      return sortedSocialChannelsData;
+      return socialChannelsData;
     } catch (error) {
       return rejectWithValue(error.message);
     }
@@ -106,15 +105,36 @@ export const fetchLinksByUserId = createAsyncThunk(
       const { data: linksData, error: linksError } = await supabase
         .from("links")
         .select("*")
-        .eq("user_id", user_id);
+        .eq("user_id", user_id)
+        .order("link_index", { ascending: true });
 
       if (linksError) throw linksError;
 
-      const sortedLinksData = linksData?.sort(
-        (linkA, linkB) => linkA?.link_index - linkB?.link_index
-      );
+      return linksData;
+    } catch (error) {
+      return rejectWithValue(error.message);
+    }
+  }
+);
 
-      return sortedLinksData;
+export const fetchClicksByLinkIdList = createAsyncThunk(
+  "fetchClicksByLinkIdList",
+  async (link_id_list, { rejectWithValue }) => {
+    try {
+      if (!link_id_list.length) {
+        throw new Error(
+          "Failed to fetch the Clicks: undefined link_id_list. Please try again."
+        );
+      }
+
+      const { data: clicksData, error: clicksError } = await supabase
+        .from("click")
+        .select("*")
+        .in("link_id", link_id_list);
+
+      if (clicksError) throw clicksError;
+
+      return clicksData;
     } catch (error) {
       return rejectWithValue(error.message);
     }

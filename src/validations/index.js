@@ -329,3 +329,51 @@ export const appearanceFontConfigValidation = Yup.object().shape({
     .matches(/^#([0-9A-F]{6})$/i, "Enter a valid hex color like #FFFFFF")
     .required("Font color is required"),
 });
+
+export const userLandingLinkLockDateOfBirthValidation = Yup.object().shape({
+  day: Yup.number()
+    .typeError("Day must be a number")
+    .integer("Day must be an integer")
+    .min(1, "Day must be between 1 and 31")
+    .max(31, "Day must be between 1 and 31")
+    .required("Day is required")
+    .transform((value, originalValue) => {
+      if (originalValue && originalValue.length > 2) {
+        return parseInt(originalValue.substring(0, 2), 10);
+      }
+      return value;
+    })
+    .test(
+      "len",
+      "Day must be 2 digits",
+      (val) => val === null || val === undefined || String(val).length <= 2
+    ),
+  month: Yup.number()
+    .typeError("Month must be a number")
+    .integer("Month must be an integer")
+    .min(1, "Month must be between 1 and 12")
+    .max(12, "Month must be between 1 and 12")
+    .required("Month is required")
+    .transform((value, originalValue) => {
+      if (originalValue && originalValue.length > 2) {
+        return parseInt(originalValue.substring(0, 2), 10);
+      }
+      return value;
+    })
+    .test(
+      "len",
+      "Month must be 2 digits",
+      (val) => val === null || val === undefined || String(val).length <= 2
+    ),
+  year: Yup.number()
+    .typeError("Year must be a number")
+    .integer("Year must be an integer")
+    .min(1900, "Year seems too early")
+    .max(new Date().getFullYear(), "Year cannot be in the future")
+    .required("Year is required")
+    .test(
+      "len",
+      "Year must be 4 digits",
+      (val) => val === null || val === undefined || String(val).length === 4
+    ),
+});

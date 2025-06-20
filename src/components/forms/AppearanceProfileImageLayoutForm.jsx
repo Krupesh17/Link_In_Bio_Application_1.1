@@ -14,6 +14,7 @@ import {
 } from "../ui/form";
 import { RadioGroup, RadioGroupItem } from "../ui/radio-group";
 import { profileImageLayoutValidation } from "@/validations";
+import { getDominantColorFromImageURL } from "@/helpers/imageDominatingColorFetcher";
 
 const AppearanceProfileImageLayoutForm = ({ setProfileInfoUpdating }) => {
   const { appearance, isLoading } = useSelector((state) => state?.dashboard);
@@ -62,9 +63,33 @@ const AppearanceProfileImageLayoutForm = ({ setProfileInfoUpdating }) => {
   const handleSubmit = async (value) => {
     try {
       setProfileInfoUpdating(true);
+
+      let profileImageLayoutData;
+
+      if (value?.profileImageLayout === "hero") {
+        const dominatingColor = await getDominantColorFromImageURL(
+          profile?.profile_image_url
+        );
+
+        profileImageLayoutData = {
+          profile_image_layout: value?.profileImageLayout,
+          hero_profile_layout_wallpaper_setup: {
+            color: dominatingColor,
+            style: {
+              background: dominatingColor,
+            },
+          },
+        };
+      } else {
+        profileImageLayoutData = {
+          profile_image_layout: value?.profileImageLayout,
+          hero_profile_layout_wallpaper_setup: null,
+        };
+      }
+
       const response = await updateAppearance({
         id: appearance?.id,
-        data_object: { profile_image_layout: value?.profileImageLayout },
+        data_object: profileImageLayoutData,
       });
 
       dispatch(updateAppearanceData(response));

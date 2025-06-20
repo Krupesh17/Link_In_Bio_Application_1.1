@@ -50,7 +50,12 @@ const ProfileInfoHeader = ({ linksUpdating, setDashboardContentState }) => {
 
       <div className="flex items-center gap-5 max-sm:gap-2.5 mb-5">
         <div className="relative">
-          <AccountAvatar className="w-20 h-20 max-sm:w-16 max-sm:h-16" />
+          <AccountAvatar
+            name={profile?.name}
+            username={profile?.username}
+            profileImageURL={profile?.profile_image_url}
+            className="w-20 h-20 max-sm:w-16 max-sm:h-16 bg-black"
+          />
           <Button
             type="button"
             variant="outline"

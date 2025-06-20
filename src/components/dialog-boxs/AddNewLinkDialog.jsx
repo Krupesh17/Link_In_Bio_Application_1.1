@@ -26,7 +26,7 @@ const AddNewLinkDialog = ({
   const dispatch = useDispatch();
   const { toast } = useToast();
 
-  const { user } = useSelector((state) => state.user);
+  const { user, profile } = useSelector((state) => state.user);
   const { links } = useSelector((state) => state.dashboard);
 
   const form = useForm({
@@ -47,6 +47,7 @@ const AddNewLinkDialog = ({
 
       const response = await createLink({
         user_id: user?.id,
+        username: profile?.username,
         link_title: value?.link_title,
         link_url: value?.link_url,
         link_index: link_index,

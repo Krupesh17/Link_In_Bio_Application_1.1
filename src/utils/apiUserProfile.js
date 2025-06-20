@@ -60,3 +60,26 @@ export async function updateUserProfile({
     throw error;
   }
 }
+
+export async function getUserProfileByUsername(username) {
+  try {
+    const { data, error } = await supabase
+      .from("profiles")
+      .select()
+      .eq("username", username)
+      .single();
+
+    if (error) {
+      if (error.code === "PGRST116") {
+        return null;
+      }
+      throw error;
+    }
+
+    return data;
+  } catch (error) {
+    throw new Error(
+      "User profile not found. Please check the username and try again."
+    );
+  }
+}

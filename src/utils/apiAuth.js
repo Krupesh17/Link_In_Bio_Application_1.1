@@ -21,6 +21,7 @@ export async function createAccount({ username, name, email, password }) {
     const userLinkChainPageAppearanceData = await createAppearance({
       user_id: userData?.user?.id,
       social_icons_position: "top",
+      username: username,
     });
 
     return {

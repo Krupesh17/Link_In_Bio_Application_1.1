@@ -2,6 +2,7 @@ import supabase from "./supabase";
 
 export async function createSocialChannel({
   user_id,
+  username,
   social_channel_name,
   social_channel_slug,
   social_channel_value,
@@ -14,6 +15,7 @@ export async function createSocialChannel({
       .insert([
         {
           user_id,
+          username,
           social_channel_name,
           social_channel_slug,
           social_channel_value,
@@ -90,5 +92,23 @@ export async function deleteSocialChannel(social_channel_id) {
     return data;
   } catch (error) {
     throw error;
+  }
+}
+
+export async function getSocialChannelsByUsername(username) {
+  try {
+    const { data, error } = await supabase
+      .from("socials")
+      .select("*")
+      .eq("username", username)
+      .order("social_channel_index", { ascending: true });
+
+    if (error) throw error;
+
+    return data || [];
+  } catch (error) {
+    throw new Error(
+      `Error fetching social channels for username ${username}. Please try again.`
+    );
   }
 }

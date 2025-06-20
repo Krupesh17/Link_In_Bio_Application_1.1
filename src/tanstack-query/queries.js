@@ -1,4 +1,8 @@
-import { createAppearance, updateAppearance } from "@/utils/apiAppearance";
+import {
+  createAppearance,
+  getAppearanceByUsername,
+  updateAppearance,
+} from "@/utils/apiAppearance";
 import {
   changePassword,
   createAccount,
@@ -7,28 +11,29 @@ import {
   signIn,
   signOut,
 } from "@/utils/apiAuth";
-import {
-  deleteFile,
-  uploadFile,
-} from "@/utils/apiBucket";
+import { deleteFile, uploadFile } from "@/utils/apiBucket";
 import {
   createLink,
   deleteLink,
+  getLinksByUsername,
   updateLink,
   upsertLink,
 } from "@/utils/apiLinks";
 import {
   createSocialChannel,
   deleteSocialChannel,
+  getSocialChannelsByUsername,
   updateSocialChannel,
   upsertSocialChannel,
 } from "@/utils/apiSocials";
 import {
   createUserProfile,
+  getUserProfileByUsername,
   isUsernameTaken,
   updateUserProfile,
 } from "@/utils/apiUserProfile";
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQuery } from "@tanstack/react-query";
+import QUERY_KEYS from "./queryKeys";
 
 export const useCreateAccount = () => {
   return useMutation({
@@ -216,5 +221,37 @@ export const useDeleteLink = () => {
     onError: (error) => {
       throw error;
     },
+  });
+};
+
+export const useGetUserProfileByUsername = (username) => {
+  return useQuery({
+    queryKey: [QUERY_KEYS.GET_USER_PROFILE_BY_USERNAME, username],
+    queryFn: () => getUserProfileByUsername(username),
+    enabled: !!username,
+  });
+};
+
+export const useGetAppearanceByUsername = (username) => {
+  return useQuery({
+    queryKey: [QUERY_KEYS.GET_APPEARANCE_BY_USERNAME, username],
+    queryFn: () => getAppearanceByUsername(username),
+    enabled: !!username,
+  });
+};
+
+export const useGetSocialChannelsByUsername = (username) => {
+  return useQuery({
+    queryKey: [QUERY_KEYS.GET_SOCIAL_CHANNELS_BY_USERNAME, username],
+    queryFn: () => getSocialChannelsByUsername(username),
+    enabled: !!username,
+  });
+};  
+
+export const useGetLinksByUsername = (username) => {
+  return useQuery({
+    queryKey: [QUERY_KEYS.GET_LINKS_BY_USERNAME, username],
+    queryFn: () => getLinksByUsername(username),
+    enabled: !!username,
   });
 };

@@ -29,7 +29,7 @@ const AddSocialIconForm = ({
   const dispatch = useDispatch();
   const { toast } = useToast();
 
-  const { user } = useSelector((state) => state.user);
+  const { user, profile } = useSelector((state) => state.user);
   const { socialChannels } = useSelector((state) => state.dashboard);
 
   const {
@@ -93,6 +93,7 @@ const AddSocialIconForm = ({
 
         const response = await createSocialChannel({
           user_id: user?.id,
+          username: profile?.username,
           social_channel_name: name,
           social_channel_slug: slug,
           social_channel_value: value?.socialAddress,

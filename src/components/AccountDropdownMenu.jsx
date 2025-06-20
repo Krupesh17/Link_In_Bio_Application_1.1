@@ -53,12 +53,22 @@ const AccountDropdownMenu = () => {
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
         <Button type="button" variant="icon" className="w-10 h-10 rounded-full">
-          <AccountAvatar />
+          <AccountAvatar
+            name={profile?.name}
+            username={profile?.username}
+            profileImageURL={profile?.profile_image_url}
+            className="bg-black"
+          />
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end" className="w-60">
         <div className="flex items-center gap-2 relative">
-          <AccountAvatar />
+          <AccountAvatar
+            name={profile?.name}
+            username={profile?.username}
+            profileImageURL={profile?.profile_image_url}
+            className="bg-black"
+          />
           <div>
             <h4 className="text-sm font-semibold">{profile?.name}</h4>
             <small className="text-xs text-copy-lighter flex items-center gap-1">
