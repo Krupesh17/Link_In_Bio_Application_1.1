@@ -7,8 +7,8 @@ import {
   Trash2,
 } from "lucide-react";
 import { Button } from "./ui/button";
+import { useSelector } from "react-redux";
 
-// Work on this other action buttons and their form's. Maybe start working on "Lock" Feature.
 const LinkGroupItemActionButtonBox = ({
   visible,
   setVisible,
@@ -16,6 +16,12 @@ const LinkGroupItemActionButtonBox = ({
   setActionState,
   linkData,
 }) => {
+  const { clicks } = useSelector((state) => state?.dashboard);
+
+  const clicksData = clicks?.filter((click) => {
+    return click?.link_id === linkData?.id;
+  });
+
   const handleActionButtonClick = ({ action_form_title, action_form_slug }) => {
     if (visible && actionState?.action_form_slug === action_form_slug) {
       setVisible(false);
@@ -80,38 +86,48 @@ const LinkGroupItemActionButtonBox = ({
           action_form_slug: "link_lock",
         }),
     },
-    {
-      name: "Clicks",
-      slug: "clicks",
-      icon: <MousePointerClick strokeWidth={1.5} />,
-      className: ``,
-      handleOnClick: () => console.log("Clicks"),
-    },
   ];
 
   return (
     <div className="flex items-center gap-2">
-      <ul className="w-full flex items-center gap-1">
+      <ul className="w-full flex flex-wrap items-center gap-1">
         {linkItemActionButtons?.map((actionButton, index) => (
           <li key={index}>
             <Button
               type="button"
               variant="ghost"
               size="icon"
-              className={`shrink-0 ${actionButton?.className}`}
+              className={`shrink-0 text-copy-light ${actionButton?.className}`}
               onClick={actionButton?.handleOnClick}
             >
               {actionButton?.icon}
             </Button>
           </li>
         ))}
+        <li>
+          <Button
+            type="button"
+            variant="ghost"
+            className="text-copy-light px-2"
+            onClick={() => console.log("0 Clicks")}
+          >
+            <MousePointerClick strokeWidth={1.5} />
+            <span className="max-sm:hidden">
+              {clicksData?.length === 1
+                ? "1 click"
+                : clicksData.length > 0
+                ? `${clicksData?.length} clicks`
+                : "0 clicks"}
+            </span>
+          </Button>
+        </li>
       </ul>
 
       <Button
         type="button"
         variant="ghost"
         size="icon"
-        className={`shrink-0 ${
+        className={`shrink-0 text-copy-light ${
           visible &&
           actionState?.action_form_slug === "link_delete_archive" &&
           "bg-accent"

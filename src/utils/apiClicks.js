@@ -1,9 +1,9 @@
-import { UAParser } from "ua-parser-js";
 import supabase from "./supabase";
+import { UAParser } from "ua-parser-js";
 
 const parser = new UAParser();
 
-export async function createClick(link_id) {
+export async function createClick({ link_id, user_id }) {
   try {
     const res = parser.getResult();
     const device = res.type || "desktop";
@@ -16,6 +16,7 @@ export async function createClick(link_id) {
       .insert([
         {
           link_id: link_id,
+          user_id: user_id,
           country: country,
           region: region,
           city: city,
@@ -32,12 +33,12 @@ export async function createClick(link_id) {
   }
 }
 
-export async function getClicksForLinks(link_id_list) {
+export async function getClicksForLink(link_id) {
   try {
     const { data, error } = await supabase
       .from("clicks")
       .select("*")
-      .in("link_id", link_id_list);
+      .eq("link_id", link_id);
 
     if (error) throw error;
 
@@ -47,12 +48,13 @@ export async function getClicksForLinks(link_id_list) {
   }
 }
 
-export async function getClicksForLink(link_id) {
+export async function deleteClicksByLinkId(link_id) {
   try {
     const { data, error } = await supabase
       .from("clicks")
-      .select("*")
-      .eq("link_id", link_id);
+      .delete()
+      .eq("link_id", link_id)
+      .select();
 
     if (error) throw error;
 

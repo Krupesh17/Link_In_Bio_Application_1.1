@@ -27,6 +27,7 @@ const dashboardFilter = createFilter("dashboard", [
   "socialChannels",
   "appearance",
   "links",
+  "clicks",
 ]);
 
 const persistConfig = {

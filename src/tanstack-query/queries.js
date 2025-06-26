@@ -34,6 +34,7 @@ import {
 } from "@/utils/apiUserProfile";
 import { useMutation, useQuery } from "@tanstack/react-query";
 import QUERY_KEYS from "./queryKeys";
+import { createClick, deleteClicksByLinkId } from "@/utils/apiClicks";
 
 export const useCreateAccount = () => {
   return useMutation({
@@ -246,12 +247,30 @@ export const useGetSocialChannelsByUsername = (username) => {
     queryFn: () => getSocialChannelsByUsername(username),
     enabled: !!username,
   });
-};  
+};
 
 export const useGetLinksByUsername = (username) => {
   return useQuery({
     queryKey: [QUERY_KEYS.GET_LINKS_BY_USERNAME, username],
     queryFn: () => getLinksByUsername(username),
     enabled: !!username,
+  });
+};
+
+export const useCreateClick = () => {
+  return useMutation({
+    mutationFn: (data) => createClick(data),
+    onError: (error) => {
+      throw error;
+    },
+  });
+};
+
+export const useDeleteClicksByLinkId = () => {
+  return useMutation({
+    mutationFn: (link_id) => deleteClicksByLinkId(link_id),
+    onError: (error) => {
+      throw error;
+    },
   });
 };

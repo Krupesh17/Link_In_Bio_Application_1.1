@@ -2,6 +2,8 @@ import React, { useEffect, useState } from "react";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "../ui/dialog";
 import { Button } from "../ui/button";
 import { UserLandingLinkLockDateOfBirthForm } from "../forms";
+import { useCreateClick } from "@/tanstack-query/queries";
+import { Loader2 } from "lucide-react";
 
 const UserLandingLinkLockDialog = ({
   isUserLandingLinkLockDialog,
@@ -10,11 +12,18 @@ const UserLandingLinkLockDialog = ({
 }) => {
   const [formStep, setFormStep] = useState(1);
 
-  const handleRedirectToLockedLink = (url) => {
-    // I should write a logic which can add click record to the database first and then redirect to link.
-    window.open(url, "_blank");
-    setUserLandingLinkLockDialog(false);
-    setFormStep(1)
+  const { mutateAsync: createClick, isPending: isCreatingClick } =
+    useCreateClick();
+
+  const handleRedirectToLockedLink = async (url, link_id, user_id) => {
+    try {
+      await createClick({ link_id, user_id });
+      window.open(url, "_blank");
+      setUserLandingLinkLockDialog(false);
+      setFormStep(1);
+    } catch (error) {
+      console.error(error?.message);
+    }
   };
 
   useEffect(() => {
@@ -56,23 +65,28 @@ const UserLandingLinkLockDialog = ({
                 if (linkData?.link_lock_date_of_birth) {
                   setFormStep(2);
                 } else {
-                  handleRedirectToLockedLink(linkData?.link_url);
+                  handleRedirectToLockedLink(
+                    linkData?.link_url,
+                    linkData?.id,
+                    linkData?.user_id
+                  );
                 }
               }}
             >
-              Continue
+              {isCreatingClick ? (
+                <Loader2 className="animate-spin" />
+              ) : (
+                "Continue"
+              )}
             </Button>
           </>
         )}
 
-        {/**
-         * I have to create a form to accept date of birth and function to calculate and determine
-         * that entered date is fit in the age criteria or not.
-         */}
         {formStep === 2 && (
           <UserLandingLinkLockDateOfBirthForm
             linkData={linkData}
             handleRedirectToLockedLink={handleRedirectToLockedLink}
+            isCreatingClick={isCreatingClick}
           />
         )}
       </DialogContent>

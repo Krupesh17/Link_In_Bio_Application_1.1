@@ -1,7 +1,8 @@
 import React, { forwardRef, useState } from "react";
-import { Image, LockKeyhole } from "lucide-react";
+import { Image, Loader2, LockKeyhole } from "lucide-react";
 import { TooltipBox } from ".";
 import { UserLandingLinkLockDialog } from "./dialog-boxs";
+import { useCreateClick } from "@/tanstack-query/queries";
 
 const UserLandingLinkButton = forwardRef(
   ({ linkData, buttonAppearanceData, className = "", ...props }, ref) => {
@@ -113,10 +114,21 @@ const UserLandingLinkButton = forwardRef(
       },
     };
 
-    const handleRedirectToLockedLink = () => {
-      // I should write a logic which can add click record to the database first and then redirect to link.
-      window.open(linkData?.link_url, "_blank");
-      setUserLandingLinkLockDialog(false);
+    const { mutateAsync: createClick, isPending: isCreatingClick } =
+      useCreateClick();
+
+    const handleRedirectToLockedLink = async () => {
+      try {
+        await createClick({
+          link_id: linkData?.id,
+          user_id: linkData?.user_id,
+        });
+        window.open(linkData?.link_url, "_blank");
+        setUserLandingLinkLockDialog(false);
+        setFormStep(1);
+      } catch (error) {
+        console.error(error?.message);
+      }
     };
 
     return (
@@ -153,6 +165,12 @@ const UserLandingLinkButton = forwardRef(
         >
           {linkData?.link_layout === "featured" ? (
             <div className="relative w-full h-40 bg-inherit overflow-hidden">
+              {isCreatingClick && (
+                <div className="absolute inset-0 bg-black/50 flex items-center justify-center">
+                  <Loader2 className="animate-spin" />
+                </div>
+              )}
+
               {linkData?.link_thumbnail_url ? (
                 <img
                   src={linkData?.link_thumbnail_url}
@@ -171,6 +189,7 @@ const UserLandingLinkButton = forwardRef(
                   </p>
                 </div>
               )}
+
               <div className="absolute bottom-0 left-0 right-0 p-2 flex items-center gap-2 bg-gradient-to-t from-black/80 to-transparent">
                 <p className="w-full font-normal text-left text-nowrap text-ellipsis overflow-hidden hover:text-wrap">
                   {linkData?.link_title}
@@ -201,16 +220,15 @@ const UserLandingLinkButton = forwardRef(
               </div>
               <p className="w-full font-normal text-nowrap text-ellipsis overflow-hidden">
                 <TooltipBox tooltipText={linkData?.link_title}>
-                  <span>{linkData?.link_title}</span>
+                  <span>
+                    {isCreatingClick ? (
+                      <Loader2 className="animate-spin mx-auto" />
+                    ) : (
+                      linkData?.link_title
+                    )}
+                  </span>
                 </TooltipBox>
               </p>
-              {/**
-               * Have to work on this lock section.
-               * So far i have 2 types of link lock 'Sensitive Content' and 'Date of Birth'.
-               * For 'Sensitive Content' i will show a Dialog which shows the sensitive content warning.
-               * For 'Date of Birth' i will show a Dialog which ask user to enter their date of birth.
-               * It will also show a short description about why we need their date of birth.
-               */}
 
               <div className="w-8 h-8 overflow-hidden shrink-0 flex items-center justify-center">
                 {(linkData?.link_lock_sensitive_content ||

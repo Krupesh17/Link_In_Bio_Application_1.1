@@ -1,12 +1,21 @@
 import React, { useCallback, useEffect, useState } from "react";
-import { Form, FormControl, FormField, FormItem, FormMessage } from "../ui/form";
+import {
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormMessage,
+} from "../ui/form";
 import { Button } from "../ui/button";
 import { Input } from "../ui/input";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { addNewLinkValidation } from "@/validations";
 import { debounce } from "lodash";
-import { useUpdateLink } from "@/tanstack-query/queries";
+import {
+  useDeleteClicksByLinkId,
+  useUpdateLink,
+} from "@/tanstack-query/queries";
 import { useDispatch, useSelector } from "react-redux";
 import { useToast } from "@/hooks/use-toast";
 import { updateLinksData } from "@/redux/features/dashboardSlice";
@@ -29,9 +38,12 @@ const LinkTitleURLUpdateForm = ({ linkData, setLoading }) => {
   });
 
   const { mutateAsync: updateLink } = useUpdateLink();
+  const { mutateAsync: deleteClicksByLinkId } = useDeleteClicksByLinkId();
 
   const handleSubmit = async (value) => {
     try {
+      const initialLinkURL = linkData?.link_url;
+
       const response = await updateLink({
         link_id: linkData?.id,
         data_object: {
@@ -39,6 +51,10 @@ const LinkTitleURLUpdateForm = ({ linkData, setLoading }) => {
           link_url: value?.link_url,
         },
       });
+
+      if (initialLinkURL !== value?.link_url) {
+        await deleteClicksByLinkId(linkData?.id);
+      }
 
       const indexOfLinkToBeUpdated = await links?.findIndex(
         (link) => link?.id === response?.at(0)?.id
@@ -161,6 +177,7 @@ const LinkTitleURLUpdateForm = ({ linkData, setLoading }) => {
                   {...field}
                 />
               </FormControl>
+              <FormMessage />
             </FormItem>
           )}
         />

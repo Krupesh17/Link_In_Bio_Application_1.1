@@ -128,7 +128,7 @@ export const fetchClicksByLinkIdList = createAsyncThunk(
       }
 
       const { data: clicksData, error: clicksError } = await supabase
-        .from("click")
+        .from("clicks")
         .select("*")
         .in("link_id", link_id_list);
 

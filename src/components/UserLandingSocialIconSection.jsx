@@ -2,10 +2,7 @@ import React from "react";
 import { socialChannelList } from "@/resources/appData";
 import { Button } from "./ui/button";
 
-const UserLandingSocialIconSection = ({
-  socialChannels,
-  
-}) => {
+const UserLandingSocialIconSection = ({ socialChannels }) => {
   return (
     <>
       {socialChannels.length > 0 && (
@@ -25,7 +22,7 @@ const UserLandingSocialIconSection = ({
                   variant="ghost"
                   className="h-8 w-8 [&_svg]:size-8 hover:bg-transparent hover:text-inherit"
                   onClick={() => {
-                    console.log(`Clicked on ${socialIcon?.name} icon`);
+                    socialIcon?.onClick(socialChannel?.social_channel_value);
                   }}
                 >
                   {socialIcon?.icon}

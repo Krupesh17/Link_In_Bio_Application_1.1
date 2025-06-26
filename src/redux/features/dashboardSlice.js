@@ -1,6 +1,7 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import {
   fetchAppearanceByUserId,
+  fetchClicksByLinkIdList,
   fetchLinksByUserId,
   fetchSocialChannelsByUserId,
 } from "../thunks";
@@ -9,6 +10,7 @@ const initialState = {
   socialChannels: [],
   appearance: null,
   links: [],
+  clicks: [],
   isLoading: true,
   error: null,
 };
@@ -27,7 +29,18 @@ export const fetchDashboardData = createAsyncThunk(
 
       const links = await dispatch(fetchLinksByUserId(user_id)).unwrap();
 
-      return { socialChannels, appearance, links };
+      const publishedLinkIds = links
+        ?.filter((link) => link?.link_published === true)
+        ?.map((link) => link.id);
+
+      let clicks = [];
+      if (publishedLinkIds.length) {
+        clicks = await dispatch(
+          fetchClicksByLinkIdList(publishedLinkIds)
+        ).unwrap();
+      }
+
+      return { socialChannels, appearance, links, clicks };
     } catch (error) {
       return rejectWithValue(error);
     }
@@ -42,6 +55,7 @@ const dashboardSlice = createSlice({
       state.socialChannels = [];
       state.appearance = null;
       state.links = [];
+      state.clicks = [];
       state.isLoading = false;
       state.error = null;
     },
@@ -106,6 +120,20 @@ const dashboardSlice = createSlice({
         state.error = action.payload;
       })
 
+      //🟣 Fetch Clicks
+      .addCase(fetchClicksByLinkIdList.pending, (state) => {
+        state.isLoading = true;
+        state.error = null;
+      })
+      .addCase(fetchClicksByLinkIdList.fulfilled, (state, action) => {
+        state.clicks = action.payload;
+        state.isLoading = false;
+      })
+      .addCase(fetchClicksByLinkIdList.rejected, (state, action) => {
+        state.isLoading = false;
+        state.error = action.payload;
+      })
+
       //🟣 Fetch Dashboard Data
       .addCase(fetchDashboardData.pending, (state) => {
         state.isLoading = true;
@@ -115,6 +143,7 @@ const dashboardSlice = createSlice({
         state.socialChannels = actions.payload.socialChannels;
         state.appearance = actions.payload.appearance;
         state.links = actions.payload.links;
+        state.clicks = actions.payload.clicks;
         state.isLoading = false;
       })
       .addCase(fetchDashboardData.rejected, (state, action) => {

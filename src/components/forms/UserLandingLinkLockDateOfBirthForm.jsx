@@ -5,10 +5,12 @@ import { Input } from "../ui/input";
 import { Button } from "../ui/button";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { userLandingLinkLockDateOfBirthValidation } from "@/validations";
+import { Loader2 } from "lucide-react";
 
 const UserLandingLinkLockDateOfBirthForm = ({
   linkData,
   handleRedirectToLockedLink,
+  isCreatingClick,
 }) => {
   const [ageError, setAgeError] = useState(false);
 
@@ -44,8 +46,11 @@ const UserLandingLinkLockDateOfBirthForm = ({
     if (age < linkData?.link_lock_date_of_birth?.minimum_age) {
       setAgeError(true);
     } else {
-      // I should write a logic which can add click record to the database first and then redirect to link.
-      handleRedirectToLockedLink(linkData?.link_url);
+      handleRedirectToLockedLink(
+        linkData?.link_url,
+        linkData?.id,
+        linkData?.user_id
+      );
     }
   };
 
@@ -148,7 +153,11 @@ const UserLandingLinkLockDateOfBirthForm = ({
           )}
 
           <Button type="submit" className="w-full h-10">
-            Continue
+            {isCreatingClick ? (
+              <Loader2 className="animate-spin" />
+            ) : (
+              "Continue"
+            )}
           </Button>
         </form>
       </Form>
