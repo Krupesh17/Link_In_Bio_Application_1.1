@@ -1,12 +1,9 @@
 import supabase from "./supabase";
-import { UAParser } from "ua-parser-js";
-
-const parser = new UAParser();
+import { getUserDeviceType } from "@/helpers/userDeviceTypeDetector";
 
 export async function createClick({ link_id, user_id }) {
   try {
-    const res = parser.getResult();
-    const device = res.type || "desktop";
+    const device = getUserDeviceType();
 
     const response = await fetch("https://ipapi.co/json");
     const { city, region, country_name: country } = await response.json();
@@ -17,10 +14,10 @@ export async function createClick({ link_id, user_id }) {
         {
           link_id: link_id,
           user_id: user_id,
-          country: country,
-          region: region,
-          city: city,
-          device: device,
+          country: country?.toLowerCase(),
+          region: region?.toLowerCase(),
+          city: city?.toLowerCase(),
+          device: device?.toLowerCase(),
         },
       ])
       .select();

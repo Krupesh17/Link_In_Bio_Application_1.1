@@ -23,9 +23,9 @@
     --accent-foreground: 240 5.9% 10%;
     --destructive: 0 84.2% 60.2%;
     --destructive-foreground: 0 0% 98%;
-    --copy: 240 10% 3.9%;
-    --copy-light: 240 0.93% 42.35%;
-    --copy-lighter: 0 0% 51.76%;
+    --copy: 0 0% 0%;
+    --copy-light: 0 0% 29%;
+    --copy-lighter: 0 0% 50%;
     --border: 240 5.9% 90%;
     --input: 240 5.9% 90%;
     --ring: 240 10% 3.9%;
@@ -63,9 +63,9 @@
     --accent-foreground: 0 0% 98%;
     --destructive: 0 62.8% 30.6%;
     --destructive-foreground: 0 0% 98%;
-    --copy: 0 0% 98%;
-    --copy-light: 0 0% 78.43%;
-    --copy-lighter: 0 0% 58.82%;
+    --copy: 0 0% 100%;
+    --copy-light: 0 0% 68%;
+    --copy-lighter: 0 0% 50%;
     --border: 240 3.7% 15.9%;
     --input: 240 3.7% 15.9%;
     --ring: 240 4.9% 83.9%;

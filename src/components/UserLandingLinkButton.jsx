@@ -3,9 +3,15 @@ import { Image, Loader2, LockKeyhole } from "lucide-react";
 import { TooltipBox } from ".";
 import { UserLandingLinkLockDialog } from "./dialog-boxs";
 import { useCreateClick } from "@/tanstack-query/queries";
+import { useDispatch, useSelector } from "react-redux";
+import { updateClicksData } from "@/redux/features/dashboardSlice";
 
 const UserLandingLinkButton = forwardRef(
   ({ linkData, buttonAppearanceData, className = "", ...props }, ref) => {
+    const { clicks } = useSelector((state) => state?.dashboard);
+
+    const dispatch = useDispatch();
+
     const [isUserLandingLinkLockDialog, setUserLandingLinkLockDialog] =
       useState(false);
 
@@ -119,13 +125,16 @@ const UserLandingLinkButton = forwardRef(
 
     const handleRedirectToLockedLink = async () => {
       try {
-        await createClick({
+        const response = await createClick({
           link_id: linkData?.id,
           user_id: linkData?.user_id,
         });
+
+        const updatedClicks = [...clicks, response[0]];
+        dispatch(updateClicksData(updatedClicks));
+
         window.open(linkData?.link_url, "_blank");
         setUserLandingLinkLockDialog(false);
-        setFormStep(1);
       } catch (error) {
         console.error(error?.message);
       }

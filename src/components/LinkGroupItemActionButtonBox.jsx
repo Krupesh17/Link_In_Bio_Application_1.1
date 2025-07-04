@@ -3,9 +3,9 @@ import {
   Image,
   LayoutDashboard,
   LockKeyhole,
-  MousePointerClick,
   Trash2,
 } from "lucide-react";
+import { ChartBar } from "@phosphor-icons/react";
 import { Button } from "./ui/button";
 import { useSelector } from "react-redux";
 
@@ -43,7 +43,7 @@ const LinkGroupItemActionButtonBox = ({
       className: `${
         visible &&
         actionState?.action_form_slug === "link_layout" &&
-        "bg-accent"
+        "bg-accent text-copy"
       }`,
       handleOnClick: () =>
         handleActionButtonClick({
@@ -58,7 +58,7 @@ const LinkGroupItemActionButtonBox = ({
       className: `${
         visible &&
         actionState?.action_form_slug === "link_thumbnail" &&
-        "bg-accent"
+        "bg-accent text-copy"
       } ${
         (linkData?.link_thumbnail_url || linkData?.link_thumbnail_icon) &&
         "text-success"
@@ -74,7 +74,7 @@ const LinkGroupItemActionButtonBox = ({
       slug: "lock",
       icon: <LockKeyhole strokeWidth={1.5} />,
       className: `${
-        visible && actionState?.action_form_slug === "link_lock" && "bg-accent"
+        visible && actionState?.action_form_slug === "link_lock" && "bg-accent text-copy"
       } ${
         (linkData?.link_lock_sensitive_content ||
           linkData?.link_lock_date_of_birth) &&
@@ -108,10 +108,19 @@ const LinkGroupItemActionButtonBox = ({
           <Button
             type="button"
             variant="ghost"
-            className="text-copy-light px-2"
-            onClick={() => console.log("0 Clicks")}
+            className={`text-copy-light px-2 ${
+              visible &&
+              actionState?.action_form_slug === "link_analytics" &&
+              "bg-accent text-copy"
+            }`}
+            onClick={() => {
+              handleActionButtonClick({
+                action_form_title: "Analytics",
+                action_form_slug: "link_analytics",
+              });
+            }}
           >
-            <MousePointerClick strokeWidth={1.5} />
+            <ChartBar strokeWidth={1.5} />
             <span className="max-sm:hidden">
               {clicksData?.length === 1
                 ? "1 click"
@@ -130,7 +139,7 @@ const LinkGroupItemActionButtonBox = ({
         className={`shrink-0 text-copy-light ${
           visible &&
           actionState?.action_form_slug === "link_delete_archive" &&
-          "bg-accent"
+          "bg-accent text-copy"
         }`}
         onClick={() => {
           handleActionButtonClick({
@@ -139,7 +148,7 @@ const LinkGroupItemActionButtonBox = ({
           });
         }}
       >
-        <Trash2 strokeWidth={1} />
+        <Trash2 strokeWidth={1.5} />
       </Button>
     </div>
   );

@@ -4,12 +4,18 @@ import { Button } from "../ui/button";
 import { UserLandingLinkLockDateOfBirthForm } from "../forms";
 import { useCreateClick } from "@/tanstack-query/queries";
 import { Loader2 } from "lucide-react";
+import { updateClicksData } from "@/redux/features/dashboardSlice";
+import { useDispatch, useSelector } from "react-redux";
 
 const UserLandingLinkLockDialog = ({
   isUserLandingLinkLockDialog,
   setUserLandingLinkLockDialog,
   linkData,
 }) => {
+  const { clicks } = useSelector((state) => state?.dashboard);
+
+  const dispatch = useDispatch();
+
   const [formStep, setFormStep] = useState(1);
 
   const { mutateAsync: createClick, isPending: isCreatingClick } =
@@ -17,7 +23,11 @@ const UserLandingLinkLockDialog = ({
 
   const handleRedirectToLockedLink = async (url, link_id, user_id) => {
     try {
-      await createClick({ link_id, user_id });
+      const response = await createClick({ link_id, user_id });
+
+      const updatedClicks = [...clicks, response[0]];
+      dispatch(updateClicksData(updatedClicks));
+
       window.open(url, "_blank");
       setUserLandingLinkLockDialog(false);
       setFormStep(1);

@@ -7,6 +7,7 @@ import {
   LinkDeleteArchiveForm,
   LinkLockForm,
 } from "./forms";
+import { LinkAnalyticsContent } from ".";
 
 const LinkGroupItemActionExtension = ({
   linkData,
@@ -54,6 +55,10 @@ const LinkGroupItemActionExtension = ({
 
       {actionState?.action_form_slug === "link_delete_archive" && (
         <LinkDeleteArchiveForm linkData={linkData} setLoading={setLoading} />
+      )}
+
+      {actionState?.action_form_slug === "link_analytics" && (
+        <LinkAnalyticsContent linkData={linkData} />
       )}
     </div>
   );

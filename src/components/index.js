@@ -35,3 +35,4 @@ export { default as UserLandingProfileInfoSection } from "./UserLandingProfileIn
 export { default as UserLandingSocialIconSection } from "./UserLandingSocialIconSection";
 export { default as UserLandingLinkButtonSection } from "./UserLandingLinkButtonSection";
 export { default as UserLandingLinkButton } from "./UserLandingLinkButton";
+export { default as LinkAnalyticsContent } from "./LinkAnalyticsContent";

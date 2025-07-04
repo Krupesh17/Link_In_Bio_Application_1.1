@@ -74,6 +74,11 @@ const dashboardSlice = createSlice({
       state.isLoading = false;
       state.error = null;
     },
+    updateClicksData: (state, action) => {
+      state.clicks = action.payload;
+      state.isLoading = false;
+      state.error = null;
+    },
   },
 
   extraReducers: (builder) => {
@@ -159,4 +164,5 @@ export const {
   updateSocialChannelsData,
   updateAppearanceData,
   updateLinksData,
+  updateClicksData,
 } = dashboardSlice.actions;
