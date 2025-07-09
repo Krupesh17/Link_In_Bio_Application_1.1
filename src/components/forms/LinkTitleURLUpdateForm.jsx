@@ -100,7 +100,7 @@ const LinkTitleURLUpdateForm = ({ linkData, setLoading }) => {
 
   return (
     <Form {...form}>
-      <form className="w-full" onSubmit={form.handleSubmit(handleSubmit)}>
+      <form className="w-full">
         <FormField
           control={form.control}
           name="link_title"

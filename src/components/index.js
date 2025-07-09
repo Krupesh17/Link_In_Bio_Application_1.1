@@ -36,3 +36,5 @@ export { default as UserLandingSocialIconSection } from "./UserLandingSocialIcon
 export { default as UserLandingLinkButtonSection } from "./UserLandingLinkButtonSection";
 export { default as UserLandingLinkButton } from "./UserLandingLinkButton";
 export { default as LinkAnalyticsContent } from "./LinkAnalyticsContent";
+export { default as UserLandingPrivatePageSection } from "./UserLandingPrivatePageSection";
+export { default as UserLandingContentProtectionSection } from "./UserLandingContentProtectionSection";

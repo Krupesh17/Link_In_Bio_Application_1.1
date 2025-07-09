@@ -28,7 +28,6 @@ const MobilePreview = () => {
       <div className="h-full w-full">
         <div className="relative h-full w-full overflow-hidden bg-background shadow-[0_121px_49px_#00000005,0_68px_41px_#00000014,0_30px_30px_#00000024,0_8px_17px_#00000029] rounded-[3rem] border-[8px] border-[#000000]">
           <div className="relative h-full w-full">
-            {/* Work on scrollbar style. */}
             <div
               className="h-full w-full overflow-y-auto custom-scrollable-div"
               style={getPageBackgroundStyle()}
@@ -42,18 +41,24 @@ const MobilePreview = () => {
                 }}
               />
 
-              {appearance?.social_icons_position === "top" && (
-                <UserLandingSocialIconSection socialChannels={socialChannels} />
-              )}
+              {appearance?.social_icons_position === "top" &&
+                profile?.profile_social_icons_visible && (
+                  <UserLandingSocialIconSection
+                    socialChannels={socialChannels}
+                  />
+                )}
 
               <UserLandingLinkButtonSection
                 linksData={links}
                 buttonAppearance={appearance?.button_setup}
               />
 
-              {appearance?.social_icons_position === "bottom" && (
-                <UserLandingSocialIconSection socialChannels={socialChannels} />
-              )}
+              {appearance?.social_icons_position === "bottom" &&
+                profile?.profile_social_icons_visible && (
+                  <UserLandingSocialIconSection
+                    socialChannels={socialChannels}
+                  />
+                )}
             </div>
           </div>
         </div>

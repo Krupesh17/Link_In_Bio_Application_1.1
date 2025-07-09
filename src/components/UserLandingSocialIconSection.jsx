@@ -20,7 +20,7 @@ const UserLandingSocialIconSection = ({ socialChannels }) => {
                   type="button"
                   size="icon"
                   variant="ghost"
-                  className="h-8 w-8 [&_svg]:size-8 hover:bg-transparent hover:text-inherit"
+                  className="h-8 w-8 [&_svg]:size-8 hover:bg-transparent hover:text-inherit hover:scale-105 focus-visible:scale-105"
                   onClick={() => {
                     socialIcon?.onClick(socialChannel?.social_channel_value);
                   }}

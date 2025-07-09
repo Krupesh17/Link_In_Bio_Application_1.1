@@ -1,11 +1,19 @@
-import React, { useState } from "react";
+import React, { useCallback, useState } from "react";
 import { Button } from "./ui/button";
 import { Copy, CopyCheck } from "lucide-react";
 import { useSelector } from "react-redux";
+import { debounce } from "lodash";
 
 const URLBox = () => {
   const { profile } = useSelector((state) => state.user);
   const [isURLCopied, setURLCopied] = useState(false);
+
+  const debounceURLCopied = useCallback(
+    debounce(() => {
+      setURLCopied(false);
+    }, 1000),
+    []
+  );
 
   const handleCopyURL = async () => {
     try {
@@ -15,6 +23,8 @@ const URLBox = () => {
       setURLCopied(true);
     } catch (error) {
       console.error("Failed to copy: ", error);
+    } finally {
+      debounceURLCopied();
     }
   };
   return (
@@ -33,7 +43,10 @@ const URLBox = () => {
         </span>
       </p>
 
-      <Button className="rounded-full max-md:hidden" onClick={handleCopyURL}>
+      <Button
+        className="rounded-full font-semibold max-md:hidden"
+        onClick={handleCopyURL}
+      >
         {isURLCopied ? "Copied!" : "Copy URL"}
       </Button>
       <Button

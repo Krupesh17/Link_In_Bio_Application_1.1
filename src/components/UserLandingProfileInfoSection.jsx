@@ -14,38 +14,47 @@ const UserLandingProfileInfoSection = ({
             style={{ "--gradient-color": profileLayoutData?.dominatingColor }}
           ></div>
 
-          <AccountAvatar
-            name={userProfileData?.name}
-            username={userProfileData?.username}
-            profileImageURL={userProfileData?.profile_image_url}
-            className="static w-full h-full rounded-none border-none bg-[color:var(--bg-color)]"
-            style={{ "--bg-color": profileLayoutData?.dominatingColor }}
-          />
+          {userProfileData?.profile_image_visible && (
+            <AccountAvatar
+              name={userProfileData?.name}
+              username={userProfileData?.username}
+              profileImageURL={userProfileData?.profile_image_url}
+              className="static w-full h-full rounded-none border-none bg-[color:var(--bg-color)]"
+              style={{ "--bg-color": profileLayoutData?.dominatingColor }}
+            />
+          )}
 
           <div className="absolute bottom-0 left-0 right-0 flex flex-col items-center justify-center px-2.5">
             <h1 className="text-xl max-sm:text-lg font-semibold">
               {userProfileData?.name}
             </h1>
-            <p className="text-base max-sm:text-sm text-center">
-              {userProfileData?.bio}
-            </p>
+            {userProfileData?.profile_bio_visible && (
+              <p className="text-base max-sm:text-sm text-center">
+                {userProfileData?.bio}
+              </p>
+            )}
           </div>
         </section>
       ) : (
         <section className="flex flex-col items-center gap-2 pt-10">
-          <AccountAvatar
-            name={userProfileData?.name}
-            username={userProfileData?.username}
-            profileImageURL={userProfileData?.profile_image_url}
-            className="w-24 h-24 max-sm:w-20 max-sm:h-20 bg-black border-none"
-          />
+          {userProfileData?.profile_image_visible && (
+            <AccountAvatar
+              name={userProfileData?.name}
+              username={userProfileData?.username}
+              profileImageURL={userProfileData?.profile_image_url}
+              className="w-24 h-24 max-sm:w-20 max-sm:h-20 bg-black border-none"
+            />
+          )}
+          
           <div className="flex flex-col items-center justify-center gap-2 px-2.5">
             <h1 className="text-xl max-sm:text-lg font-semibold">
               {userProfileData?.name}
             </h1>
-            <p className="text-base max-sm:text-sm text-center">
-              {userProfileData?.bio}
-            </p>
+            {userProfileData?.profile_bio_visible && (
+              <p className="text-base max-sm:text-sm text-center">
+                {userProfileData?.bio}
+              </p>
+            )}
           </div>
         </section>
       )}

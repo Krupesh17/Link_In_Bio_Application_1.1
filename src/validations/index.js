@@ -377,3 +377,21 @@ export const userLandingLinkLockDateOfBirthValidation = Yup.object().shape({
       (val) => val === null || val === undefined || String(val).length === 4
     ),
 });
+
+export const userLandingPageVisibilityValidation = Yup.object().shape({
+  pageVisibilityStatus: Yup.string()
+    .oneOf(["public", "private"], "Please choose page visibility status.")
+    .required("Page visibility status is required."),
+});
+
+export const userLandingPageElementsVisibilityValidation = Yup.object().shape({
+  profileImageVisible: Yup.boolean()
+    .required("Profile image visibility is required.")
+    .typeError("Profile image visibility must be a boolean."),
+  profileBioVisible: Yup.boolean()
+    .required("Profile bio visibility is required.")
+    .typeError("Profile bio visibility must be a boolean."),
+  profileSocialIconsVisible: Yup.boolean()
+    .required("Profile social icons visibility is required.")
+    .typeError("Profile social icons visibility must be a boolean."),
+});

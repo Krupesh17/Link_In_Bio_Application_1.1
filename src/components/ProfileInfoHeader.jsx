@@ -76,8 +76,9 @@ const ProfileInfoHeader = ({ linksUpdating, setDashboardContentState }) => {
             {profile?.profile_title}
           </Button>
 
-          <a
-            className="block text-copy-lighter text-sm max-sm:text-xs mb-2 cursor-pointer hover:underline"
+          <Button
+            variant="link"
+            className="w-full h-auto p-0 text-sm max-sm:text-xs text-wrap text-left text-copy-lighter mb-2 cursor-pointer hover:underline"
             onClick={() => setEditDisplayNameBioDialogOpen(true)}
           >
             {profile?.bio ? (
@@ -85,7 +86,7 @@ const ProfileInfoHeader = ({ linksUpdating, setDashboardContentState }) => {
             ) : (
               <span className="text-current">Add bio</span>
             )}
-          </a>
+          </Button>
 
           <SocialIconBox setSocialIconsDialogOpen={setSocialIconsDialogOpen} />
         </div>

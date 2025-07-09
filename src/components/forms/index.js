@@ -27,3 +27,7 @@ export { default as AppearanceWallpaperImageForm } from "./AppearanceWallpaperIm
 export { default as AppearanceButtonConfigForm } from "./AppearanceButtonConfigForm";
 export { default as AppearanceWallpaperConfigForm } from "./AppearanceWallpaperConfigForm";
 export { default as UserLandingLinkLockDateOfBirthForm } from "./UserLandingLinkLockDateOfBirthForm";
+export { default as SettingsUserLandingPageVisibilityForm } from "./SettingsUserLandingPageVisibilityForm";
+export { default as SettingsUserLandingPageElementsVisibilityForm } from "./SettingsUserLandingPageElementsVisibilityForm";
+export { default as SettingsUserLandingPageContentProtectionForm } from "./SettingsUserLandingPageContentProtectionForm";
+export { default as UserLandingAgeRestrictionContentProtectionForm } from "./UserLandingAgeRestrictionContentProtectionForm";

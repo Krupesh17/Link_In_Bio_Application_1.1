@@ -45,7 +45,7 @@ const Error404 = () => {
         </p>
         <Button
           type="button"
-          className="rounded-full"
+          className="rounded-full h-10 transition delay-150 duration-300 ease-in-out hover:-translate-y-1 hover:scale-105"
           onClick={handleBackButton}
         >
           Back to LinkChain

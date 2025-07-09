@@ -42,6 +42,11 @@ const userSlice = createSlice({
       state.isInitialized = true;
       state.isLoading = false;
     },
+    updateProfileData: (state, action) => {
+      state.profile = action.payload;
+      state.isLoading = false;
+      state.error = null;
+    },
   },
   extraReducers: (builder) => {
     builder
@@ -97,4 +102,5 @@ const userSlice = createSlice({
 });
 
 export default userSlice.reducer;
-export const { clearUserData, setInitialized } = userSlice.actions;
+export const { clearUserData, setInitialized, updateProfileData } =
+  userSlice.actions;

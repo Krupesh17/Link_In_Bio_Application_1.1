@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import {
   useGetAppearanceByUsername,
   useGetLinksByUsername,
@@ -8,7 +8,9 @@ import {
 import { Loader2 } from "lucide-react";
 import { useNavigate, useParams } from "react-router-dom";
 import {
+  UserLandingContentProtectionSection,
   UserLandingLinkButtonSection,
+  UserLandingPrivatePageSection,
   UserLandingProfileInfoSection,
   UserLandingSocialIconSection,
 } from "@/components";
@@ -17,8 +19,7 @@ const UserLanding = () => {
   const { username } = useParams();
   const navigate = useNavigate();
 
-  // I have to add invalidate query code which fetches user's LinkChain data in
-  // 'updateProfileData'(Didn't Exist Yet) function from 'userSlice'.
+  const [contentProtectionStatus, setContentProtectionStatus] = useState(false);
 
   const {
     data: userProfileData,
@@ -68,44 +69,68 @@ const UserLanding = () => {
     navigate,
   ]);
 
+  useEffect(() => {
+    if (userProfileData) {
+      if (
+        userProfileData?.sensitive_content_page_protection ||
+        userProfileData?.age_restriction_page_protection
+      ) {
+        setContentProtectionStatus(true);
+      } else {
+        setContentProtectionStatus(false);
+      }
+    }
+  }, [userProfileData]);
+
   return isAppearanceDataLoading || isUserProfileDataLoading ? (
     <div className="flex items-center justify-center w-full h-dvh">
       <Loader2 size={24} className="animate-spin" />
     </div>
+  ) : userProfileData?.profile_page_visibility_status === "private" ? (
+    <UserLandingPrivatePageSection />
   ) : (
     <div
       className="w-full h-dvh overflow-hidden"
       style={getPageBackgroundStyle()}
     >
-      <div className="w-full h-full overflow-y-auto">
-        <div className="max-w-[500px] h-full mx-auto">
-          <UserLandingProfileInfoSection
-            userProfileData={userProfileData}
-            profileLayoutData={{
-              layout: appearanceData?.profile_image_layout || "classic",
-              dominatingColor:
-                appearanceData?.hero_profile_layout_wallpaper_setup?.color,
-            }}
-          />
-
-          {!isSocialChannelsLoading &&
-            appearanceData?.social_icons_position === "top" && (
-              <UserLandingSocialIconSection socialChannels={socialChannels} />
-            )}
-
-          {!isLinksDataLoading && (
-            <UserLandingLinkButtonSection
-              linksData={linksData}
-              buttonAppearance={appearanceData?.button_setup}
+      {contentProtectionStatus ? (
+        <UserLandingContentProtectionSection
+          userProfileData={userProfileData}
+          setContentProtectionStatus={setContentProtectionStatus}
+        />
+      ) : (
+        <div className="w-full h-full overflow-y-auto">
+          <div className="max-w-[500px] h-full mx-auto">
+            <UserLandingProfileInfoSection
+              userProfileData={userProfileData}
+              profileLayoutData={{
+                layout: appearanceData?.profile_image_layout || "classic",
+                dominatingColor:
+                  appearanceData?.hero_profile_layout_wallpaper_setup?.color,
+              }}
             />
-          )}
 
-          {!isSocialChannelsLoading &&
-            appearanceData?.social_icons_position === "bottom" && (
-              <UserLandingSocialIconSection socialChannels={socialChannels} />
+            {!isSocialChannelsLoading &&
+              appearanceData?.social_icons_position === "top" &&
+              userProfileData?.profile_social_icons_visible && (
+                <UserLandingSocialIconSection socialChannels={socialChannels} />
+              )}
+
+            {!isLinksDataLoading && (
+              <UserLandingLinkButtonSection
+                linksData={linksData}
+                buttonAppearance={appearanceData?.button_setup}
+              />
             )}
+
+            {!isSocialChannelsLoading &&
+              appearanceData?.social_icons_position === "bottom" &&
+              userProfileData?.profile_social_icons_visible && (
+                <UserLandingSocialIconSection socialChannels={socialChannels} />
+              )}
+          </div>
         </div>
-      </div>
+      )}
     </div>
   );
 };

@@ -43,11 +43,11 @@
     --error-content: 240 10% 3.9%;
   }
   .dark {
-    --background: 0 0% 7.06%; /* 240 13% 11%*/
+    --background: 0 0% 7.06%;
     --foreground: 0 0% 98%;
-    --card: 0 0% 7.06% /* 240 13% 11% */
+    --card: 0 0% 7.06%;
     --card-foreground: 0 0% 98%;
-    --popover: 0 0% 7.06%; /* 240 13% 11% */
+    --popover: 0 0% 7.06%;
     --popover-foreground: 0 0% 98%;
     --primary: 0 0% 98%;
     --primary-foreground: 240 5.9% 10%;
@@ -210,40 +210,40 @@
 }
 
 ::-webkit-scrollbar {
-  width: 10px; 
+  width: 10px;
   height: 10px;
 }
 
 ::-webkit-scrollbar-track {
-  background-color: transparent; 
-  border-radius: 5px; 
+  background-color: transparent;
+  border-radius: 5px;
 }
 
 ::-webkit-scrollbar-thumb {
   background-color: #888;
-  border-radius: 5px; 
+  border-radius: 5px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background-color: #555; 
+  background-color: #555;
 }
 
 html {
-  scrollbar-width: thin; 
+  scrollbar-width: thin;
   scrollbar-color: #888 transparent;
 }
 
 .custom-scrollable-div {
   scrollbar-width: thin;
   scrollbar-color: #888 transparent;
-} 
+}
 
 input[type="number"]::-webkit-outer-spin-button,
 input[type="number"]::-webkit-inner-spin-button {
   -webkit-appearance: none;
-  margin: 0; 
+  margin: 0;
 }
 
 input[type="number"] {
-  -moz-appearance: textfield; 
+  -moz-appearance: textfield;
 }
