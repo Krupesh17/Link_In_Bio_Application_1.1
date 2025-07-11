@@ -1,6 +1,6 @@
 import { ChartColumnBig, Eye, Link, Settings, Wand2 } from "lucide-react";
 import React from "react";
-import { NavLink, useLocation } from "react-router-dom";
+import { NavLink, useLocation, useNavigate } from "react-router-dom";
 import { Button } from "./ui/button";
 import { TooltipBox } from ".";
 
@@ -38,10 +38,11 @@ const bottomBarTabs = [
   },
 ];
 
-const BottomTabBar = () => {
+const BottomTabBar = ({ isPreviewWindowActive, setPreviewWindowActive }) => {
   const { pathname } = useLocation();
   const match = pathname?.match(/\/[a-z]*$/);
   const currentPath = match[0] === "/" ? "/dashboard" : match[0];
+  const navigate = useNavigate();
 
   return (
     <nav className="sticky bottom-0 left-0 right-0 bg-background h-[3.75rem] border-t border-border py-2.5 md:hidden">
@@ -58,6 +59,11 @@ const BottomTabBar = () => {
                         ? "text-copy"
                         : "text-copy-lighter"
                     }`}
+                    onClick={() => {
+                      if (isPreviewWindowActive) {
+                        setPreviewWindowActive(false);
+                      }
+                    }}
                   >
                     {item.icon}
                   </NavLink>
@@ -69,7 +75,13 @@ const BottomTabBar = () => {
                 className="w-full flex items-center justify-center"
               >
                 <TooltipBox tooltipText="Preview">
-                  <Button className={`rounded-full h-10`} type="button">
+                  <Button
+                    className={`rounded-full h-10`}
+                    type="button"
+                    onClick={() =>
+                      setPreviewWindowActive((prevState) => !prevState)
+                    }
+                  >
                     <Eye />
                   </Button>
                 </TooltipBox>

@@ -38,3 +38,4 @@ export { default as UserLandingLinkButton } from "./UserLandingLinkButton";
 export { default as LinkAnalyticsContent } from "./LinkAnalyticsContent";
 export { default as UserLandingPrivatePageSection } from "./UserLandingPrivatePageSection";
 export { default as UserLandingContentProtectionSection } from "./UserLandingContentProtectionSection";
+export { default as PreviewWindow } from "./PreviewWindow";
