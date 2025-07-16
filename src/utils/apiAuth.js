@@ -111,3 +111,22 @@ export async function changePassword(new_password) {
     throw error;
   }
 }
+
+export async function changeEmail({ newEmail, changeEmailToken }) {
+  try {
+    const { data, error } = await supabase.auth?.updateUser(
+      {
+        email: newEmail,
+      },
+      {
+        emailRedirectTo: `${window.location.origin}/verify-email-change?change_email_token=${changeEmailToken}`,
+      }
+    );
+
+    if (error) throw error;
+
+    return data?.user;
+  } catch (error) {
+    throw error;
+  }
+}

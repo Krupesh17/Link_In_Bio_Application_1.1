@@ -12,6 +12,8 @@ import {
   Settings,
   SignIn,
   SignUp,
+  Account,
+  VerifyEmailChange,
 } from "./pages";
 import { RouterProvider } from "react-router";
 import { useDispatch, useSelector } from "react-redux";
@@ -61,6 +63,10 @@ const router = createBrowserRouter([
     element: <ChangePassword />,
   },
   {
+    path: "/verify-email-change",
+    element: <VerifyEmailChange />,
+  },
+  {
     path: "/dashboard",
     element: <PrivateRoute />,
     children: [
@@ -78,6 +84,10 @@ const router = createBrowserRouter([
           {
             path: "analytics",
             element: <div>Analytics</div>,
+          },
+          {
+            path: "account",
+            element: <Account />,
           },
           {
             path: "settings",

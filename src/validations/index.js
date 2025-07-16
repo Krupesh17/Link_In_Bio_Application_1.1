@@ -395,3 +395,21 @@ export const userLandingPageElementsVisibilityValidation = Yup.object().shape({
     .required("Profile social icons visibility is required.")
     .typeError("Profile social icons visibility must be a boolean."),
 });
+
+export const accountSettingsProfileInfoValidation = Yup.object().shape({
+  name: Yup.string()
+    .max(30, "Profile title cannot be longer than 30 characters")
+    .required("Profile title is required"),
+  bio: Yup.string().max(80, "Bio cannot be longer than 80 characters"),
+  username: Yup.string()
+    .matches(
+      /^[a-zA-Z0-9._]+$/,
+      "Username can only include letters, numbers, '.', and '_'. No spaces or other special characters."
+    )
+    .min(4, "Please provide a username of at least 4 characters.")
+    .max(30, "Username cannot exceed 30 characters.")
+    .required("Username is required"),
+  email: Yup.string()
+    .email("Invalid email format")
+    .required("Email is required"),
+});

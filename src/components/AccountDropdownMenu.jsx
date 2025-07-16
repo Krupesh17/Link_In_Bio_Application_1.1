@@ -20,10 +20,7 @@ const dropDownMenuItemList = [
   {
     menuItemIcon: <User />,
     menuItemName: "Account",
-  },
-  {
-    menuItemIcon: <ReceiptText />,
-    menuItemName: "Billing",
+    menuItemSlug: "account",
   },
 ];
 
@@ -75,15 +72,16 @@ const AccountDropdownMenu = () => {
               @{profile?.username}
             </small>
           </div>
-          <Badge variant="secondary" className="rounded-full absolute right-0">
-            Free
-          </Badge>
         </div>
         <DropdownMenuSeparator />
         <DropdownMenuGroup>
           {dropDownMenuItemList.map((item, index) => {
             return (
-              <DropdownMenuItem key={index} className="h-10">
+              <DropdownMenuItem
+                key={index}
+                className="h-10"
+                onClick={() => navigate(item.menuItemSlug)}
+              >
                 {item.menuItemIcon}
                 <span>{item.menuItemName}</span>
               </DropdownMenuItem>

@@ -31,3 +31,5 @@ export { default as SettingsUserLandingPageVisibilityForm } from "./SettingsUser
 export { default as SettingsUserLandingPageElementsVisibilityForm } from "./SettingsUserLandingPageElementsVisibilityForm";
 export { default as SettingsUserLandingPageContentProtectionForm } from "./SettingsUserLandingPageContentProtectionForm";
 export { default as UserLandingAgeRestrictionContentProtectionForm } from "./UserLandingAgeRestrictionContentProtectionForm";
+export { default as AccountSettingsProfileInfoForm } from "./AccountSettingsProfileInfoForm";
+export { default as AccountSettingsResetPasswordForm } from "./AccountSettingsResetPasswordForm";

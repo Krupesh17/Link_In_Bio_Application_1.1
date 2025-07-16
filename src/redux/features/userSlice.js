@@ -47,6 +47,11 @@ const userSlice = createSlice({
       state.isLoading = false;
       state.error = null;
     },
+    updateUserData: (state, action) => {
+      state.user = action.payload;
+      state.isLoading = false;
+      state.error = null;
+    },
   },
   extraReducers: (builder) => {
     builder
@@ -102,5 +107,5 @@ const userSlice = createSlice({
 });
 
 export default userSlice.reducer;
-export const { clearUserData, setInitialized, updateProfileData } =
+export const { clearUserData, setInitialized, updateProfileData, updateUserData } =
   userSlice.actions;

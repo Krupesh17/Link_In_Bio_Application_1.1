@@ -45,8 +45,10 @@ const ResetPasswordForm = () => {
       toast({
         variant: "destructive",
         title: "Oops! Password Reset Failed",
-        description: error.message,
+        description: "Password Reset unsuccessful. Please try again.",
       });
+
+      console.log(error.message);
     } finally {
       form.reset();
     }

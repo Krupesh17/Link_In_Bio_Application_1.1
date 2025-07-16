@@ -39,3 +39,5 @@ export { default as LinkAnalyticsContent } from "./LinkAnalyticsContent";
 export { default as UserLandingPrivatePageSection } from "./UserLandingPrivatePageSection";
 export { default as UserLandingContentProtectionSection } from "./UserLandingContentProtectionSection";
 export { default as PreviewWindow } from "./PreviewWindow";
+export { default as AccountSettingsMyInformationSection } from "./AccountSettingsMyInformationSection";
+export { default as AccountSettingsSecurityAndPrivacySection } from "./AccountSettingsSecurityAndPrivacySection";

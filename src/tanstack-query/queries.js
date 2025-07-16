@@ -4,6 +4,7 @@ import {
   updateAppearance,
 } from "@/utils/apiAppearance";
 import {
+  changeEmail,
   changePassword,
   createAccount,
   getStartedWithGoogle,
@@ -111,6 +112,15 @@ export const useUpdateUserProfile = () => {
 export const useChangePassword = () => {
   return useMutation({
     mutationFn: (new_password) => changePassword(new_password),
+    onError: (error) => {
+      throw error;
+    },
+  });
+};
+
+export const useChangeEmail = () => {
+  return useMutation({
+    mutationFn: (new_email) => changeEmail(new_email),
     onError: (error) => {
       throw error;
     },

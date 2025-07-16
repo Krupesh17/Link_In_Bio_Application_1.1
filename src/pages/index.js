@@ -9,3 +9,5 @@ export { default as ChangePassword } from "./ChangePassword";
 export { default as Appearance } from "./Appearance";
 export { default as Settings } from "./Settings";
 export { default as UserLanding } from "./UserLanding";
+export { default as Account } from "./Account";
+export { default as VerifyEmailChange } from "./VerifyEmailChange";
