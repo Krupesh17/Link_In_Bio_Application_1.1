@@ -106,7 +106,7 @@ const UserLandingProductButton = forwardRef(
     };
 
     const handleButtonClick = () => {
-      console.log("click");
+      window.open(productData?.product_url, "_blank");
     };
 
     return (
