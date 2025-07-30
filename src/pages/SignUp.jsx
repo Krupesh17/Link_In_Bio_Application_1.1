@@ -6,6 +6,10 @@ import { CheckUsernameForm, SignUpForm } from "@/components/forms";
 const SignUp = () => {
   const [formState, setFormState] = useState({ step: 1, data: {} });
 
+  useEffect(() => {
+    document.title = "Sign Up - LinkChain";
+  }, []);
+
   return (
     <section className="min-h-dvh pt-10">
       <div className="max-w-[440px] mx-auto px-2.5">

@@ -140,3 +140,27 @@ export const fetchClicksByLinkIdList = createAsyncThunk(
     }
   }
 );
+
+export const fetchProductsByUserId = createAsyncThunk(
+  "fetchProductByUserId",
+  async (user_id, { rejectWithValue }) => {
+    try {
+      if (!user_id) {
+        throw new Error(
+          "Failed to fetch the user's products: undefined user_id. Please try again."
+        );
+      }
+
+      const { data: productData, error: productError } = await supabase
+        .from("products")
+        .select("*")
+        .eq("user_id", user_id);
+
+      if (productError) throw productError;
+
+      return productData;
+    } catch (error) {
+      return rejectWithValue(error.message);
+    }
+  }
+);

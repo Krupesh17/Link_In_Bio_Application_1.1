@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import {
   useGetAppearanceByUsername,
   useGetLinksByUsername,
+  useGetProductsByUsername,
   useGetSocialChannelsByUsername,
   useGetUserProfileByUsername,
 } from "@/tanstack-query/queries";
@@ -9,17 +10,20 @@ import { Loader2 } from "lucide-react";
 import { useNavigate, useParams } from "react-router-dom";
 import {
   UserLandingContentProtectionSection,
-  UserLandingLinkButtonSection,
+  UserLandingLinkSection,
   UserLandingPrivatePageSection,
+  UserLandingProductSection,
   UserLandingProfileInfoSection,
   UserLandingSocialIconSection,
 } from "@/components";
+import Switcher from "@/components/Switcher";
 
 const UserLanding = () => {
   const { username } = useParams();
   const navigate = useNavigate();
 
   const [contentProtectionStatus, setContentProtectionStatus] = useState(false);
+  const [isShopSectionActive, setShopSectionActive] = useState(false);
 
   const {
     data: userProfileData,
@@ -39,6 +43,9 @@ const UserLanding = () => {
   const { data: linksData, isPending: isLinksDataLoading } =
     useGetLinksByUsername(username);
 
+  const { data: productsData, isPending: isProductsDataLoading } =
+    useGetProductsByUsername(username);
+
   const getPageBackgroundStyle = () => {
     let backgroundStyle;
     if (appearanceData?.hero_profile_layout_wallpaper_setup) {
@@ -49,6 +56,30 @@ const UserLanding = () => {
     }
 
     return { color: appearanceData?.font_color, ...backgroundStyle };
+  };
+
+  const getShopVisibilityStatus = (products) => {
+    try {
+      if (!products) {
+        throw new Error("Product's Data is missing. Please try again.");
+      }
+
+      if (products?.length === 0) {
+        return false;
+      }
+      const filteredProductData = products?.filter((product) => {
+        return product?.product_published === true;
+      });
+
+      if (filteredProductData?.length === 0) {
+        return false;
+      }
+
+      return true;
+    } catch (error) {
+      console.error(error?.message);
+      return false;
+    }
   };
 
   useEffect(() => {
@@ -79,6 +110,14 @@ const UserLanding = () => {
       } else {
         setContentProtectionStatus(false);
       }
+    }
+  }, [userProfileData]);
+
+  useEffect(() => {
+    if (userProfileData) {
+      document.title = `${userProfileData?.name} - LinkChain`;
+    } else {
+      document.title = "LinkChain";
     }
   }, [userProfileData]);
 
@@ -116,12 +155,37 @@ const UserLanding = () => {
                 <UserLandingSocialIconSection socialChannels={socialChannels} />
               )}
 
-            {!isLinksDataLoading && (
-              <UserLandingLinkButtonSection
+            {getShopVisibilityStatus(productsData) &&
+              userProfileData?.shop_published && (
+                <section className="mt-4 w-full flex items-center">
+                  <Switcher
+                    isChecked={isShopSectionActive}
+                    setIsChecked={setShopSectionActive}
+                    backgroundColor={appearanceData?.button_setup?.button_color}
+                    color={appearanceData?.button_setup?.button_font_color}
+                    firstOption="Link"
+                    secondOption="Shop"
+                    className="mx-auto"
+                  />
+                </section>
+              )}
+
+            {!isShopSectionActive && !isLinksDataLoading && (
+              <UserLandingLinkSection
                 linksData={linksData}
                 buttonAppearance={appearanceData?.button_setup}
               />
             )}
+
+            {isShopSectionActive &&
+              getShopVisibilityStatus(productsData) &&
+              userProfileData?.shop_published &&
+              !isProductsDataLoading && (
+                <UserLandingProductSection
+                  productsData={productsData}
+                  buttonAppearance={appearanceData?.button_setup}
+                />
+              )}
 
             {!isSocialChannelsLoading &&
               appearanceData?.social_icons_position === "bottom" &&

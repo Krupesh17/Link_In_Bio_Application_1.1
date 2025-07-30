@@ -31,6 +31,10 @@ const ChangePassword = () => {
     }
   }, [resetToken, changePasswordToken]);
 
+   useEffect(() => {
+      document.title = "Change Password - LinkChain";
+    }, []);
+
   return (
     <div
       className={`min-h-dvh ${

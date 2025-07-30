@@ -1,8 +1,12 @@
+import React, { useEffect } from "react";
 import { SignInForm } from "@/components/forms";
-import React from "react";
 import { Link } from "react-router-dom";
 
 const SignIn = () => {
+  useEffect(() => {
+    document.title = "Sign In - LinkChain";
+  }, []);
+
   return (
     <section className="min-h-dvh pt-10">
       <div className="max-w-[440px] mx-auto px-2.5">

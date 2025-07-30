@@ -1,7 +1,7 @@
 import React from "react";
 import { UserLandingLinkButton } from ".";
 
-const UserLandingLinkButtonSection = ({ linksData, buttonAppearance }) => {
+const UserLandingLinkSection = ({ linksData, buttonAppearance }) => {
   return (
     <div className="mt-5 min-h-10">
       <ul className="flex flex-col gap-4 px-2.5">
@@ -21,4 +21,4 @@ const UserLandingLinkButtonSection = ({ linksData, buttonAppearance }) => {
   );
 };
 
-export default UserLandingLinkButtonSection;
+export default UserLandingLinkSection;

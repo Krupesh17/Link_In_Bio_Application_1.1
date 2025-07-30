@@ -34,9 +34,10 @@ const CropProfileImageForm = ({
       <FileDragDropBox
         file={file}
         setFile={setFile}
-        setFormStep={setFormStep}
         imageURL={imageURL}
         setImageURL={setImageURL}
+        afterImageCrop={() => setFormStep(3)}
+        terminateImageCrop={() => setFormStep(1)}
       />
     </>
   );

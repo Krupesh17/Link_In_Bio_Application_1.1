@@ -63,6 +63,10 @@ const AccountSetup = () => {
     initiateNewUserProfile();
   }, [username, initiateNewUserProfile]);
 
+  useEffect(() => {
+    document.title = "Account Setup - LinkChain";
+  }, []);
+
   return (
     <section className="h-dvh flex items-center px-5">
       <div className="max-w-[440px] mx-auto text-center flex items-center justify-center flex-col gap-1">

@@ -5,3 +5,7 @@ export { default as AddNewLinkDialog } from "./AddNewLinkDialog";
 export { default as AddLinkThumbnailImageDialog } from "./AddLinkThumbnailImageDialog";
 export { default as AppearanceWallpaperImageDialog } from "./AppearanceWallpaperImageDialog";
 export { default as UserLandingLinkLockDialog } from "./UserLandingLinkLockDialog";
+export { default as AddProductDialog } from "./AddProductDialog";
+export { default as EditProductDialog } from "./EditProductDialog";
+export { default as AddProductThumbnailImageDialog } from "./AddProductThumbnailImageDialog";
+export { default as EditProductThumbnailImageDialog } from "./EditProductThumbnailImageDialog";

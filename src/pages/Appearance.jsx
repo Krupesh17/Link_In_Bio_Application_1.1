@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import {
   AppearanceButtonSection,
   AppearanceFontSection,
@@ -7,6 +7,10 @@ import {
 } from "@/components";
 
 const Appearance = () => {
+  useEffect(() => {
+    document.title = "Appearance - LinkChain";
+  }, []);
+
   return (
     <div>
       <AppearanceProfileSection />

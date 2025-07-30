@@ -14,6 +14,7 @@ import {
   SignUp,
   Account,
   VerifyEmailChange,
+  Shop,
 } from "./pages";
 import { RouterProvider } from "react-router";
 import { useDispatch, useSelector } from "react-redux";
@@ -82,8 +83,8 @@ const router = createBrowserRouter([
             element: <Appearance />,
           },
           {
-            path: "analytics",
-            element: <div>Analytics</div>,
+            path: "shop",
+            element: <Shop />,
           },
           {
             path: "account",
@@ -152,6 +153,12 @@ function App() {
           }
         }
       );
+    }
+
+    if (profile && profile?.dark_mode_status) {
+      document.body.classList.add("dark");
+    } else {
+      document.body.classList.remove("dark");
     }
 
     return () => {

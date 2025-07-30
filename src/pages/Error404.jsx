@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
@@ -14,6 +14,10 @@ const Error404 = () => {
       navigate("/", { replace: true });
     }
   };
+
+   useEffect(() => {
+      document.title = "Error 404 - LinkChain";
+    }, []);
 
   return (
     <section className="h-dvh flex items-center px-5 relative">

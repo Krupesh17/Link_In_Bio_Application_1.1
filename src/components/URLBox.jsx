@@ -28,7 +28,7 @@ const URLBox = () => {
     }
   };
   return (
-    <div className="min-h-16 rounded-xl mt-5 mb-16 flex items-center gap-2.5 sm:px-5 max-sm:px-2.5 bg-sky-300/20 text-copy overflow-hidden">
+    <div className="min-h-16 rounded-xl mt-5 mb-10 flex items-center gap-2.5 sm:px-5 max-sm:px-2.5 bg-sky-300/20 text-copy overflow-hidden">
       <img
         src="/assets/icons/high_voltage.svg"
         width={28}

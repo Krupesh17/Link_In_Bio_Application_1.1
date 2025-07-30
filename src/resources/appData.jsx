@@ -256,3 +256,135 @@ export const socialChannelList = [
     validation: personalWebsiteURLValidation,
   },
 ];
+
+
+export const currencyList = [
+  {
+    currency: "USD",
+    currency_symbol: "$",
+  },
+  {
+    currency: "GBP",
+    currency_symbol: "£",
+  },
+  {
+    currency: "EUR",
+    currency_symbol: "€",
+  },
+  {
+    currency: "CAD",
+    currency_symbol: "$",
+  },
+  {
+    currency: "AUD",
+    currency_symbol: "$",
+  },
+  {
+    currency: "BRL",
+    currency_symbol: "R$",
+  },
+  {
+    currency: "CHF",
+    currency_symbol: "fr.",
+  },
+  {
+    currency: "CNY",
+    currency_symbol: "CN¥",
+  },
+  {
+    currency: "CZK",
+    currency_symbol: "Kč",
+  },
+  {
+    currency: "DKK",
+    currency_symbol: "kr",
+  },
+  {
+    currency: "HKD",
+    currency_symbol: "$",
+  },
+  {
+    currency: "HUF",
+    currency_symbol: "Ft",
+  },
+  {
+    currency: "ILS",
+    currency_symbol: "₪",
+  },
+  {
+    currency: "JPY",
+    currency_symbol: "¥",
+  },
+  {
+    currency: "MYR",
+    currency_symbol: "RM",
+  },
+  {
+    currency: "MXN",
+    currency_symbol: "$",
+  },
+  {
+    currency: "NZD",
+    currency_symbol: "$",
+  },
+  {
+    currency: "NOK",
+    currency_symbol: "kr",
+  },
+  {
+    currency: "PHP",
+    currency_symbol: "₱",
+  },
+  {
+    currency: "PLN",
+    currency_symbol: "zł",
+  },
+  {
+    currency: "RUB",
+    currency_symbol: "₽",
+  },
+  {
+    currency: "SGD",
+    currency_symbol: "$",
+  },
+  {
+    currency: "SEK",
+    currency_symbol: "kr",
+  },
+  {
+    currency: "TWD",
+    currency_symbol: "NT$",
+  },
+  {
+    currency: "THB",
+    currency_symbol: "฿",
+  },
+  {
+    currency: "IDR",
+    currency_symbol: "Rp",
+  },
+  {
+    currency: "INR",
+    currency_symbol: "₹",
+  },
+  {
+    currency: "ARS",
+    currency_symbol: "$",
+  },
+  {
+    currency: "NGN",
+    currency_symbol: "₦",
+  },
+  {
+    currency: "COP",
+    currency_symbol: "$",
+  },
+  {
+    currency: "TRY",
+    currency_symbol: "₺",
+  },
+  {
+    currency: "KRW",
+    currency_symbol: "₩",
+  },
+];

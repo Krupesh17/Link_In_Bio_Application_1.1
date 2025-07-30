@@ -1,7 +1,6 @@
 import React, { useState } from "react";
-import { DotsSixVertical } from "@phosphor-icons/react";
 import { Button } from "./ui/button";
-import { Loader2 } from "lucide-react";
+import { GripVertical, Loader2 } from "lucide-react";
 import {
   LinkGroupItemActionButtonBox,
   LinkGroupItemActionExtension,
@@ -27,15 +26,16 @@ const LinkGroupItem = ({ linkData }) => {
   return (
     <li
       style={style}
-      className="bg-background border border-border rounded-md overflow-hidden"
+      className="flex flex-col bg-background border border-border rounded-md overflow-hidden"
     >
-      <section className="relative p-4 flex items-center gap-2">
+      <div className="relative flex items-center">
         {isLoading && (
           <Loader2
             size={16}
             className="animate-spin absolute top-2 left-2 text-copy-light"
           />
         )}
+
         <Button
           type="button"
           variant="ghost"
@@ -43,33 +43,35 @@ const LinkGroupItem = ({ linkData }) => {
           ref={setNodeRef}
           {...attributes}
           {...listeners}
-          className="hover:cursor-grab active:cursor-grabbing shrink-0"
+          className="text-copy-lighter hover:bg-transparent hover:cursor-grab active:cursor-grabbing shrink-0"
         >
-          <DotsSixVertical size={20} />
+          <GripVertical strokeWidth={1.5} size={20} />
         </Button>
 
-        <div className="w-full">
-          <div className="flex items-center gap-2 mb-2">
-            <LinkTitleURLUpdateForm
-              linkData={linkData}
-              setLoading={setLoading}
-            />
+        <section className="w-full py-4 pr-4 flex items-center gap-2">
+          <div className="w-full">
+            <div className="flex items-center gap-2 mb-2">
+              <LinkTitleURLUpdateForm
+                linkData={linkData}
+                setLoading={setLoading}
+              />
 
-            <LinkGroupItemPublishSwitch
+              <LinkGroupItemPublishSwitch
+                linkData={linkData}
+                setLoading={setLoading}
+              />
+            </div>
+
+            <LinkGroupItemActionButtonBox
+              visible={visibleActionExtension}
+              setVisible={setVisibleActionExtension}
+              actionState={actionState}
+              setActionState={setActionState}
               linkData={linkData}
-              setLoading={setLoading}
             />
           </div>
-
-          <LinkGroupItemActionButtonBox
-            visible={visibleActionExtension}
-            setVisible={setVisibleActionExtension}
-            actionState={actionState}
-            setActionState={setActionState}
-            linkData={linkData}
-          />
-        </div>
-      </section>
+        </section>
+      </div>
 
       <LinkGroupItemActionExtension
         linkData={linkData}

@@ -40,7 +40,7 @@ const LinkGroupItemPublishSwitch = ({ linkData, setLoading }) => {
         variant: "destructive",
         title: "Oops! Link Visibility Update Failed",
         description:
-          "Visibility change failed due to a system issue. Refresh and try again.",
+          "Link visibility change failed due to a system issue. Refresh and try again.",
       });
       console.error(error.message);
     } finally {

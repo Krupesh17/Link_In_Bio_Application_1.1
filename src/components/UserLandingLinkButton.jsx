@@ -33,7 +33,9 @@ const UserLandingLinkButton = forwardRef(
         icon_className: "rounded-md",
       },
       fill_rounded_full: {
-        className: `rounded-full transition-colors duration-300 border-2 border-transparent bg-[color:var(--bg-color)] text-[color:var(--fg-color)] hover:bg-transparent hover:border-[color:var(--bg-color)]`,
+        className: `${
+          linkData?.link_layout === "featured" ? "rounded-2xl" : "rounded-full"
+        } transition-colors duration-300 border-2 border-transparent bg-[color:var(--bg-color)] text-[color:var(--fg-color)] hover:bg-transparent hover:border-[color:var(--bg-color)]`,
         style: {
           "--bg-color": buttonAppearanceData?.button_color || "#000000",
           "--fg-color": buttonAppearanceData?.button_font_color || "#FFFFFF",
@@ -57,7 +59,9 @@ const UserLandingLinkButton = forwardRef(
         icon_className: "rounded-md",
       },
       outline_rounded_full: {
-        className: `rounded-full transition-colors duration-300 border-2 border-[color:var(--bg-color)] bg-transparent text-[color:var(--fg-color)] hover:bg-[color:var(--bg-color)] hover:border-transparent`,
+        className: `${
+          linkData?.link_layout === "featured" ? "rounded-2xl" : "rounded-full"
+        } transition-colors duration-300 border-2 border-[color:var(--bg-color)] bg-transparent text-[color:var(--fg-color)] hover:bg-[color:var(--bg-color)] hover:border-transparent`,
         style: {
           "--bg-color": buttonAppearanceData?.button_color || "#000000",
           "--fg-color": buttonAppearanceData?.button_font_color || "#FFFFFF",
@@ -83,7 +87,9 @@ const UserLandingLinkButton = forwardRef(
         icon_className: "rounded-md",
       },
       soft_shadow_rounded_full: {
-        className: `rounded-full transition-colors duration-300 border-2 border-transparent bg-[color:var(--bg-color)] text-[color:var(--fg-color)] shadow-lg shadow-[color:var(--shadow-color)] hover:bg-transparent hover:border-[color:var(--bg-color)]`,
+        className: `${
+          linkData?.link_layout === "featured" ? "rounded-2xl" : "rounded-full"
+        } transition-colors duration-300 border-2 border-transparent bg-[color:var(--bg-color)] text-[color:var(--fg-color)] shadow-lg shadow-[color:var(--shadow-color)] hover:bg-transparent hover:border-[color:var(--bg-color)]`,
         style: {
           "--bg-color": buttonAppearanceData?.button_color || "#000000",
           "--fg-color": buttonAppearanceData?.button_font_color || "#FFFFFF",
@@ -110,7 +116,9 @@ const UserLandingLinkButton = forwardRef(
         icon_className: "rounded-md",
       },
       hard_shadow_rounded_full: {
-        className: `rounded-full transition-all duration-300 border-2 border-[color:var(--shadow-color)] bg-[color:var(--bg-color)] text-[color:var(--fg-color)] shadow-[5px_5px_0px_var(--shadow-color)] hover:shadow-[3px_3px_0px_var(--shadow-color)] hover:translate-y-0.5`,
+        className: `${
+          linkData?.link_layout === "featured" ? "rounded-2xl" : "rounded-full"
+        } transition-all duration-300 border-2 border-[color:var(--shadow-color)] bg-[color:var(--bg-color)] text-[color:var(--fg-color)] shadow-[5px_5px_0px_var(--shadow-color)] hover:shadow-[3px_3px_0px_var(--shadow-color)] hover:translate-y-0.5`,
         style: {
           "--bg-color": buttonAppearanceData?.button_color || "#000000",
           "--fg-color": buttonAppearanceData?.button_font_color || "#FFFFFF",
@@ -149,6 +157,7 @@ const UserLandingLinkButton = forwardRef(
         />
 
         <button
+          type="button"
           ref={ref}
           className={`w-full min-h-12 font-medium text-xs flex items-center focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring overflow-hidden ${
             customButtonVariants[

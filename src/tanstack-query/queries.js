@@ -36,6 +36,13 @@ import {
 import { useMutation, useQuery } from "@tanstack/react-query";
 import QUERY_KEYS from "./queryKeys";
 import { createClick, deleteClicksByLinkId } from "@/utils/apiClicks";
+import {
+  insertProduct,
+  updateProduct,
+  upsertProduct,
+  deleteProduct,
+  getProductsByUsername,
+} from "@/utils/apiShop";
 
 export const useCreateAccount = () => {
   return useMutation({
@@ -279,6 +286,50 @@ export const useCreateClick = () => {
 export const useDeleteClicksByLinkId = () => {
   return useMutation({
     mutationFn: (link_id) => deleteClicksByLinkId(link_id),
+    onError: (error) => {
+      throw error;
+    },
+  });
+};
+
+export const useInsertProduct = () => {
+  return useMutation({
+    mutationFn: (data) => insertProduct(data),
+    onError: (error) => {
+      throw error;
+    },
+  });
+};
+
+export const useUpdateProduct = () => {
+  return useMutation({
+    mutationFn: (data) => updateProduct(data),
+    onError: (error) => {
+      throw error;
+    },
+  });
+};
+
+export const useUpsertProduct = () => {
+  return useMutation({
+    mutationFn: (data) => upsertProduct(data),
+    onError: (error) => {
+      throw error;
+    },
+  });
+};
+
+export const useGetProductsByUsername = (username) => {
+  return useQuery({
+    queryKey: [QUERY_KEYS.GET_PRODUCTS_BY_USERNAME, username],
+    queryFn: () => getProductsByUsername(username),
+    enabled: !!username,
+  });
+};
+
+export const useDeleteProduct = () => {
+  return useMutation({
+    mutationFn: (product_id) => deleteProduct(product_id),
     onError: (error) => {
       throw error;
     },

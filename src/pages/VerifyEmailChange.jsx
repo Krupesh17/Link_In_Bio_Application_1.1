@@ -28,6 +28,10 @@ const VerifyEmailChange = () => {
     }
   }, [isLoading, user, updateEmailToken, changeEmailToken]);
 
+  useEffect(() => {
+    document.title = "Email Verification - LinkChain";
+  }, []);
+
   return (
     <section className="w-full h-dvh bg-background flex items-center">
       {isLoading ? (

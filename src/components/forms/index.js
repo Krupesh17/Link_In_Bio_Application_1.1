@@ -30,6 +30,9 @@ export { default as UserLandingLinkLockDateOfBirthForm } from "./UserLandingLink
 export { default as SettingsUserLandingPageVisibilityForm } from "./SettingsUserLandingPageVisibilityForm";
 export { default as SettingsUserLandingPageElementsVisibilityForm } from "./SettingsUserLandingPageElementsVisibilityForm";
 export { default as SettingsUserLandingPageContentProtectionForm } from "./SettingsUserLandingPageContentProtectionForm";
+export { default as SettingsUserLandingPageShopForm } from "./SettingsUserLandingPageShopForm";
 export { default as UserLandingAgeRestrictionContentProtectionForm } from "./UserLandingAgeRestrictionContentProtectionForm";
 export { default as AccountSettingsProfileInfoForm } from "./AccountSettingsProfileInfoForm";
 export { default as AccountSettingsResetPasswordForm } from "./AccountSettingsResetPasswordForm";
+export { default as InsertProductForm } from "./InsertProductForm";
+export { default as EditProductForm } from "./EditProductForm";

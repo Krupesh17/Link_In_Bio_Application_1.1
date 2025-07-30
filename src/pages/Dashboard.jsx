@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   ProfileInfoHeader,
   URLBox,
@@ -10,6 +10,10 @@ const Dashboard = () => {
   const [linksNewPositionUpdating, setLinksNewPositionUpdating] =
     useState(false);
   const [dashboardContentState, setDashboardContentState] = useState(null);
+
+  useEffect(() => {
+    document.title = "Dashboard - LinkChain";
+  }, []);
 
   return (
     <div>

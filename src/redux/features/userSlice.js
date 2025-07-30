@@ -1,6 +1,7 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { fetchProfileByUserId, fetchUserSession } from "../thunks";
 import { fetchDashboardData } from "./dashboardSlice";
+import { fetchShopData } from "./shopSlice";
 
 const initialState = {
   user: null,
@@ -19,6 +20,8 @@ export const fetchUserData = createAsyncThunk(
       const profile = await dispatch(fetchProfileByUserId(user?.id)).unwrap();
 
       await dispatch(fetchDashboardData(user?.id));
+
+      await dispatch(fetchShopData(user?.id));
 
       return { user, profile };
     } catch (error) {
@@ -107,5 +110,9 @@ const userSlice = createSlice({
 });
 
 export default userSlice.reducer;
-export const { clearUserData, setInitialized, updateProfileData, updateUserData } =
-  userSlice.actions;
+export const {
+  clearUserData,
+  setInitialized,
+  updateProfileData,
+  updateUserData,
+} = userSlice.actions;

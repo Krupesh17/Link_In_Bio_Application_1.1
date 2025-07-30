@@ -413,3 +413,57 @@ export const accountSettingsProfileInfoValidation = Yup.object().shape({
     .email("Invalid email format")
     .required("Email is required"),
 });
+
+export const insertProductValidation = Yup.object().shape({
+  product_url: Yup.string()
+    .trim()
+    .url("Enter a valid URL (e.g., www.naptimeisnow.com/dreams)")
+    .required("URL is required"),
+  product_title: Yup.string()
+    .min(2, "Title must be at least 2 characters")
+    .max(250, "Title cannot be longer than 250 characters")
+    .required("Title is required"),
+  product_price: Yup.number()
+    .typeError("Price must be a number")
+    .positive("Price must be greater than zero")
+    .required("Product price is required"),
+  product_currency: Yup.string()
+    .oneOf(
+      [
+        "USD",
+        "GBP",
+        "EUR",
+        "CAD",
+        "AUD",
+        "BRL",
+        "CHF",
+        "CNY",
+        "CZK",
+        "DKK",
+        "HKD",
+        "HUF",
+        "ILS",
+        "JPY",
+        "MYR",
+        "MXN",
+        "NZD",
+        "NOK",
+        "PHP",
+        "PLN",
+        "RUB",
+        "SGD",
+        "SEK",
+        "TWD",
+        "THB",
+        "IDR",
+        "INR",
+        "ARS",
+        "NGN",
+        "COP",
+        "TRY",
+        "KRW",
+      ],
+      "Invalid currency"
+    )
+    .required("Currency is required"),
+});

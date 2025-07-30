@@ -1,6 +1,6 @@
 import React from "react";
-import { ChartColumnBig, Link, Settings, Wand2 } from "lucide-react";
-import { NavLink, useLocation } from "react-router-dom";
+import { Link as Chain, Settings, Store, Wand2 } from "lucide-react";
+import { NavLink, useLocation, Link } from "react-router-dom";
 import { AccountDropdownMenu } from ".";
 
 const navigationLinks = [
@@ -8,7 +8,7 @@ const navigationLinks = [
     path: "/dashboard",
     slug: "/dashboard",
     link: "Links",
-    icon: <Link size={20} />,
+    icon: <Chain size={20} />,
   },
   {
     path: "appearance",
@@ -17,10 +17,10 @@ const navigationLinks = [
     icon: <Wand2 size={20} />,
   },
   {
-    path: "analytics",
-    slug: "/analytics",
-    link: "Analytics",
-    icon: <ChartColumnBig size={20} />,
+    path: "shop",
+    slug: "/shop",
+    link: "Shop",
+    icon: <Store size={20} />,
   },
   {
     path: "settings",
@@ -38,7 +38,7 @@ const DashboardHeader = () => {
   return (
     <header className="sticky top-0 left-0 right-0 z-40 bg-background border-b border-border">
       <nav className="h-20 px-5 max-sm:px-2.5 overflow-hidden flex items-center relative">
-        <div className="mr-10 flex items-center gap-2.5">
+        <Link to="/dashboard" className="mr-10 flex items-center gap-2.5">
           <img
             src="/assets/icons/link_chain_logo.svg"
             alt="link-chain-logo"
@@ -46,7 +46,7 @@ const DashboardHeader = () => {
             height={36}
           />
           <h4 className="font-semibold text-xl">LinkChain</h4>
-        </div>
+        </Link>
 
         <ul className="flex items-center gap-5 max-md:hidden">
           {navigationLinks?.map((item, index) => {

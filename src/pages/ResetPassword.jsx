@@ -1,8 +1,13 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { ResetPasswordForm } from "@/components/forms";
 import { Link } from "react-router-dom";
 
 const ResetPassword = () => {
+
+   useEffect(() => {
+      document.title = "Reset Password - LinkChain";
+    }, []);
+
   return (
     <section className="min-h-dvh pt-10">
       <div className="max-w-[440px] mx-auto px-2.5">

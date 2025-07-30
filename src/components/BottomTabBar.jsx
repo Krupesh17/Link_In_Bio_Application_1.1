@@ -1,4 +1,4 @@
-import { ChartColumnBig, Eye, Link, Settings, Wand2 } from "lucide-react";
+import { Eye, Link, Settings, Store, Wand2 } from "lucide-react";
 import React from "react";
 import { NavLink, useLocation, useNavigate } from "react-router-dom";
 import { Button } from "./ui/button";
@@ -24,10 +24,10 @@ const bottomBarTabs = [
   },
   {
     type: "link",
-    path: "analytics",
-    slug: "/analytics",
-    name: "Analytics",
-    icon: <ChartColumnBig size={20} />,
+    path: "shop",
+    slug: "/shop",
+    name: "Shop",
+    icon: <Store size={20} />,
   },
   {
     type: "link",
@@ -42,7 +42,6 @@ const BottomTabBar = ({ isPreviewWindowActive, setPreviewWindowActive }) => {
   const { pathname } = useLocation();
   const match = pathname?.match(/\/[a-z]*$/);
   const currentPath = match[0] === "/" ? "/dashboard" : match[0];
-  const navigate = useNavigate();
 
   return (
     <nav className="sticky bottom-0 left-0 right-0 bg-background h-[3.75rem] border-t border-border py-2.5 md:hidden">

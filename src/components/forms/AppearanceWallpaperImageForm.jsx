@@ -14,9 +14,9 @@ import { supabaseUrl } from "@/utils/supabase";
 import { useToast } from "@/hooks/use-toast";
 import { updateAppearanceData } from "@/redux/features/dashboardSlice";
 
-const AppearanceWallpaperImageForm = ({ 
-  setDialogOpen, 
-  onImageUploadSuccess 
+const AppearanceWallpaperImageForm = ({
+  setDialogOpen,
+  onImageUploadSuccess,
 }) => {
   const { appearance } = useSelector((state) => state?.dashboard);
   const { profile } = useSelector((state) => state?.user);
@@ -84,12 +84,12 @@ const AppearanceWallpaperImageForm = ({
       });
 
       dispatch(updateAppearanceData(response));
-      
+
       // Reset form state
       setFile(null);
       setImageURL(null);
       setFormStep(1);
-      
+
       // Call success callback to update parent component
       if (onImageUploadSuccess) {
         onImageUploadSuccess();
@@ -137,9 +137,10 @@ const AppearanceWallpaperImageForm = ({
         <FileDragDropBox
           file={file}
           setFile={setFile}
-          setFormStep={setFormStep}
           imageURL={imageURL}
           setImageURL={setImageURL}
+          afterImageCrop={() => setFormStep(3)}
+          terminateImageCrop={() => setFormStep(1)}
         />
       )}
 

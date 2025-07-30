@@ -13,7 +13,8 @@ const FileDragDropBox = ({
   setFile,
   imageURL,
   setImageURL,
-  setFormStep,
+  afterImageCrop,
+  terminateImageCrop,
 }) => {
   const [crop, setCrop] = useState({ x: 0, y: 0 });
   const [zoom, setZoom] = useState(1);
@@ -77,7 +78,7 @@ const FileDragDropBox = ({
         .then((file) => {
           setFile(file);
           setImageURL(URL.createObjectURL(file));
-          setFormStep(3);
+          afterImageCrop();
           setFileType(null);
         })
         .catch((error) => {
@@ -92,7 +93,7 @@ const FileDragDropBox = ({
     setFile(null);
     setFileType(null);
     setImageURL(null);
-    setFormStep(1);
+    terminateImageCrop();
   };
 
   return (
