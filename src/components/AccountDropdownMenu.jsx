@@ -43,7 +43,7 @@ const AccountDropdownMenu = () => {
   const handleSignOut = async () => {
     try {
       await signOut();
-      navigate("/sign-in", { replace: true });
+      navigate("/", { replace: true });
     } catch (error) {
       console.error(error.message);
       toast({

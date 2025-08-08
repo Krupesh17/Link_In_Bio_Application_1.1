@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { CheckCircle2 } from "lucide-react";
 import { Link } from "react-router-dom";
 import { CheckUsernameForm, SignUpForm } from "@/components/forms";
@@ -14,13 +14,15 @@ const SignUp = () => {
     <section className="min-h-dvh pt-10">
       <div className="max-w-[440px] mx-auto px-2.5">
         <div className="text-center mb-8">
-          <img
-            src="/assets/icons/link_chain_logo.svg"
-            alt="Logo"
-            width={40}
-            height={40}
-            className="mx-auto mb-2.5"
-          />
+          <Link to={"/"}>
+            <img
+              src="/assets/icons/link_chain_logo.svg"
+              alt="Logo"
+              width={40}
+              height={40}
+              className="mx-auto mb-2.5"
+            />
+          </Link>
 
           {formState.step === 2 && (
             <p className="inline-flex items-center justify-center gap-1 p-1.5 text-base bg-success/15 border border-success/10 rounded-full font-medium mb-2.5 ">
