@@ -15,6 +15,7 @@ import {
   Account,
   VerifyEmailChange,
   Shop,
+  GuestSignIn,
 } from "./pages";
 import { RouterProvider } from "react-router";
 import { useDispatch, useSelector } from "react-redux";
@@ -44,6 +45,10 @@ const router = createBrowserRouter([
       {
         path: "/sign-up",
         element: <SignUp />,
+      },
+      {
+        path:"/guest-sign-in",
+        element: <GuestSignIn />
       },
       {
         path: "/account-setup",
@@ -115,7 +120,6 @@ function App() {
   const hasInitialized = useRef(false);
 
   useEffect(() => {
-    // Check for existing session on app start
     const checkSession = async () => {
       try {
         const {
@@ -132,13 +136,11 @@ function App() {
       }
     };
 
-    // Only check session once on app start
     if (!hasInitialized.current) {
       hasInitialized.current = true;
       checkSession();
     }
 
-    // Set up auth listener
     if (!authListenerRef.current) {
       authListenerRef.current = supabase.auth.onAuthStateChange(
         (event, session) => {
@@ -169,7 +171,6 @@ function App() {
     };
   }, [dispatch, user, profile]);
 
-  // Don't render router until authentication state is determined
   if (!isInitialized) {
     return (
       <section className="h-dvh flex items-center justify-center">
