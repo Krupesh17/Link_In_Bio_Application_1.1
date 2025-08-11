@@ -1,19 +1,16 @@
 import React from "react";
 import { Button } from "./ui/button";
 import { Archive, ChevronLeft } from "lucide-react";
-import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { LinkArchiveGroupItem } from ".";
 
 const LinkArchiveGroup = ({ setDashboardContentState }) => {
-  const navigate = useNavigate();
-
   const { links: fetchedLinks, isLoading } = useSelector(
     (state) => state.dashboard
   );
 
   return (
-    <div className="max-w-[650px] mx-auto mb-5">
+    <div className="max-w-[650px] mx-auto mb-5 mt-10">
       <section className="relative flex items-center gap-2 mb-4">
         <Button
           type="button"
