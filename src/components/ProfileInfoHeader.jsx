@@ -48,7 +48,7 @@ const ProfileInfoHeader = ({ linksUpdating, setDashboardContentState }) => {
         setAddNewLinkDialogOpen={setAddNewLinkDialogOpen}
       />
       
-      <section className="max-w-[650px] mx-auto mb-4">
+      <section className="max-w-[650px] mx-auto mb-4 mt-10">
         <div className="flex items-center gap-5 max-sm:gap-2.5 mb-5">
           <div className="relative">
             <AccountAvatar
@@ -83,7 +83,7 @@ const ProfileInfoHeader = ({ linksUpdating, setDashboardContentState }) => {
               onClick={() => setEditDisplayNameBioDialogOpen(true)}
             >
               {profile?.bio ? (
-                <span className="text-wrap">{profile?.bio}</span>
+                <span className="text-wrap text-ellipsis line-clamp-2">{profile?.bio}</span>
               ) : (
                 <span className="text-current">Add bio</span>
               )}

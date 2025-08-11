@@ -108,13 +108,15 @@ const LinkTitleURLUpdateForm = ({ linkData, setLoading }) => {
             <FormItem className="leading-none space-y-0 mb-2">
               <Button
                 type="button"
-                className={`text-sm font-semibold h-auto p-0 rounded-sm bg-transparent text-copy text-left text-wrap hover:bg-transparent hover:underline ${
+                className={`w-full text-sm font-semibold h-auto p-0 rounded-sm bg-transparent text-copy text-left text-wrap hover:bg-transparent hover:underline ${
                   editTitle ? "hidden" : "inline-block"
                 }`}
                 onClick={() => setEditTitle(true)}
               >
                 {linkData?.link_title ? (
-                  <span>{linkData?.link_title}</span>
+                  <span className="text-wrap text-ellipsis line-clamp-1">
+                    {linkData?.link_title}
+                  </span>
                 ) : (
                   <span className="text-copy-lighter">Title</span>
                 )}
@@ -147,13 +149,15 @@ const LinkTitleURLUpdateForm = ({ linkData, setLoading }) => {
             <FormItem className="leading-none space-y-0">
               <Button
                 type="button"
-                className={`text-sm h-auto p-0 rounded-sm bg-transparent text-copy text-left text-wrap hover:bg-transparent hover:underline ${
+                className={`w-full text-sm h-auto p-0 rounded-sm bg-transparent text-copy text-left text-wrap hover:bg-transparent hover:underline ${
                   editURL ? "hidden" : "inline-block"
                 }`}
                 onClick={() => setEditURL(true)}
               >
                 {linkData?.link_url ? (
-                  <span>{linkData?.link_url}</span>
+                  <span className="text-wrap text-ellipsis line-clamp-1">
+                    {linkData?.link_url}
+                  </span>
                 ) : (
                   <span className="text-copy-lighter">
                     https://www.example-link.com

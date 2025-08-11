@@ -14,20 +14,20 @@ const bottomBarTabs = [
   },
   {
     type: "link",
-    path: "appearance",
-    slug: "/appearance",
-    name: "Appearance",
-    icon: <Wand2 size={20} />,
+    path: "shop",
+    slug: "/shop",
+    name: "Shop",
+    icon: <Store size={20} />,
   },
   {
     type: "button",
   },
   {
     type: "link",
-    path: "shop",
-    slug: "/shop",
-    name: "Shop",
-    icon: <Store size={20} />,
+    path: "appearance",
+    slug: "/appearance",
+    name: "Appearance",
+    icon: <Wand2 size={20} />,
   },
   {
     type: "link",

@@ -27,7 +27,7 @@ const ProductGroupItem = ({
   return (
     <li
       style={style}
-      className="relative flex items-center bg-background border border-border rounded-md overflow-hidden"
+      className="relative flex items-center bg-background border border-border rounded-md overflow-hidden touch-none"
     >
       {isLoading && (
         <Loader2

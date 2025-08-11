@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import {
   ProfileInfoHeader,
-  URLBox,
   LinkGroup,
   LinkArchiveGroup,
 } from "@/components";
@@ -17,7 +16,6 @@ const Dashboard = () => {
 
   return (
     <div>
-      <URLBox />
       {!dashboardContentState && (
         <>
           <ProfileInfoHeader

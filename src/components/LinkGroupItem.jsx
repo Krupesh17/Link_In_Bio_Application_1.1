@@ -26,7 +26,7 @@ const LinkGroupItem = ({ linkData }) => {
   return (
     <li
       style={style}
-      className="flex flex-col bg-background border border-border rounded-md overflow-hidden"
+      className="flex flex-col bg-background border border-border rounded-md overflow-hidden touch-none"
     >
       <div className="relative flex items-center">
         {isLoading && (

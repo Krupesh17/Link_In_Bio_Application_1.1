@@ -1,7 +1,7 @@
 import React from "react";
 import { Link as Chain, Settings, Store, Wand2 } from "lucide-react";
 import { NavLink, useLocation, Link } from "react-router-dom";
-import { AccountDropdownMenu } from ".";
+import { AccountDropdownMenu, ShareDropdownMenu } from ".";
 
 const navigationLinks = [
   {
@@ -11,16 +11,16 @@ const navigationLinks = [
     icon: <Chain size={20} />,
   },
   {
-    path: "appearance",
-    slug: "/appearance",
-    link: "Appearance",
-    icon: <Wand2 size={20} />,
-  },
-  {
     path: "shop",
     slug: "/shop",
     link: "Shop",
     icon: <Store size={20} />,
+  },
+  {
+    path: "appearance",
+    slug: "/appearance",
+    link: "Appearance",
+    icon: <Wand2 size={20} />,
   },
   {
     path: "settings",
@@ -68,7 +68,8 @@ const DashboardHeader = () => {
           })}
         </ul>
 
-        <div className="flex items-center ml-auto">
+        <div className="flex items-center gap-2.5 ml-auto">
+          <ShareDropdownMenu />
           <AccountDropdownMenu />
         </div>
       </nav>
