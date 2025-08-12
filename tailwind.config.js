@@ -80,7 +80,7 @@ export default {
   		},
   		fontFamily: {
   			sans: [
-  				'WixMadeForDisplay',
+  				'Poppins',
                     ...defaultTheme.fontFamily.sans
                 ],
   			syne: [

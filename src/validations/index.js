@@ -397,7 +397,7 @@ export const userLandingPageElementsVisibilityValidation = Yup.object().shape({
 });
 
 export const accountSettingsProfileInfoValidation = Yup.object().shape({
-  name: Yup.string()
+  profile_title: Yup.string()
     .max(30, "Profile title cannot be longer than 30 characters")
     .required("Profile title is required"),
   bio: Yup.string().max(80, "Bio cannot be longer than 80 characters"),

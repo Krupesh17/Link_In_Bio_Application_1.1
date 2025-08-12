@@ -42,12 +42,13 @@ const AccountSettingsProfileInfoForm = () => {
   const form = useForm({
     resolver: yupResolver(accountSettingsProfileInfoValidation),
     defaultValues: {
-      name: profile ? profile?.name : "",
+      profile_title: profile ? profile?.profile_title : "",
       bio: profile ? profile?.bio : "",
       username: profile ? profile?.username : "",
       email: user ? user?.email : "",
     },
   });
+  
   const { mutateAsync: isUsernameTaken } = useIsUsernameTaken();
   const { mutateAsync: updateUserProfile } = useUpdateUserProfile();
   const { mutateAsync: changeEmail } = useChangeEmail();
@@ -79,10 +80,11 @@ const AccountSettingsProfileInfoForm = () => {
     try {
       setLoading(true);
       localStorage.removeItem("changeEmailToken");
+      console.log("click");
 
-      if (profile?.name !== value?.name || profile?.value !== value?.bio) {
+      if (profile?.profile_title !== value?.profile_title || profile?.bio !== value?.bio) {
         await updateUserProfileInfo(
-          { name: value?.name, bio: value?.bio },
+          { profile_title: value?.profile_title, bio: value?.bio },
           profile?.id
         );
       }
@@ -170,7 +172,7 @@ const AccountSettingsProfileInfoForm = () => {
         <section className="w-full flex items-center my-2">
           <div className="relative mx-auto">
             <AccountAvatar
-              name={profile?.name}
+              name={profile?.profile_title}
               username={profile?.username}
               profileImageURL={profile?.profile_image_url}
               className="w-32 h-32 max-sm:w-16 max-sm:h-16 bg-black"
@@ -191,10 +193,10 @@ const AccountSettingsProfileInfoForm = () => {
           <form onSubmit={form.handleSubmit(handleSubmit)}>
             <FormField
               control={form.control}
-              name="name"
+              name="profile_title"
               render={({ field }) => (
                 <FormItem className="mb-4">
-                  <FormLabel>Name</FormLabel>
+                  <FormLabel>Profile Title</FormLabel>
                   <FormControl>
                     <Input
                       type="text"

@@ -16,7 +16,7 @@ const UserLandingProfileInfoSection = ({
 
           {userProfileData?.profile_image_visible && (
             <AccountAvatar
-              name={userProfileData?.name}
+              name={userProfileData?.profile_title}
               username={userProfileData?.username}
               profileImageURL={userProfileData?.profile_image_url}
               className="static w-full h-full rounded-none border-none bg-[color:var(--bg-color)]"
@@ -26,7 +26,7 @@ const UserLandingProfileInfoSection = ({
 
           <div className="absolute bottom-0 left-0 right-0 flex flex-col items-center justify-center px-2.5">
             <h1 className="text-xl max-sm:text-lg font-semibold">
-              {userProfileData?.name}
+              {userProfileData?.profile_title}
             </h1>
             {userProfileData?.profile_bio_visible && (
               <p className="text-base max-sm:text-sm text-center">
@@ -48,7 +48,7 @@ const UserLandingProfileInfoSection = ({
           
           <div className="flex flex-col items-center justify-center gap-2 px-2.5">
             <h1 className="text-xl max-sm:text-lg font-semibold">
-              {userProfileData?.name}
+              {userProfileData?.profile_title}
             </h1>
             {userProfileData?.profile_bio_visible && (
               <p className="text-base max-sm:text-sm text-center">

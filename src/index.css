@@ -121,49 +121,49 @@
 }
 
 @font-face {
-  font-family: "WixMadeForDisplay";
-  src: url("./fonts/WixMadeForDisplay/WixMadeForDisplay-Regular.woff2")
+  font-family: "Poppins";
+  src: url("./fonts/Poppins/Poppins-Regular.woff2")
       format("woff2"),
-    url("./fonts/WixMadeForDisplay/WixMadeForDisplay-Regular.woff")
+    url("./fonts/Poppins/Poppins-Regular.woff")
       format("woff");
   font-weight: 400;
   font-style: normal;
 }
 
 @font-face {
-  font-family: "WixMadeForDisplay";
-  src: url("./fonts/WixMadeForDisplay/WixMadeForDisplay-Medium.woff2")
+  font-family: "Poppins";
+  src: url("./fonts/Poppins/Poppins-Medium.woff2")
       format("woff2"),
-    url("./fonts/WixMadeForDisplay/WixMadeForDisplay-Medium.woff")
+    url("./fonts/Poppins/Poppins-Medium.woff")
       format("woff");
   font-weight: 500;
   font-style: normal;
 }
 
 @font-face {
-  font-family: "WixMadeForDisplay";
-  src: url("./fonts/WixMadeForDisplay/WixMadeForDisplay-SemiBold.woff2")
+  font-family: "Poppins";
+  src: url("./fonts/Poppins/Poppins-SemiBold.woff2")
       format("woff2"),
-    url("./fonts/WixMadeForDisplay/WixMadeForDisplay-SemiBold.woff")
+    url("./fonts/Poppins/Poppins-SemiBold.woff")
       format("woff");
   font-weight: 600;
   font-style: normal;
 }
 
 @font-face {
-  font-family: "WixMadeForDisplay";
-  src: url("./fonts/WixMadeForDisplay/WixMadeForDisplay-Bold.woff2")
+  font-family: "Poppins";
+  src: url("./fonts/Poppins/Poppins-Bold.woff2")
       format("woff2"),
-    url("./fonts/WixMadeForDisplay/WixMadeForDisplay-Bold.woff") format("woff");
+    url("./fonts/Poppins/Poppins-Bold.woff") format("woff");
   font-weight: 700;
   font-style: normal;
 }
 
 @font-face {
-  font-family: "WixMadeForDisplay";
-  src: url("./fonts/WixMadeForDisplay/WixMadeForDisplay-ExtraBold.woff2")
+  font-family: "Poppins";
+  src: url("./fonts/Poppins/Poppins-ExtraBold.woff2")
       format("woff2"),
-    url("./fonts/WixMadeForDisplay/WixMadeForDisplay-ExtraBold.woff")
+    url("./fonts/Poppins/Poppins-ExtraBold.woff")
       format("woff");
   font-weight: 800;
   font-style: normal;

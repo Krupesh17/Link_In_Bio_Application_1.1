@@ -17,6 +17,7 @@ import {
   UserLandingSocialIconSection,
 } from "@/components";
 import Switcher from "@/components/Switcher";
+import { Button } from "@/components/ui/button";
 
 const UserLanding = () => {
   const { username } = useParams();
@@ -129,7 +130,7 @@ const UserLanding = () => {
     <UserLandingPrivatePageSection />
   ) : (
     <div
-      className="w-full h-dvh overflow-hidden"
+      className="relative w-full h-dvh overflow-hidden"
       style={getPageBackgroundStyle()}
     >
       {contentProtectionStatus ? (
@@ -193,6 +194,18 @@ const UserLanding = () => {
                 <UserLandingSocialIconSection socialChannels={socialChannels} />
               )}
           </div>
+
+          <Button
+            type="button"
+            className="absolute bottom-4 left-1/2 -translate-x-1/2 h-10 rounded-full text-black bg-white hover:bg-[#f2f2f2] hover:scale-105 focus-visible:scale-105"
+            onClick={() => window.open(`${window.location.origin}/`, "_blank")}
+          >
+            <img
+              src="/assets/icons/link_chain_logo.svg"
+              className="w-6 h-6 shrink-0"
+            />
+            <span className="font-medium">Join LinkChain</span>
+          </Button>
         </div>
       )}
     </div>
