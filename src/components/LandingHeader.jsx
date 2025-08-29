@@ -46,7 +46,7 @@ const LandingHeader = () => {
             width={36}
             height={36}
           />
-          <h4 className="font-semibold text-xl">LinkChain</h4>
+          <h4 className="font-semibold text-xl max-sm:text-lg max-[380px]:hidden">LinkChain</h4>
         </Link>
 
         <ul className="flex items-center gap-10 max-md:gap-5 max-sm:hidden">

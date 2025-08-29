@@ -155,7 +155,7 @@ const LinkTitleURLUpdateForm = ({ linkData, setLoading }) => {
                 onClick={() => setEditURL(true)}
               >
                 {linkData?.link_url ? (
-                  <span className="text-wrap text-ellipsis line-clamp-1">
+                  <span className="text-wrap text-ellipsis line-clamp-1 break-all wrap-anywhere">
                     {linkData?.link_url}
                   </span>
                 ) : (
