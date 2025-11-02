@@ -4,11 +4,13 @@ import { useSelector } from "react-redux";
 import { Button } from "./ui/button";
 import { Plus } from "lucide-react";
 
-const SocialIconBox = ({ setSocialIconsDialogOpen }) => {
-  const { socialChannels, isLoading } = useSelector(
-    (state) => state?.dashboard
-  );
-
+const SocialIconBox = ({
+  setSocialIconsDialogOpen,
+  setSocialIconsFormState,
+}) => {
+  const { socialChannels = [], isLoading } = useSelector(
+    (state) => state?.dashboard || {}
+  ); 
   return (
     <div className="flex items-center max-w-[20rem]">
       <ul className="text-copy-lighter/40 flex items-center flex-wrap gap-2.5 mr-2.5">

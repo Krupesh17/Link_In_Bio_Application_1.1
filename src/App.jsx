@@ -28,6 +28,7 @@ import {
 import { PublicRoute, PrivateRoute } from "./components";
 import { DashboardLayout } from "./layouts";
 import { Loader2 } from "lucide-react";
+import { ThemeProvider } from "./components/ThemeProvider";
 
 const router = createBrowserRouter([
   {
@@ -156,13 +157,7 @@ function App() {
         }
       );
     }
-
-    if (profile && profile?.dark_mode_status) {
-      document.body.classList.add("dark");
-    } else {
-      document.body.classList.remove("dark");
-    }
-
+    
     return () => {
       if (authListenerRef.current) {
         authListenerRef.current.data.subscription.unsubscribe();
@@ -179,7 +174,11 @@ function App() {
     );
   }
 
-  return <RouterProvider router={router} />;
+  return (
+    <ThemeProvider defaultTheme="dark" storageKey="vite-ui-theme">
+      <RouterProvider router={router} />
+    </ThemeProvider>
+  );
 }
 
 export default App;

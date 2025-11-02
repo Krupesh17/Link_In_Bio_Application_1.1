@@ -91,6 +91,7 @@ const ProfileInfoHeader = ({ linksUpdating, setDashboardContentState }) => {
 
             <SocialIconBox
               setSocialIconsDialogOpen={setSocialIconsDialogOpen}
+              setSocialIconsFormState={setSocialIconsFormState}
             />
           </div>
           <ProfileInfoEditDropdownMenu

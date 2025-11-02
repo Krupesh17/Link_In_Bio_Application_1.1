@@ -8,14 +8,14 @@ import {
   DropdownMenuGroup,
 } from "./ui/dropdown-menu";
 import { Button } from "./ui/button";
-import { Loader2, LogOut, Moon, Sun, SwatchBook, User } from "lucide-react";
+import { Loader2, LogOut, Moon, Sun, User } from "lucide-react";
 import { AccountAvatar } from ".";
 import { useNavigate } from "react-router-dom";
-import { useSignOut, useUpdateUserProfile } from "@/tanstack-query/queries";
-import { useDispatch, useSelector } from "react-redux";
+import { useSignOut } from "@/tanstack-query/queries";
+import { useSelector } from "react-redux";
 import { useToast } from "@/hooks/use-toast";
 import { Switch } from "./ui/switch";
-import { updateProfileData } from "@/redux/features/userSlice";
+import { useTheme } from "./ThemeProvider";
 
 const dropDownMenuItemList = [
   {
@@ -29,16 +29,16 @@ const AccountDropdownMenu = () => {
   const { profile } = useSelector((state) => state.user);
 
   const navigate = useNavigate();
-  const dispatch = useDispatch();
   const { toast } = useToast();
+
+  const { theme, setTheme } = useTheme();
 
   const [isLoading, setLoading] = useState(false);
   const [isDarkModeActive, setDarkModeActive] = useState(
-    profile?.dark_mode_status
+    theme === "dark" ? true : false
   );
 
   const { mutateAsync: signOut, isPending: isSignOutPending } = useSignOut();
-  const { mutateAsync: updateUserProfile } = useUpdateUserProfile();
 
   const handleSignOut = async () => {
     try {
@@ -54,31 +54,13 @@ const AccountDropdownMenu = () => {
     }
   };
 
-  const handleThemeToggleSwitch = async (value) => {
-    try {
-      setDarkModeActive(value);
-      setLoading(true);
-
-      const response = await updateUserProfile({
-        user_profile_data: { dark_mode_status: value },
-        user_profile_id: profile?.id,
-      });
-
-      if (!response?.length) {
-        throw new Error("Something went wrong while updating dashboard theme.");
-      }
-
-      dispatch(updateProfileData(response[0]));
-    } catch (error) {
-      toast({
-        variant: "destructive",
-        title: "Oops! Dashboard Theme Update Failed",
-        description:
-          "Dashboard theme change failed due to a system issue. Please try again.",
-      });
-      console.error(error?.message);
-    } finally {
-      setLoading(false);
+  const handleThemeToggleSwitch = (value) => {
+    if (!value) {
+      setDarkModeActive(false);
+      setTheme("light");
+    } else {
+      setDarkModeActive(true);
+      setTheme("dark");
     }
   };
 
