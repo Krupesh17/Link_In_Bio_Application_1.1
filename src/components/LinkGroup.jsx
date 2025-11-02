@@ -52,16 +52,18 @@ const LinkGroup = ({ setLinksNewPositionUpdating }) => {
   );
 
   const getLinkPosition = (id) => {
-    return fetchedLinks.findIndex((link) => link.id === id);
+    return fetchedLinks?.findIndex((link) => link.id === id) ?? -1;
   };
 
   const handleDragEnd = async (event) => {
     const { active, over } = event;
 
-    if (active.id === over.id) return;
+    if (!active || !over || active.id === over.id) return;
 
     const originalPosition = getLinkPosition(active.id);
     const newPosition = getLinkPosition(over.id);
+
+    if (originalPosition === -1 || newPosition === -1) return;
 
     const linksArrayMove = arrayMove(
       fetchedLinks,
@@ -83,11 +85,14 @@ const LinkGroup = ({ setLinksNewPositionUpdating }) => {
     useSensor(TouchSensor),
     useSensor(KeyboardSensor, { coordinateGetter: sortableKeyboardCoordinates })
   );
+
+  // Ensure fetchedLinks is always an array
+  const links = Array.isArray(fetchedLinks) ? fetchedLinks : [];
+  const activeLinks = links.filter((link) => link?.link_archived === false);
+
   return (
     <section className="max-w-[650px] mx-auto mb-5">
-      {!isLoading &&
-      ![...fetchedLinks]?.filter((link) => link?.link_archived === false)
-        .length ? (
+      {!isLoading && !activeLinks.length ? (
         <section className="max-w-[400px] mx-auto p-4">
           <LinkChainPlaceholderIcon className="h-32 w-32 mx-auto text-copy-lighter/20" />
 
@@ -101,14 +106,14 @@ const LinkGroup = ({ setLinksNewPositionUpdating }) => {
           onDragEnd={handleDragEnd}
           collisionDetection={closestCorners}
         >
-          {!isLoading && fetchedLinks && (
+          {!isLoading && links.length > 0 && (
             <ul className="flex flex-col gap-4">
               <SortableContext
-                items={fetchedLinks}
+                items={links}
                 strategy={verticalListSortingStrategy}
               >
-                {fetchedLinks?.map((link) => {
-                  if (link?.link_archived) return;
+                {links.map((link) => {
+                  if (link?.link_archived) return null;
                   return <LinkGroupItem key={link?.id} linkData={link} />;
                 })}
               </SortableContext>
