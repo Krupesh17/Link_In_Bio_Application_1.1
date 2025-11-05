@@ -56,3 +56,4 @@ export { default as LandingReadyToChainSection } from "./LandingReadyToChainSect
 export { default as LandingHowItWorksSection } from "./LandingHowItWorksSection";
 export { default as LandingFeatureSection } from "./LandingFeatureSection";
 export { default as ShareDropdownMenu } from "./ShareDropdownMenu";
+export { default as EnhancedBioSuggestionList } from "./EnhancedBioSuggestionList";

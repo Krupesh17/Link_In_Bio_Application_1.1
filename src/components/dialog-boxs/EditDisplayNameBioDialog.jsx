@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useCallback, useState } from "react";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "../ui/dialog";
 import {
   Form,
@@ -17,8 +17,10 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { profileInfoValidation } from "@/validations";
 import { useUpdateUserProfile } from "@/tanstack-query/queries";
 import { useToast } from "@/hooks/use-toast";
-import { Loader2 } from "lucide-react";
+import { AlertCircleIcon, Loader2Icon, StarsIcon } from "lucide-react";
 import { fetchProfileByUserId } from "@/redux/thunks";
+import { enhanceBio } from "@/services/geminiService";
+import { EnhancedBioSuggestionList } from "..";
 
 const EditDisplayNameBioDialog = ({
   isEditDisplayNameBioDialogOpen,
@@ -33,6 +35,10 @@ const EditDisplayNameBioDialog = ({
     profile?.bio?.length ? profile?.bio?.length : 0
   );
 
+  const [suggestions, setSuggestions] = useState([]);
+  const [isSuggestionsLoading, setSuggestionsLoading] = useState(false);
+  const [suggestionsError, setSuggestionsError] = useState(null);
+
   const form = useForm({
     resolver: yupResolver(profileInfoValidation),
     defaultValues: {
@@ -41,6 +47,9 @@ const EditDisplayNameBioDialog = ({
       bio: !profile?.bio === "" ? "" : profile?.bio,
     },
   });
+
+  const { setValue, getValues } = form;
+  const bio = getValues("bio");
 
   const { mutateAsync: updateUserProfile, isPending: isUserProfileUpdating } =
     useUpdateUserProfile();
@@ -86,10 +95,45 @@ const EditDisplayNameBioDialog = ({
     }
   };
 
+  const handleEnhanceBioWithAI = useCallback(async () => {
+    if (!bio.trim() || isSuggestionsLoading) return;
+
+    setSuggestionsLoading(true);
+    setSuggestionsError(null);
+    setSuggestions([]);
+
+    try {
+      const result = await enhanceBio(bio);
+      setSuggestions(result);
+      console.log(result);
+    } catch (error) {
+      if (error) {
+        setSuggestionsError(error?.message);
+        console.error(error?.message);
+      } else {
+        setSuggestionsError(
+          "Bio enhancement couldn't be completed due to an error."
+        );
+        console.error("Bio enhancement couldn't be completed due to an error.");
+      }
+    } finally {
+      setSuggestionsLoading(false);
+    }
+  }, [bio, isSuggestionsLoading]);
+
+  const handleEditDisplayNameBioDialogOpen = (value) => {
+    if (isSuggestionsLoading || isUserProfileUpdating) return;
+
+    setEditDisplayNameBioDialogOpen(value);
+    setSuggestionsLoading(false);
+    setSuggestionsError(null);
+    setSuggestions([]);
+  };
+
   return (
     <Dialog
       open={isEditDisplayNameBioDialogOpen}
-      onOpenChange={setEditDisplayNameBioDialogOpen}
+      onOpenChange={handleEditDisplayNameBioDialogOpen}
     >
       <DialogContent className="sm:max-w-[450px]" aria-describedby={undefined}>
         <DialogHeader className="gap-2.5">
@@ -124,13 +168,39 @@ const EditDisplayNameBioDialog = ({
                 name="bio"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Bio</FormLabel>
+                    <FormLabel className="flex items-center justify-between gap-2">
+                      <span>Bio</span>
+                      <div className="flex items-center gap-2">
+                        <Button
+                          type="button"
+                          variant="outline"
+                          className="text-xs [&_svg]:size-3.5 gap-1 h-6 px-3 rounded-md"
+                          onClick={handleEnhanceBioWithAI}
+                        >
+                          <span
+                            className={`bg-gradient-to-r from-green-500 via-teal-400 to-cyan-600 bg-clip-text text-transparent ${
+                              isSuggestionsLoading &&
+                              "animate-[gradient_3s_ease_infinite] bg-[length:200%_auto]"
+                            }`}
+                          >
+                            Enhance
+                          </span>
+                          {isSuggestionsLoading ? (
+                            <Loader2Icon className="animate-spin text-cyan-600" />
+                          ) : (
+                            <StarsIcon className="text-cyan-600" />
+                          )}
+                        </Button>
+                      </div>
+                    </FormLabel>
                     <FormControl
                       onChange={(e) => handleTextareaChange(e, field)}
                     >
                       <Textarea
                         placeholder="Tell us a little bit about yourself"
-                        className="resize-none"
+                        className={`resize-none ${
+                          isSuggestionsLoading && "animate-pulse-shadow"
+                        }`}
                         {...field}
                       />
                     </FormControl>
@@ -143,9 +213,25 @@ const EditDisplayNameBioDialog = ({
               </p>
             </div>
 
+            {suggestions.length !== 0 && (
+              <div className="mb-4">
+                <EnhancedBioSuggestionList
+                  setValue={setValue}
+                  suggestions={suggestions}
+                />
+              </div>
+            )}
+
+            {suggestionsError && (
+              <p className="text-xs font-medium mb-4 flex items-center gap-1 text-red-600">
+                <AlertCircleIcon className="size-4" />
+                <span>{suggestionsError}</span>
+              </p>
+            )}
+
             <Button type="submit" variant="contrast" className="w-full h-10">
               {isUserProfileUpdating ? (
-                <Loader2 className="animate-spin" />
+                <Loader2Icon className="animate-spin" />
               ) : (
                 "Save"
               )}
