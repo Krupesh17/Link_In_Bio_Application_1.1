@@ -58,7 +58,7 @@ const EditProfileImageDialog = ({
         )}
 
         {formStep === 4 && (
-          <CropProfileImageForm // Remove unwanted commented code.
+          <CropProfileImageForm
             file={file}
             setFile={setFile}
             setFormStep={setFormStep}
@@ -69,7 +69,7 @@ const EditProfileImageDialog = ({
         )}
 
         {formStep === 5 && (
-          <UploadProfileImageForm // Remove unwanted commented code.
+          <UploadProfileImageForm
             file={file}
             setFile={setFile}
             setFormStep={setFormStep}
