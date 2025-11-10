@@ -23,6 +23,7 @@ const UploadProfileImageForm = ({
   setImageURL,
   setFormStep,
   setDialogClose,
+  setDialogCloseBlock,
 }) => {
   const { toast } = useToast();
   const dispatch = useDispatch();
@@ -43,6 +44,7 @@ const UploadProfileImageForm = ({
   const uploadProfilePicture = async () => {
     try {
       setLoading(true);
+      setDialogCloseBlock(true);
 
       if (profile?.profile_image_url) {
         const path = profile?.profile_image_url.match(
@@ -87,7 +89,6 @@ const UploadProfileImageForm = ({
 
       dispatch(fetchProfileByUserId(user?.id));
 
-      setLoading(false);
       setFile(null);
       setImageURL(null);
       setFormStep(1);
@@ -100,6 +101,9 @@ const UploadProfileImageForm = ({
       });
 
       console.error(error.message);
+    } finally {
+      setLoading(false);
+      setDialogCloseBlock(false);
     }
   };
 
@@ -107,6 +111,7 @@ const UploadProfileImageForm = ({
     setFile(null);
     setImageURL(null);
     setFormStep(1);
+    setDialogClose(false);
   };
   return (
     <>
@@ -116,7 +121,7 @@ const UploadProfileImageForm = ({
           variant="link"
           className="w-5 h-5 [&_svg]:size-4 opacity-70 hover:opacity-100 absolute top-0 left-0"
           onClick={() => {
-            setFormStep(1);
+            setFormStep(4);
             setFile(null);
             setImageURL(null);
           }}

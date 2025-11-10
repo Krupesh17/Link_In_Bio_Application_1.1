@@ -10,6 +10,7 @@ const CropProfileImageForm = ({
   imageURL,
   setImageURL,
   setFormStep,
+  setDialogClose,
 }) => {
   return (
     <>
@@ -19,7 +20,9 @@ const CropProfileImageForm = ({
           variant="link"
           className="w-5 h-5 [&_svg]:size-4 opacity-70 hover:opacity-100 absolute top-0 left-0"
           onClick={() => {
-            setFormStep(1);
+            if (!file) {
+              setFormStep(2);
+            }
             setFile(null);
             setImageURL(null);
           }}
@@ -36,8 +39,11 @@ const CropProfileImageForm = ({
         setFile={setFile}
         imageURL={imageURL}
         setImageURL={setImageURL}
-        afterImageCrop={() => setFormStep(3)}
-        terminateImageCrop={() => setFormStep(1)}
+        afterImageCrop={() => setFormStep(5)}
+        terminateImageCrop={() => {
+          setFormStep(1);
+          setDialogClose(false);
+        }}
       />
     </>
   );

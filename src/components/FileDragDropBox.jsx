@@ -180,6 +180,3 @@ const FileDragDropBox = ({
 };
 
 export default FileDragDropBox;
-
-// After accepting a file we can show image crop tool and then
-// we can show cropped image and give upload and chancel button.

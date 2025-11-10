@@ -57,3 +57,4 @@ export { default as LandingHowItWorksSection } from "./LandingHowItWorksSection"
 export { default as LandingFeatureSection } from "./LandingFeatureSection";
 export { default as ShareDropdownMenu } from "./ShareDropdownMenu";
 export { default as EnhancedBioSuggestionList } from "./EnhancedBioSuggestionList";
+export { default as CropProfileImageWithAiLoadingOverlay } from "./CropProfileImageWithAiLoadingOverlay";

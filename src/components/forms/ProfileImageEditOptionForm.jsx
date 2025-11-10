@@ -2,6 +2,7 @@ import React from "react";
 import { Button } from "../ui/button";
 import { ChevronRight, Trash2 } from "lucide-react";
 import { DialogHeader, DialogTitle } from "../ui/dialog";
+
 const menuList = [
   {
     title: "Upload your profile image",
@@ -18,7 +19,7 @@ const menuList = [
   {
     title: "Delete",
     description: "Delete current image.",
-    formStep: 4,
+    formStep: 6,
     prefix: (
       <div className="flex items-center justify-center w-10 h-10 rounded-md text-red-600 bg-red-600/20">
         <Trash2 />
@@ -27,11 +28,10 @@ const menuList = [
   },
 ];
 
-// Add "Delete current profile image" function.
-const EditProfileImageOptionGroupForm = ({ setFormStep }) => {
+const ProfileImageEditOptionForm = ({ setFormStep }) => {
   return (
     <>
-      <DialogHeader className="gap-2.5">
+      <DialogHeader>
         <DialogTitle className="text-copy text-center">
           Profile Avatar
         </DialogTitle>
@@ -67,4 +67,4 @@ const EditProfileImageOptionGroupForm = ({ setFormStep }) => {
   );
 };
 
-export default EditProfileImageOptionGroupForm;
+export default ProfileImageEditOptionForm;

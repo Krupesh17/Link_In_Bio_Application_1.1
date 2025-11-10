@@ -178,7 +178,7 @@ const EditDisplayNameBioDialog = ({
                           onClick={handleEnhanceBioWithAI}
                         >
                           <span
-                            className={`bg-gradient-to-r from-green-500 via-teal-400 to-cyan-600 bg-clip-text text-transparent ${
+                            className={`bg-gradient-to-r from-purple-600 via-blue-500 to-teal-500 bg-clip-text text-transparent ${
                               isSuggestionsLoading &&
                               "animate-[gradient_3s_ease_infinite] bg-[length:200%_auto]"
                             }`}
@@ -186,9 +186,9 @@ const EditDisplayNameBioDialog = ({
                             Enhance
                           </span>
                           {isSuggestionsLoading ? (
-                            <Loader2Icon className="animate-spin text-cyan-600" />
+                            <Loader2Icon className="animate-spin text-teal-500" />
                           ) : (
-                            <StarsIcon className="text-cyan-600" />
+                            <StarsIcon className="text-teal-500" />
                           )}
                         </Button>
                       </div>
