@@ -145,14 +145,11 @@ const CropProfileImageWithAiForm = ({
       setImageUploadPending(true);
       setDialogCloseBlock(true);
 
-      // 1. Ensure 'file' is a Blob/File object (it is a Blob after cropping)
       if (!file || !(file instanceof Blob)) {
         throw new Error("Invalid file object for upload.");
       }
 
-      // 2. Create a new File object from the Blob, explicitly setting the type.
-      // The `cropImageToSquare` utility uses "image/png", so we use that here.
-      const fileName = `${uuidV4()}.png`; // Use a standard extension
+      const fileName = `${uuidV4()}.png`;
       const fileToUpload = new File([file], fileName, { type: "image/png" });
 
       if (profile?.profile_image_url) {
