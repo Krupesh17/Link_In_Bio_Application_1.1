@@ -48,7 +48,7 @@ const EditDisplayNameBioDialog = ({
     },
   });
 
-  const { setValue, getValues } = form;
+  const { setValue, getValues, reset } = form;
   const bio = getValues("bio");
 
   const { mutateAsync: updateUserProfile, isPending: isUserProfileUpdating } =
@@ -96,16 +96,21 @@ const EditDisplayNameBioDialog = ({
   };
 
   const handleEnhanceBioWithAI = useCallback(async () => {
-    if (!bio.trim() || isSuggestionsLoading) return;
-
-    setSuggestionsLoading(true);
-    setSuggestionsError(null);
-    setSuggestions([]);
-
     try {
+      if (!bio?.length) {
+        throw new Error(
+          "To enhance your bio, you need to write something first about yourself."
+        );
+      }
+
+      if (!bio.trim() || isSuggestionsLoading) return;
+
+      setSuggestionsLoading(true);
+      setSuggestionsError(null);
+      setSuggestions([]);
+
       const result = await enhanceBio(bio);
       setSuggestions(result);
-      console.log(result);
     } catch (error) {
       if (error) {
         setSuggestionsError(error?.message);
@@ -128,6 +133,7 @@ const EditDisplayNameBioDialog = ({
     setSuggestionsLoading(false);
     setSuggestionsError(null);
     setSuggestions([]);
+    reset();
   };
 
   return (
@@ -170,28 +176,27 @@ const EditDisplayNameBioDialog = ({
                   <FormItem>
                     <FormLabel className="flex items-center justify-between gap-2">
                       <span>Bio</span>
-                      <div className="flex items-center gap-2">
-                        <Button
-                          type="button"
-                          variant="outline"
-                          className="text-xs [&_svg]:size-3.5 gap-1 h-6 px-3 rounded-md"
-                          onClick={handleEnhanceBioWithAI}
+
+                      <Button
+                        type="button"
+                        variant="outline"
+                        className="text-xs [&_svg]:size-3.5 gap-1 h-6 px-3 rounded-md"
+                        onClick={handleEnhanceBioWithAI}
+                      >
+                        <span
+                          className={`bg-gradient-to-r from-purple-600 via-blue-500 to-teal-500 bg-clip-text text-transparent ${
+                            isSuggestionsLoading &&
+                            "animate-[gradient_3s_ease_infinite] bg-[length:200%_auto]"
+                          }`}
                         >
-                          <span
-                            className={`bg-gradient-to-r from-purple-600 via-blue-500 to-teal-500 bg-clip-text text-transparent ${
-                              isSuggestionsLoading &&
-                              "animate-[gradient_3s_ease_infinite] bg-[length:200%_auto]"
-                            }`}
-                          >
-                            Enhance
-                          </span>
-                          {isSuggestionsLoading ? (
-                            <Loader2Icon className="animate-spin text-teal-500" />
-                          ) : (
-                            <StarsIcon className="text-teal-500" />
-                          )}
-                        </Button>
-                      </div>
+                          Enhance
+                        </span>
+                        {isSuggestionsLoading ? (
+                          <Loader2Icon className="animate-spin text-teal-500" />
+                        ) : (
+                          <StarsIcon className="text-teal-500" />
+                        )}
+                      </Button>
                     </FormLabel>
                     <FormControl
                       onChange={(e) => handleTextareaChange(e, field)}
@@ -213,23 +218,29 @@ const EditDisplayNameBioDialog = ({
               </p>
             </div>
 
-            {suggestions.length !== 0 && (
-              <div className="mb-4">
-                <EnhancedBioSuggestionList
-                  setValue={setValue}
-                  suggestions={suggestions}
-                />
-              </div>
-            )}
-
             {suggestionsError && (
-              <p className="text-xs font-medium mb-4 flex items-center gap-1 text-red-600">
+              <p className="text-xs font-medium mb-4 flex items-center gap-1.5 text-red-600">
                 <AlertCircleIcon className="size-4" />
                 <span>{suggestionsError}</span>
               </p>
             )}
 
-            <Button type="submit" variant="contrast" className="w-full h-10">
+            {suggestions.length !== 0 && (
+              <div className="mb-4">
+                <EnhancedBioSuggestionList
+                  suggestions={suggestions}
+                  setSuggestions={setSuggestions}
+                  setValue={setValue}
+                />
+              </div>
+            )}
+
+            <Button
+              type="submit"
+              variant="contrast"
+              className="w-full h-10"
+              disabled={isSuggestionsLoading}
+            >
               {isUserProfileUpdating ? (
                 <Loader2Icon className="animate-spin" />
               ) : (

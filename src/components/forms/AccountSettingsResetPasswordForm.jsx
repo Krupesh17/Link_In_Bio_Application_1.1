@@ -50,6 +50,7 @@ const AccountSettingsResetPasswordForm = () => {
 
       <Button
         type="button"
+        variant="contrast"
         onClick={handleCreatePassword}
         className="h-10 w-full"
       >

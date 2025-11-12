@@ -1,5 +1,7 @@
 import React from "react";
 import { ScrollArea } from "./ui/scroll-area";
+import { XIcon } from "lucide-react";
+import { Button } from "./ui/button";
 
 const toneColorMap = {
   Professional: "bg-blue-600/20 text-blue-700 border-blue-400",
@@ -8,10 +10,25 @@ const toneColorMap = {
   Inspirational: "bg-purple-600/20 text-purple-700 border-purple-400",
 };
 
-const EnhancedBioSuggestionList = ({ suggestions, setValue }) => {
+const EnhancedBioSuggestionList = ({
+  suggestions,
+  setSuggestions,
+  setValue,
+}) => {
   return (
     <>
-      <p className="text-sm pb-2 border-b border-border">Suggestions</p>
+      <div className="pb-2 border-b border-border flex items-center justify-between gap-2">
+        <h4 className="text-sm">Suggestions</h4>
+        <Button
+          type="button"
+          variant="ghost"
+          size="icon"
+          className="w-8 h-8 [&_svg]:size-4"
+          onClick={() => setSuggestions([])}
+        >
+          <XIcon />
+        </Button>
+      </div>
 
       <ScrollArea className="h-48 w-full">
         <ul className="w-full mb-5 space-y-2.5 pt-2">
