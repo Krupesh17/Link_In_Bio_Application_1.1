@@ -28,7 +28,10 @@ import { updateProductsData } from "@/redux/features/shopSlice";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { insertProductValidation } from "@/validations";
 
-const InsertProductForm = ({ setAddNewProductDialogOpen }) => {
+const InsertProductForm = ({
+  setAddNewProductDialogOpen,
+  setDialogCloseBlock,
+}) => {
   const { user, profile } = useSelector((state) => state.user);
   const { products } = useSelector((state) => state.shop);
 
@@ -64,6 +67,7 @@ const InsertProductForm = ({ setAddNewProductDialogOpen }) => {
   const handleSubmit = async (value) => {
     try {
       setLoading(true);
+      setDialogCloseBlock(true);
 
       if (!file && !imageURL) {
         setProductImageError(true);
@@ -102,6 +106,7 @@ const InsertProductForm = ({ setAddNewProductDialogOpen }) => {
       console.error(error?.message);
     } finally {
       setLoading(false);
+      setDialogCloseBlock(false);
     }
   };
 

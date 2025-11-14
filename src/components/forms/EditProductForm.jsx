@@ -35,6 +35,7 @@ import { supabaseUrl } from "@/utils/supabase";
 const EditProductForm = ({
   productDataToBeUpdated,
   setEditProductDialogOpen,
+  setDialogCloseBlock,
 }) => {
   const { profile } = useSelector((state) => state.user);
   const { products } = useSelector((state) => state.shop);
@@ -87,6 +88,7 @@ const EditProductForm = ({
   const handleSubmit = async (value) => {
     try {
       setLoading(true);
+      setDialogCloseBlock(true);
 
       let productImageURL;
 
@@ -99,8 +101,7 @@ const EditProductForm = ({
         throw new Error(
           "Please ensure the product thumbnail image is provided before submitting the form."
         );
-      } else {
-        console.log("else");
+      } else if (file) {
         const path = productDataToBeUpdated?.product_image_url?.match(
           /users-storage-bucket\/(.+)/
         )[1];
@@ -144,6 +145,7 @@ const EditProductForm = ({
       console.error(error?.message);
     } finally {
       setLoading(false);
+      setDialogCloseBlock(false);
     }
   };
 

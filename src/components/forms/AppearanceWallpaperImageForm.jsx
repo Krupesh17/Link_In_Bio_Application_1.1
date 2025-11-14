@@ -17,6 +17,8 @@ import { updateAppearanceData } from "@/redux/features/dashboardSlice";
 const AppearanceWallpaperImageForm = ({
   setDialogOpen,
   onImageUploadSuccess,
+  isDialogCloseBlock,
+  setDialogCloseBlock,
 }) => {
   const { appearance } = useSelector((state) => state?.dashboard);
   const { profile } = useSelector((state) => state?.user);
@@ -24,32 +26,31 @@ const AppearanceWallpaperImageForm = ({
   const dispatch = useDispatch();
   const { toast } = useToast();
 
+  const [isLoading, setLoading] = useState(false);
   const [formStep, setFormStep] = useState(1);
   const [file, setFile] = useState(null);
   const [imageURL, setImageURL] = useState(null);
 
   const handleDialogClose = () => {
+    if (isDialogCloseBlock) return;
+
     setFile(null);
     setImageURL(null);
     setFormStep(1);
     setDialogOpen(false);
   };
 
-  const {
-    mutateAsync: uploadWallpaperImageFile,
-    isPending: isWallpaperImageFileUploading,
-  } = useUploadFile();
+  const { mutateAsync: uploadWallpaperImageFile } = useUploadFile();
 
-  const {
-    mutateAsync: deleteWallpaperImageFile,
-    isPending: isWallpaperImageFileDeleting,
-  } = useDeleteFile();
+  const { mutateAsync: deleteWallpaperImageFile } = useDeleteFile();
 
-  const { mutateAsync: updateAppearance, isPending: isAppearanceUpdating } =
-    useUpdateAppearance();
+  const { mutateAsync: updateAppearance } = useUpdateAppearance();
 
   const uploadImageWallpaper = async () => {
     try {
+      setLoading(true);
+      setDialogCloseBlock(true);
+
       if (appearance?.wallpaper_setup?.wallpaper_image_url) {
         const path = appearance?.wallpaper_setup?.wallpaper_image_url.match(
           /users-storage-bucket\/(.+)/
@@ -85,7 +86,6 @@ const AppearanceWallpaperImageForm = ({
 
       dispatch(updateAppearanceData(response));
 
-      // Reset form state
       setFile(null);
       setImageURL(null);
       setFormStep(1);
@@ -94,7 +94,6 @@ const AppearanceWallpaperImageForm = ({
       if (onImageUploadSuccess) {
         onImageUploadSuccess();
       } else {
-        // Fallback to regular dialog close
         handleDialogClose();
       }
     } catch (error) {
@@ -105,6 +104,9 @@ const AppearanceWallpaperImageForm = ({
       });
 
       console.error(error?.message);
+    } finally {
+      setLoading(false);
+      setDialogCloseBlock(false);
     }
   };
 
@@ -169,13 +171,7 @@ const AppearanceWallpaperImageForm = ({
               className="w-full"
               onClick={uploadImageWallpaper}
             >
-              {isWallpaperImageFileDeleting ||
-              isWallpaperImageFileUploading ||
-              isAppearanceUpdating ? (
-                <Loader2 className="animate-spin" />
-              ) : (
-                "Upload"
-              )}
+              {isLoading ? <Loader2 className="animate-spin" /> : "Upload"}
             </Button>
           </div>
         </div>

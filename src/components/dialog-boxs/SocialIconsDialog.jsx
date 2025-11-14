@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Dialog, DialogContent } from "../ui/dialog";
 import {
   AddSocialIconForm,
@@ -12,7 +12,11 @@ const SocialIconsDialog = ({
   socialIconsFormState,
   setSocialIconsFormState,
 }) => {
+  const [isDialogCloseBlock, setDialogCloseBlock] = useState(false);
+
   const handleSocialIconDialogClose = (open) => {
+    if (isDialogCloseBlock) return;
+
     setSocialIconsDialogOpen(open);
     if (!open) {
       setSocialIconsFormState({
@@ -38,6 +42,7 @@ const SocialIconsDialog = ({
             formState={socialIconsFormState}
             setFormState={setSocialIconsFormState}
             setSocialIconsDialogOpen={setSocialIconsDialogOpen}
+            setDialogCloseBlock={setDialogCloseBlock}
           />
         )}
       </DialogContent>

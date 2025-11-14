@@ -11,6 +11,7 @@ const UserLandingLinkLockDateOfBirthForm = ({
   linkData,
   handleRedirectToLockedLink,
   isCreatingClick,
+  setDialogCloseBlock,
 }) => {
   const [ageError, setAgeError] = useState(false);
 
@@ -26,6 +27,7 @@ const UserLandingLinkLockDateOfBirthForm = ({
   const { errors } = form.formState;
 
   const handleSubmit = (value) => {
+    setDialogCloseBlock(true);
     setAgeError(false);
 
     const { day, month, year } = value;
@@ -45,6 +47,7 @@ const UserLandingLinkLockDateOfBirthForm = ({
 
     if (age < linkData?.link_lock_date_of_birth?.minimum_age) {
       setAgeError(true);
+      setDialogCloseBlock(false);
     } else {
       handleRedirectToLockedLink(
         linkData?.link_url,

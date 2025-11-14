@@ -25,6 +25,7 @@ const AddSocialIconForm = ({
   formState,
   setFormState,
   setSocialIconsDialogOpen,
+  setDialogCloseBlock,
 }) => {
   const dispatch = useDispatch();
   const { toast } = useToast();
@@ -63,6 +64,8 @@ const AddSocialIconForm = ({
 
   const handleSubmit = async (value) => {
     try {
+      setDialogCloseBlock(true);
+
       if (form_type === "update") {
         if (form_value === value?.socialAddress) {
           return;
@@ -122,19 +125,22 @@ const AddSocialIconForm = ({
             : "The social icon couldn't be added due to a technical issue. Please try again."
         }`,
       });
-      
+
       console.error(error.message);
     } finally {
       form.reset();
+      setDialogCloseBlock(false);
     }
   };
 
   const handleDelete = async () => {
     try {
+      setDialogCloseBlock(true);
+
       if (!social_channel_id) {
         throw new Error("Social channel Id is missing. Please try again.");
       }
-      
+
       const response = await deleteSocialChannel(social_channel_id);
 
       const indexOfObjectToBeDeleted = await socialChannels?.findIndex(
@@ -156,6 +162,8 @@ const AddSocialIconForm = ({
           "The social icon couldn't be deleted due to a technical issue. Please try again.",
       });
       console.error(error.message);
+    } finally {
+      setDialogCloseBlock(false);
     }
   };
 

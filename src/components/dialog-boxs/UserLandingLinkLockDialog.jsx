@@ -17,12 +17,14 @@ const UserLandingLinkLockDialog = ({
   const dispatch = useDispatch();
 
   const [formStep, setFormStep] = useState(1);
+  const [isDialogCloseBlock, setDialogCloseBlock] = useState(false);
 
   const { mutateAsync: createClick, isPending: isCreatingClick } =
     useCreateClick();
 
   const handleRedirectToLockedLink = async (url, link_id, user_id) => {
     try {
+      setDialogCloseBlock(true);
       const response = await createClick({ link_id, user_id });
 
       const updatedClicks = [...clicks, response[0]];
@@ -33,6 +35,8 @@ const UserLandingLinkLockDialog = ({
       setFormStep(1);
     } catch (error) {
       console.error(error?.message);
+    } finally {
+      setDialogCloseBlock(false);
     }
   };
 
@@ -49,10 +53,16 @@ const UserLandingLinkLockDialog = ({
     linkData?.link_lock_date_of_birth,
   ]);
 
+  const handleDialogVisibility = (value) => {
+    if (isDialogCloseBlock) return;
+
+    setUserLandingLinkLockDialog(value);
+  };
+
   return (
     <Dialog
       open={isUserLandingLinkLockDialog}
-      onOpenChange={setUserLandingLinkLockDialog}
+      onOpenChange={handleDialogVisibility}
     >
       <DialogContent aria-describedby={undefined} className="sm:max-w-[450px]">
         <DialogHeader className="mb-2">
@@ -97,6 +107,7 @@ const UserLandingLinkLockDialog = ({
             linkData={linkData}
             handleRedirectToLockedLink={handleRedirectToLockedLink}
             isCreatingClick={isCreatingClick}
+            setDialogCloseBlock={setDialogCloseBlock}
           />
         )}
       </DialogContent>

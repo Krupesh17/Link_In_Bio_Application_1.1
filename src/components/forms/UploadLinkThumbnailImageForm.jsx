@@ -1,5 +1,5 @@
 import { useToast } from "@/hooks/use-toast";
-import React from "react";
+import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { DialogHeader, DialogTitle } from "../ui/dialog";
 import { Button } from "../ui/button";
@@ -21,6 +21,7 @@ const UploadLinkThumbnailImageForm = ({
   setFormStep,
   setDialogClose,
   linkData,
+  setDialogCloseBlock,
 }) => {
   const { toast } = useToast();
   const dispatch = useDispatch();
@@ -28,21 +29,19 @@ const UploadLinkThumbnailImageForm = ({
   const { links } = useSelector((state) => state?.dashboard);
   const { profile } = useSelector((state) => state?.user);
 
-  const {
-    mutateAsync: uploadLinkThumbnailImageFile,
-    isPending: isLinkThumbnailUploading,
-  } = useUploadFile();
+  const [isLoading, setLoading] = useState(false);
 
-  const {
-    mutateAsync: deleteLinkThumbnailImageFile,
-    isPending: isLinkThumbnailDeleting,
-  } = useDeleteFile();
+  const { mutateAsync: uploadLinkThumbnailImageFile } = useUploadFile();
 
-  const { mutateAsync: updateLink, isPending: isLinkUpdating } =
-    useUpdateLink();
+  const { mutateAsync: deleteLinkThumbnailImageFile } = useDeleteFile();
+
+  const { mutateAsync: updateLink } = useUpdateLink();
 
   const uploadLinkThumbnailImage = async () => {
     try {
+      setLoading(true);
+      setDialogCloseBlock(true);
+
       if (linkData?.link_thumbnail_url) {
         const path = linkData?.link_thumbnail_url?.match(
           /users-storage-bucket\/(.+)/
@@ -85,13 +84,19 @@ const UploadLinkThumbnailImageForm = ({
       });
 
       console.error(error.message);
+    } finally {
+      setLoading(false);
+      setDialogCloseBlock(false);
     }
   };
 
   const imageUploadCancel = () => {
+    if (isLoading) return;
+    
     setFile(null);
     setImageURL(null);
     setFormStep(1);
+    setDialogClose(false);
   };
 
   return (
@@ -115,7 +120,11 @@ const UploadLinkThumbnailImageForm = ({
       </DialogHeader>
 
       <div className="w-full h-80 flex justify-center items-center bg-accent rounded-lg overflow-hidden border border-border">
-        <img src={imageURL} alt="cropped image" className="h-full object-contain" />
+        <img
+          src={imageURL}
+          alt="cropped image"
+          className="h-full object-contain"
+        />
       </div>
 
       <div className="flex items-center gap-4">
@@ -133,13 +142,7 @@ const UploadLinkThumbnailImageForm = ({
           className="w-full"
           onClick={uploadLinkThumbnailImage}
         >
-          {isLinkThumbnailDeleting ||
-          isLinkThumbnailUploading ||
-          isLinkUpdating ? (
-            <Loader2 className="animate-spin" />
-          ) : (
-            "Upload"
-          )}
+          {isLoading ? <Loader2 className="animate-spin" /> : "Upload"}
         </Button>
       </div>
     </>

@@ -73,6 +73,7 @@ const AddNewLinkDialog = ({
   };
 
   const handleDialogClose = () => {
+    if (creatingLink) return;
     setAddNewLinkDialogOpen(false);
     form.reset();
   };

@@ -108,6 +108,8 @@ const UploadProfileImageForm = ({
   };
 
   const imageUploadCancel = () => {
+    if (isLoading) return;
+
     setFile(null);
     setImageURL(null);
     setFormStep(1);

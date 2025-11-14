@@ -14,9 +14,13 @@ const AddLinkThumbnailImageDialog = ({
   const [formStep, setFormStep] = useState(1);
   const [file, setFile] = useState(null);
   const [imageURL, setImageURL] = useState(null);
+  const [isDialogCloseBlock, setDialogCloseBlock] = useState(false);
 
   const handleThumbnailImageDialogClose = (open) => {
+    if (isDialogCloseBlock) return;
+
     setAddThumbnailImageDialogOpen(open);
+
     if (!open) {
       setFormStep(1);
       setFile(null);
@@ -41,6 +45,7 @@ const AddLinkThumbnailImageDialog = ({
             setFormStep={setFormStep}
             imageURL={imageURL}
             setImageURL={setImageURL}
+            setDialogClose={setAddThumbnailImageDialogOpen}
           />
         )}
 
@@ -53,6 +58,7 @@ const AddLinkThumbnailImageDialog = ({
             setImageURL={setImageURL}
             setDialogClose={setAddThumbnailImageDialogOpen}
             linkData={linkData}
+            setDialogCloseBlock={setDialogCloseBlock}
           />
         )}
       </DialogContent>

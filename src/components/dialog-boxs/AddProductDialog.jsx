@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "../ui/dialog";
 import { InsertProductForm } from "../forms";
 
@@ -6,10 +6,17 @@ const AddProductDialog = ({
   isAddNewProductDialogOpen,
   setAddNewProductDialogOpen,
 }) => {
+  const [isDialogCloseBlock, setDialogCloseBlock] = useState(false);
+
+  const handleAddNewProductDialogVisibility = (value) => {
+    if (isDialogCloseBlock) return;
+    setAddNewProductDialogOpen(value);
+  };
+
   return (
     <Dialog
       open={isAddNewProductDialogOpen}
-      onOpenChange={setAddNewProductDialogOpen}
+      onOpenChange={handleAddNewProductDialogVisibility}
     >
       <DialogContent aria-describedby={undefined} className="max-w-[600px]">
         <DialogHeader className="mb-2">
@@ -19,6 +26,7 @@ const AddProductDialog = ({
         </DialogHeader>
         <InsertProductForm
           setAddNewProductDialogOpen={setAddNewProductDialogOpen}
+          setDialogCloseBlock={setDialogCloseBlock}
         />
       </DialogContent>
     </Dialog>

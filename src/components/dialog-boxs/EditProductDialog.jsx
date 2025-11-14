@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { EditProductForm } from "../forms";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "../ui/dialog";
 
@@ -8,10 +8,14 @@ const EditProductDialog = ({
   productDataToBeUpdated,
   setProductDataToBeUpdated,
 }) => {
+  const [isDialogCloseBlock, setDialogCloseBlock] = useState(false);
+
   return (
     <Dialog
       open={isEditProductDialogOpen}
       onOpenChange={() => {
+        if (isDialogCloseBlock) return;
+
         setEditProductDialogOpen(false);
         setProductDataToBeUpdated(null);
       }}
@@ -25,6 +29,7 @@ const EditProductDialog = ({
         <EditProductForm
           productDataToBeUpdated={productDataToBeUpdated}
           setEditProductDialogOpen={setEditProductDialogOpen}
+          setDialogCloseBlock={setDialogCloseBlock}
         />
       </DialogContent>
     </Dialog>

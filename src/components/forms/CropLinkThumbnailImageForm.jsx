@@ -10,6 +10,7 @@ const CropLinkThumbnailImageForm = ({
   imageURL,
   setImageURL,
   setFormStep,
+  setDialogClose,
 }) => {
   return (
     <>
@@ -37,7 +38,10 @@ const CropLinkThumbnailImageForm = ({
         imageURL={imageURL}
         setImageURL={setImageURL}
         afterImageCrop={() => setFormStep(3)}
-        terminateImageCrop={() => setFormStep(1)}
+        terminateImageCrop={() => {
+          setFormStep(1);
+          setDialogClose(false);
+        }}
       />
     </>
   );

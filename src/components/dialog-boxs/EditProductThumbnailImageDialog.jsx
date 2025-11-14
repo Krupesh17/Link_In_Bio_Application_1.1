@@ -36,6 +36,7 @@ const EditProductThumbnailImageDialog = ({
           terminateImageCrop={() => {
             setFile(null);
             setImageURL(productData?.product_image_url);
+            setEditProductThumbnailImageDialogOpen(false)
           }}
         />
       </DialogContent>
