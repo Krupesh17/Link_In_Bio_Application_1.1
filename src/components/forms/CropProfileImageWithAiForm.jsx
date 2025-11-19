@@ -123,7 +123,9 @@ const CropProfileImageWithAiForm = ({
           console.error(error?.message);
           setErrorMessage(error?.message);
         } else {
-          setErrorMessage("An unexpected error occurred.");
+          setErrorMessage(
+            "Smart crop failed. Please adjust your photo manually or upload another one."
+          );
         }
       } finally {
         setSmartCroppingActive(false);
