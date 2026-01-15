@@ -1,63 +1,49 @@
 import React from "react";
 import {
-  ChartColumn,
-  Earth,
-  Handshake,
-  Link,
-  Link2,
-  Palette,
-  ShieldCheck,
-  Sparkles,
+  ChartColumnIcon,
+  EarthIcon,
+  LockKeyholeIcon,
+  PaletteIcon,
+  Share2Icon,
+  ShoppingBagIcon,
 } from "lucide-react";
 
-const featureList = [
+const features = [
   {
-    title: "WEB-BASED",
+    icon: <EarthIcon size={20} className="text-contrast" />,
+    title: "Custom Personal URL",
     description:
-      "No need to install anything, just access anytime via browser from any device.",
-    icon: <Earth strokeWidth={1} size={60} className="text-contrast" />,
+      "Claim your unique handle and build your brand. One URL that links to everything you do.",
   },
   {
-    title: "PERSONAL URL",
+    icon: <ChartColumnIcon size={20} className="text-contrast" />,
+    title: "Advanced Analytics",
     description:
-      "Create your own personalized URL and showcase it proudly in your bio for easy access.",
-    icon: <Link2 strokeWidth={1} size={60} className="text-contrast" />,
+      "Track views, clicks, and conversion rates. Understand your audience with detailed insights.",
   },
   {
-    title: "ELEGANT AND PERFECT",
-    description:
-      "With a cutting-edge interface, followers clicking on your Url will experience a great visual.",
-    icon: <Sparkles strokeWidth={1} size={60} className="text-contrast" />,
-  },
-  {
-    title: "UNLIMITED LINKS",
-    description:
-      "Add as many as links as you wish, change them as often as you want.",
-    icon: <Link strokeWidth={1} size={60} className="text-contrast" />,
-  },
-  {
-    title: "SOCIAL FIRST",
-    description:
-      "Cross-link all your social profiles and optimize the engagement across your different channels.",
-    icon: <Handshake strokeWidth={1} size={60} className="text-contrast" />,
-  },
-  {
-    title: "CUSTOMIZABLE",
+    icon: <PaletteIcon size={20} className="text-contrast" />,
+    title: "Highly Customizable",
     description:
       "Express your style with custom themes, background images, and stylish patterns.",
-    icon: <Palette strokeWidth={1} size={60} className="text-contrast" />,
   },
   {
-    title: "ANALYTICS",
+    icon: <ShoppingBagIcon size={20} className="text-contrast" />,
+    title: "Shop Integration",
     description:
-      "Track clicks on each link with detailed analytics to understand your audience better.",
-    icon: <ChartColumn strokeWidth={1} size={60} className="text-contrast" />,
+      "Directly sell digital products or link your store. Turn your traffic into revenue effortlessly.",
   },
   {
-    title: "SAFE",
+    icon: <LockKeyholeIcon size={20} className="text-contrast" />,
+    title: "Safe & Secure",
     description:
-      "Your privacy matters. We connect through a verified API and won't ask for your password.",
-    icon: <ShieldCheck strokeWidth={1} size={60} className="text-contrast" />,
+      "Your data is protected. Verified API connections ensures your accounts stay safe.",
+  },
+  {
+    icon: <Share2Icon size={20} className="text-contrast" />,
+    title: "Add Unlimited Links",
+    description:
+      "Add as many links as you want. Reorder them anytime with a simple drag-and-drop.",
   },
 ];
 
@@ -65,59 +51,40 @@ const LandingFeatureSection = () => {
   return (
     <section
       id="features"
-      className="w-full"
-      style={{
-        background: "url('/assets/images/pattern_rope.svg')",
-        backgroundRepeat: "repeat",
-        backgroundSize: "100px 100px",
-        backgroundPosition: "center",
-        backgroundColor: "#00351C",
-      }}
+      className="w-full bg-secondary/40 min-h-[calc(100dvh-80px)] flex"
     >
-      <div className="container-box h-full mx-auto px-2.5 py-16">
-        <section className="space-y-4 max-lg:text-center mb-5 lg:hidden">
-          <h1 className="text-6xl max-sm:text-5xl font-syne font-bold text-contrast text-wrap">
-            Features
-          </h1>
-          <p className="text-2xl max-sm:text-xl text-white font-medium text-wrap">
-            A lot of amazing & cool features
-          </p>
-        </section>
-
-        <section className="w-full h-full flex items-center justify-center gap-10 max-lg:flex-col max-lg:gap-5">
-          <img
-            src="/assets/images/iphone.svg"
-            className="bg-cover bg-center bg-no-repeat w-[400px] aspect-[10/18]"
-          />
-          <div className="space-y-10">
-            <div className="space-y-4 max-lg:text-center max-lg:hidden">
-              <h1 className="text-6xl max-sm:text-5xl font-syne font-bold text-contrast text-wrap">
-                Features
-              </h1>
-              <p className="text-2xl max-sm:text-xl text-white font-medium text-wrap">
-                A lot of amazing & cool features
-              </p>
-            </div>
-
-            <ul className="grid grid-cols-[repeat(auto-fill,_minmax(250px,_1fr))] gap-[60px]">
-              {featureList?.map((feature, index) => (
-                <li key={index} className="flex items-center gap-4">
-                  <div className="w-20 aspect-square flex items-center justify-center shrink-0 rounded-lg bg-[#00351C] shadow-[-6px_-6px_12px_3px_#00391E,6px_6px_12px_3px_#002D18]">
-                    {feature?.icon}
-                  </div>
-                  <div className="">
-                    <h5 className="font-semibold text-[#ffffff]">
-                      {feature?.title}
-                    </h5>
-                    <p className="text-sm text-[#d0d0d0]">
-                      {feature?.description}
-                    </p>
-                  </div>
-                </li>
-              ))}
-            </ul>
+      <div className="container-box mx-auto px-4 flex-1 flex flex-col justify-center">
+        <div className="py-12">
+          <div className="space-y-5 sm:text-center sm:mb-20 mb-10">
+            <h1 className="text-5xl max-sm:text-4xl font-medium text-copy text-wrap">
+              Everything you need to grow
+            </h1>
+            <p className="text-copy-light text-wrap">
+              Powerful tools designed for creators. Minimal setup, maximum
+              impact.
+            </p>
           </div>
-        </section>
+
+          <div className="grid grid-cols-3 max-lg:grid-cols-2 max-md:grid-cols-1 gap-5">
+            {features?.map((item, index) => (
+              <div
+                key={index}
+                className="p-8 bg-card border border-border/40 rounded-3xl space-y-5"
+              >
+                <div className="bg-accent size-10 rounded-full flex items-center justify-center">
+                  {item?.icon}
+                </div>
+
+                <div className="space-y-2.5">
+                  <h4 className="font-medium text-copy text-xl">
+                    {item?.title}
+                  </h4>
+                  <p className="text-copy-light">{item?.description}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
       </div>
     </section>
   );

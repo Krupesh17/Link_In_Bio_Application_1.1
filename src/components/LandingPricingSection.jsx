@@ -1,7 +1,5 @@
 import React from "react";
-import { Card, CardContent } from "./ui/card";
-import { Badge } from "./ui/badge";
-import { Check, X } from "lucide-react";
+import { CheckCircle2Icon, CircleFadingPlusIcon } from "lucide-react";
 import { Button } from "./ui/button";
 import { useNavigate } from "react-router-dom";
 
@@ -23,12 +21,8 @@ const freePlanFeatureList = [
     featureAvailable: true,
   },
   {
-    featureTitle: "Drag & drop customization",
-    featureAvailable: true,
-  },
-  {
-    featureTitle: "Custom thumbnails",
-    featureAvailable: true,
+    featureTitle: "Custom domain (Coming soon)",
+    featureAvailable: false,
   },
 ];
 
@@ -38,66 +32,64 @@ const LandingPricingSection = () => {
   return (
     <section
       id="pricing"
-      className="w-full overflow-hidden"
-      style={{
-        background: "url('/assets/images/pattern_eyes_3.svg')",
-        backgroundRepeat: "repeat",
-        backgroundSize: "50px 50px",
-        backgroundPosition: "center",
-        backgroundColor: "#780016",
-      }}
+      className="w-full bg-secondary/40 min-h-[calc(100dvh-80px)] flex"
     >
-      <div className="container-box mx-auto px-2.5 py-16">
-        <div className="space-y-4 mb-10">
-          <h1 className="text-6xl max-sm:text-5xl font-syne font-bold text-center text-[#E9C0E9] text-wrap">
-            Start Free Today
-          </h1>
-          <p className="text-2xl max-sm:text-xl text-white font-medium text-center text-wrap">
-            Get full access to all features at no cost while we're in beta
+      <div className="container-box mx-auto px-4 flex-1 flex flex-col justify-center">
+        <div className="py-12">
+          <div className="space-y-5 sm:text-center sm:mb-20 mb-6">
+            <h1 className="text-5xl max-sm:text-4xl font-medium text-copy text-wrap">
+              Simple, Transparent Pricing
+            </h1>
+            <p className="text-copy-light text-wrap">
+              Everything you need to get started is completely free while we're
+              in beta.
+            </p>
+          </div>
+        
+
+        <div className="bg-secondary/80 p-8 w-full max-w-[500px] mx-auto rounded-3xl space-y-4 border border-border/40">
+          <span className="text-contrast text-xs bg-contrast/15 py-1 px-2 rounded-full">
+            Beta Access
+          </span>
+          <h4 className="text-6xl font-semibold">Free</h4>
+          <p className="text-copy-light">
+            Unlimited links and products for all users during our early access
+            period.
           </p>
-        </div>
+          <div className="space-y-4">
+            {freePlanFeatureList?.map((item, index) => (
+              <div key={index} className="flex items-center gap-2.5">
+                {item?.featureAvailable ? (
+                  <CheckCircle2Icon className="text-contrast" />
+                ) : (
+                  <CircleFadingPlusIcon className="text-copy-lighter/35" />
+                )}
+                <p
+                  className={`text-base ${
+                    item?.featureAvailable
+                      ? "text-copy"
+                      : "text-copy-lighter/35"
+                  }`}
+                >
+                  {item?.featureTitle}
+                </p>
+              </div>
+            ))}
+          </div>
 
-        <Card className="max-w-[450px] mx-auto py-10 border-none rounded-3xl shadow-xl">
-          <CardContent className="p-0">
-            <div className="space-y-5 px-10 pb-5 mb-5 border-b border-border">
-              <Badge className="bg-contrast text-sm text-contrast-foreground rounded-full shadow-none">
-                Beta Access
-              </Badge>
-              <h2 className="text-6xl font-semibold">Free</h2>
-              <p className="text-xl">Unlimited links and products</p>
-            </div>
+          <Button
+            type="button"
+            variant="contrast"
+            className="h-10 w-full font-semibold"
+            onClick={() => navigate("/sign-up")}
+          >
+            Start Your Free Beta
+          </Button>
 
-            <div className="space-y-5 px-10">
-              <ul className="space-y-5">
-                {freePlanFeatureList?.map((feature, index) => (
-                  <li key={index} className="flex items-center gap-2.5">
-                    <span className="w-8 aspect-square bg-accent flex items-center justify-center rounded-full">
-                      {feature?.featureAvailable ? (
-                        <Check size={20} />
-                      ) : (
-                        <X size={20} />
-                      )}
-                    </span>
-                    <span>{feature?.featureTitle}</span>
-                  </li>
-                ))}
-              </ul>
-
-              <Button
-                type="button"
-                variant="contrast"
-                className="h-10 w-full font-semibold"
-                onClick={() => navigate("/sign-up")}
-              >
-                Start Your Free Beta
-              </Button>
-
-              <p className="text-sm text-center font-medium">
-                No credit card required • Setup in 2 minutes
-              </p>
-            </div>
-          </CardContent>
-        </Card>
+          <p className="text-sm text-center text-copy-lighter font-medium">
+            No credit card required • Setup in 2 minutes
+          </p>
+        </div></div>
       </div>
     </section>
   );

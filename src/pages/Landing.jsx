@@ -15,7 +15,7 @@ const Landing = () => {
   }, []);
 
   return (
-    <div className="">
+    <div className="relative">
       <LandingHeader />
       <LandingIntroSection />
       <LandingFeatureSection />

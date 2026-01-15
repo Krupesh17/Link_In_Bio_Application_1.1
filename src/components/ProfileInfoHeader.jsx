@@ -79,7 +79,7 @@ const ProfileInfoHeader = ({ linksUpdating, setDashboardContentState }) => {
 
             <Button
               variant="link"
-              className="w-full h-auto p-0 text-sm max-sm:text-xs text-wrap text-left text-copy-lighter mb-2 cursor-pointer hover:underline"
+              className="!block !w-auto h-auto p-0 text-sm max-sm:text-xs text-wrap text-left text-copy-lighter mb-2 cursor-pointer hover:underline"
               onClick={() => setEditDisplayNameBioDialogOpen(true)}
             >
               {profile?.bio ? (

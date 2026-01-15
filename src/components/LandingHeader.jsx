@@ -43,6 +43,7 @@ const LandingHeader = () => {
           <img
             src="/assets/icons/link_chain_logo.svg"
             alt="link-chain-logo"
+            className="shrink-0"
             width={36}
             height={36}
           />
@@ -68,7 +69,7 @@ const LandingHeader = () => {
           <Button
             type="button"
             variant="ghost"
-            className="font-semibold"
+            className="font-semibold rounded-full"
             onClick={() => navigate("/sign-in")}
           >
             Sign In
@@ -76,7 +77,7 @@ const LandingHeader = () => {
           <Button
             type="button"
             variant="contrast"
-            className="font-semibold"
+            className="font-semibold rounded-full"
             onClick={() => navigate("/sign-up")}
           >
             Get Started
