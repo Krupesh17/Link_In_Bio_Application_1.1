@@ -1,6 +1,6 @@
 <div align="center">
 
-# 🔗 Link In Bio — v1.1
+# 🔗 LinkChain — v1.1
 
 **A full-stack, AI-powered Link in Bio platform built with React.js**  
 Manage your social links, personalize your profile, and share everything — all from one beautiful page.
@@ -16,7 +16,7 @@ Manage your social links, personalize your profile, and share everything — all
 
 ## 📌 Overview
 
-**Link In Bio** is a Linktree-style web application that lets users create a personalized, shareable profile page featuring all their important links. It features secure authentication, full profile customization, click analytics, and AI-powered utilities — all backed by Supabase and deployed on Vercel.
+**LinkChain** is a Linktree-style web application that lets users create a personalized, shareable profile page featuring all their important links. It features secure authentication, full profile customization, click analytics, and AI-powered utilities — all backed by Supabase and deployed on Vercel.
 
 ---
 
@@ -135,7 +135,7 @@ This project is deployed on **Vercel**. To deploy your own instance:
 
 ## 📸 Screenshots
 
-> _Add screenshots of your app here to give recruiters and visitors a quick visual overview._
+![Dashboard](https://github.com/user-attachments/assets/46277adf-0323-4a08-bb5f-345894c73817)
 
 ---
 
